@@ -4,7 +4,7 @@ import {
   ThemeProvider, 
   createTheme, 
   CssBaseline
-} from "@mui/material";
+} from "@mui/material"; 
 import Dashboard from "./components/Dashboard";
 
 const theme = createTheme({
