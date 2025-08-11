@@ -3,6 +3,11 @@ node_modules/
 client/node_modules/
 server/node_modules/
 
+# Package lock files (should be generated locally)
+package-lock.json
+client/package-lock.json
+server/package-lock.json
+
 # Production builds
 client/build/
 dist/
