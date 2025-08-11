@@ -5,7 +5,9 @@ import {
   Toolbar,
   Typography
 } from "@mui/material";
-import UserManagement from "./UserManagement";
+// import UserManagement from "./UserManagement"; // TODO delete
+// import MentorList from "../pages/MentorList";
+import MentorList from "../pages/MentorList/MentorList"; // Ensure this import matches your structure
 
 function App() {
   return (
@@ -17,7 +19,8 @@ function App() {
             </Typography>
           </Toolbar>
         </AppBar>
-        <UserManagement />
+        {/* <UserManagement /> // TODO delete line*/}  
+        <MentorList />
       </Box>
   );
 }
