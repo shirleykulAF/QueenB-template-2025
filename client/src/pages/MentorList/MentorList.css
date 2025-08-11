@@ -1,0 +1,10 @@
+.mentor-list {
+  padding: 20px;
+}
+
+.mentor-list-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}

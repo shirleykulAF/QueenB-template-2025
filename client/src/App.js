@@ -5,7 +5,8 @@ import {
   createTheme, 
   CssBaseline
 } from "@mui/material";
-import Dashboard from "./components/Dashboard";
+
+import MentorList from "./pages/MentorList";
 
 const theme = createTheme({
   palette: {
@@ -33,11 +34,11 @@ const theme = createTheme({
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
+     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Router>
         <Routes>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/" element={<MentorList />} />
         </Routes>
       </Router>
     </ThemeProvider>
