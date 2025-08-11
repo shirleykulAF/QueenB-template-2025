@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 // import MentorCard from '../components/MentorCard';
-import MentorCard from '../components/MentorCard/MentorCard';
-import MentorModal from '../components/MentorModal/MentorModal';
+import MentorCard from '../../components/MentorCard/MentorCard';
+import MentorModal from '../../components/MentorModal/MentorModal';
 import axios from 'axios';
 import './MentorList.css';
 

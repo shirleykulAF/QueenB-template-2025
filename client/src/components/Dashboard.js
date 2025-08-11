@@ -6,7 +6,8 @@ import {
   Typography
 } from "@mui/material";
 // import UserManagement from "./UserManagement"; // TODO delete
-import MentorList from "../pages/MentorList";
+// import MentorList from "../pages/MentorList";
+import MentorList from "../pages/MentorList/MentorList"; // Ensure this import matches your structure
 
 function App() {
   return (
