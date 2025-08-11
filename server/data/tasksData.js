@@ -1,4 +1,4 @@
-// Mock data - in a real app, this would be a database
+// Mock data - in a real app, this would be a db
 let tasks = [
   {
     id: 1,
