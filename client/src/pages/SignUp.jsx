@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Paper, Typography, Button } from "@mui/material";
-import FirstNameField from "../components/form/TextField";
+import TextField from "../components/form/TextField";
 
 export default function SignUp() {
   const [firstName, setFirstName] = React.useState("");
@@ -25,19 +25,20 @@ export default function SignUp() {
     <Container maxWidth="sm" sx={{ py: 6 }}>
       <Paper elevation={2} sx={{ p: 3, borderRadius: 2 }}>
         <Typography variant="h4" gutterBottom>Sign Up</Typography>
+
         <form onSubmit={onSubmit} noValidate>
-          <FirstNameField
+          <TextField
+            id="firstName"
+            label="First name"
+            placeholder="e.g., Noa"
             value={firstName}
             onChange={(v) => {
               setFirstName(v);
               if (error) setError(validate(v));
             }}
             error={error}
-            /* אם הקומפוננטה שלך תומכת בפרופס האלו, אפשר להוסיף:
-            label="First name"
-            placeholder="e.g., Noa"
-            */
           />
+
           <Button type="submit" variant="contained" fullWidth sx={{ mt: 1 }}>
             Save
           </Button>
