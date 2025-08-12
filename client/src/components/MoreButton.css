@@ -1,0 +1,19 @@
+.more-button {
+  margin-top: 12px;
+  padding: 8px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.more-button:hover {
+  background: #f5f5f5;
+}
+
+.more-button:focus {
+  outline: 2px solid #6366f1;
+  outline-offset: 2px;
+}

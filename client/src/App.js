@@ -1,47 +1,62 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { 
-  ThemeProvider, 
-  createTheme, 
-  CssBaseline
-} from "@mui/material";
-import Dashboard from "./components/Dashboard";
+// src/App.js
+import React, { useMemo, useState } from "react";
+import Card from "./components/Card";
+import SearchBar from "./components/SearchBar";
+import { PEOPLE } from "./people";      // נתיב לפי המיקום החדש שלך
+import "./index.css";
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#6366f1",
-    },
-    secondary: {
-      main: "#ec4899",
-    },
-    background: {
-      default: "#f8fafc",
-    },
-  },
-  typography: {
-    fontFamily: "Roboto, Arial, sans-serif",
-    h4: {
-      fontWeight: 600,
-    },
-    h6: {
-      fontWeight: 500,
-    },
-  },
-});
+export default function App() {
+  const [query, setQuery] = useState("");
 
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return PEOPLE;
+    return PEOPLE.filter(p => p.name.toLowerCase().includes(q));
+  }, [query]);
 
-function App() {
+  const handleMore = (person) => () => {
+    alert(`More details about ${person.name}`);
+  };
+
+  // כשהמשתמשת לוחצת Enter ב-SearchBar:
+  const handleSearchSubmit = () => {
+    if (filtered.length > 0) {
+      handleMore(filtered[0])(); // פותח את הראשונה כתצוגת ברירת מחדל
+    }
+  };
+
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Router>
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-        </Routes>
-      </Router>
-    </ThemeProvider>
+    <main className="page">
+      <SearchBar
+        value={query}
+        onChange={setQuery}
+        onSubmit={handleSearchSubmit}
+        placeholder="Search by name…"
+      />
+
+      {filtered.length === 0 ? (
+        <div style={{ textAlign: "center", opacity: 0.7 }}>
+          <p>No matches found for “{query}”.</p>
+          <button
+            onClick={() => setQuery("")}
+            style={{ border: "1px solid #ddd", borderRadius: 10, padding: "6px 12px", cursor: "pointer" }}
+          >
+            Clear search
+          </button>
+        </div>
+      ) : (
+        <section className="cards-grid">
+          {filtered.map((p) => (
+            <Card
+              key={p.id}
+              imageSrc={p.imageSrc}
+              name={p.name}
+              title={p.title}
+              onMore={handleMore(p)}
+            />
+          ))}
+        </section>
+      )}
+    </main>
   );
 }
-
-export default App;
