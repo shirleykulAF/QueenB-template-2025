@@ -1,0 +1,24 @@
+.backdrop {
+    position: fixed; inset: 0; background: rgba(0,0,0,.35);
+    display:flex; align-items:center; justify-content:center; padding: 20px;
+}
+.panel {
+    width: min(900px, 100%);
+    background: #fff; border-radius: 18px; padding: 18px;
+    display: grid; grid-template-columns: 180px 1fr; gap: 18px;
+}
+@media (max-width: 640px) {
+    .panel { grid-template-columns: 1fr; }
+}
+.avatar {
+    width: 180px; height: 180px; border-radius: 16px; object-fit: cover; background:#f6f6f6;
+}
+.name { font-size: 1.8rem; font-weight: 900; margin: 2px 0 6px; }
+.head { color:#8a8a8a; letter-spacing:.06em; margin-bottom:8px; }
+.about { line-height: 1.65; }
+.row { display:flex; gap:10px; margin-top: 14px; flex-wrap: wrap; }
+.iconBtn {
+    display:inline-flex; align-items:center; justify-content:center;
+    width:40px; height:40px; border-radius:10px; border:1px solid #e5e5e5;
+}
+.close { position:absolute; top:14px; inset-inline-end:14px; cursor:pointer; }
