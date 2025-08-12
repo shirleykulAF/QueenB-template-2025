@@ -14,7 +14,8 @@
     "install-client": "cd client && npm install",
     "install-all": "npm run install-server && npm run install-client",
     "build": "cd client && npm run build",
-    "start": "cd server && npm start"
+    "start": "cd server && npm start",
+    "db:seed:mentors": "node server/scripts/seed-mentors.js"
   },
   "keywords": [
     "nodejs",
