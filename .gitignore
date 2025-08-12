@@ -3,6 +3,11 @@ node_modules/
 client/node_modules/
 server/node_modules/
 
+# Package lock files (should be generated locally)
+package-lock.json
+client/package-lock.json
+server/package-lock.json
+
 # Production builds
 client/build/
 dist/
@@ -121,3 +126,6 @@ Desktop.ini
 *.swp
 *.swo
 *~ 
+
+#yana 
+queen_b_git_workflow_step_by_step_guide_for_all_members.md
