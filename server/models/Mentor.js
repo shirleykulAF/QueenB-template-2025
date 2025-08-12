@@ -58,6 +58,21 @@ const mentorSchema = new mongoose.Schema({
       },
       message: "Please provide a valid LinkedIn URL"
     }
+  },
+  // FIXED PHOTO FIELDS
+  profilePhoto: {
+    data: {
+      type: Buffer,
+      required: true
+    },
+    contentType: {
+      type: String,
+      required: true
+    }
+  },
+  photoFileName: {
+    type: String,
+    required: true
   }
 }, {
   timestamps: true
