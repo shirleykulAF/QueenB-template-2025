@@ -1,0 +1,31 @@
+/* src/components/SearchBar.css */
+.searchbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 520px;
+  margin: 0 auto 24px;   /* מרכזת ומרווחת מעל הגריד */
+  padding: 12px 14px;
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.searchbar-icon { opacity: 0.6; }
+
+.searchbar-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  background: transparent;
+}
+
+.searchbar-clear {
+  border: none;
+  background: #f3f4f6;
+  border-radius: 10px;
+  padding: 4px 8px;
+  cursor: pointer;
+}

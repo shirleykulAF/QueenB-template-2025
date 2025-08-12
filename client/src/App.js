@@ -1,4 +1,3 @@
-// client/src/App.js
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
@@ -9,7 +8,8 @@ import MentorsCards from "./pages/MentorsCards"; // ודאי שקיים
 
 const theme = createTheme({ /* ... */ });
 
-export default function App() {
+
+function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -25,3 +25,5 @@ export default function App() {
     </ThemeProvider>
   );
 }
+
+export default App;

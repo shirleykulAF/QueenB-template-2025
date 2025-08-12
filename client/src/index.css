@@ -1,17 +1,22 @@
+/* reset קטן ונוח */
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
 body {
   margin: 0;
-  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: #fbe4ea; /* הרקע הכללי של הדף */
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+/* עטיפה כללית של העמוד */
+.page {
+  min-height: 100vh;
+  padding: 24px;
 }
 
-* {
-  box-sizing: border-box;
+/* הגריד שמסדר את כל הכרטיסים */
+.cards-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;  /* מרכז אופקי */
+  gap: 24px;
 }
