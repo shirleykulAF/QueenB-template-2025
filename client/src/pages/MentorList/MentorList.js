@@ -10,6 +10,7 @@ const baseURL = process.env.REACT_APP_API_URL;
 const MentorList = () => {
   const [mentors, setMentors] = useState([]);
   const [selectedMentor, setSelectedMentor] = useState(null);
+  const [query, setQuery] = useState('');
 
   useEffect(() => {
     const fetchMentors = async () => {
@@ -24,11 +25,31 @@ const MentorList = () => {
     fetchMentors();
   }, []);
 
+  const filteredMentors = mentors.filter((m) => {
+    const q = query.trim().toLowerCase();
+    if (!q) return true;
+    const name = `${m.firstName || ''} ${m.lastName || ''}`;
+    const desc = m.description || '';
+    const techs = Array.isArray(m.technologies) ? m.technologies.join(' ') : '';
+    const haystack = `${name} ${desc} ${techs}`.toLowerCase();
+    return q
+      .split(/\s+/)
+      .filter(Boolean)
+      .every((w) => haystack.includes(w));
+  });
+
   return (
     <div className="mentor-list">
-      <h1>מנטוריות</h1>
+      <h1>Mentors</h1>
+      <input
+        type="text"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        placeholder="free search.."
+        aria-label="search"
+      />
       <div className="mentor-list-cards" >
-        {mentors.map(mentor => (
+        {filteredMentors.map(mentor => (
           <MentorCard 
             key={mentor._id} 
             mentor={mentor} 
