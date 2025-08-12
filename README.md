@@ -7,6 +7,10 @@ Built with Node.js, Express, React, and Material UI.
 
 - **Modern UI**: Beautiful, responsive interface built with Material UI
 - **RESTful API**: Well-structured backend API with Express.js
+- **Database Integration**: MongoDB Atlas support with fallback to local data
+- **Enhanced Security**: JWT authentication, rate limiting, and security headers
+- **Error Handling**: Comprehensive error handling and logging
+- **CORS Configuration**: Proper cross-origin resource sharing setup
 - **Responsive Design**: Works seamlessly on desktop and mobile devices
 
 ## 🛠️ Tech Stack
@@ -15,7 +19,13 @@ Built with Node.js, Express, React, and Material UI.
 
 - **Node.js** - Runtime environment
 - **Express.js** - Web framework
+- **MongoDB/Mongoose** - Database and ODM
+- **JWT** - Authentication tokens
+- **bcryptjs** - Password hashing
 - **CORS** - Cross-origin resource sharing
+- **Helmet** - Security headers
+- **Morgan** - HTTP request logging
+- **Rate Limiting** - API protection
 - **Nodemon** - Development auto-restart
 
 ### Frontend
@@ -100,10 +110,40 @@ and then share the repository with the rest of the team.
 4. **Set up environment variables**
    ```bash
    cd server
-   cp .env.example .env
-   # Edit .env file with your configuration if needed
+   # The .env file is already created with placeholders
+   # Edit .env file with your configuration
    cd ..
    ```
+
+5. **Set up MongoDB Atlas (Optional but Recommended)**
+   
+   **Step 1: Create MongoDB Atlas Account**
+   - Go to [MongoDB Atlas](https://www.mongodb.com/atlas)
+   - Sign up for a free account
+   - Create a new cluster (M0 Free tier recommended)
+   
+   **Step 2: Configure Database Access**
+   - Go to Database Access in the left sidebar
+   - Click "Add New Database User"
+   - Create a username and password (save these!)
+   - Set privileges to "Read and write to any database"
+   
+   **Step 3: Configure Network Access**
+   - Go to Network Access in the left sidebar
+   - Click "Add IP Address"
+   - Click "Allow Access from Anywhere" (for development)
+   - Or add your specific IP address
+   
+   **Step 4: Get Connection String**
+   - Go to Clusters in the left sidebar
+   - Click "Connect" on your cluster
+   - Choose "Connect your application"
+   - Copy the connection string
+   
+   **Step 5: Update Environment Variables**
+   - Edit `server/.env` file
+   - Replace `your_username`, `your_password`, and `your_cluster` in MONGODB_URI
+   - Example: `mongodb+srv://myuser:mypassword@cluster0.abc123.mongodb.net/queenb_db?retryWrites=true&w=majority`
 
 ### Running the Application
 
