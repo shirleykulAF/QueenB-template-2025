@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { fetchMentors } from "../api/mentorsApi";
+import Header from "../components/Header/Header";
 import SearchBar from "../components/SearchBar/SearchBar";
 import MentorGrid from "../components/MentorGrid/MentorGrid";
 import MentorDetails from "../components/MentorDetails/MentorDetails";
@@ -23,7 +24,6 @@ export default function MentorsListPage() {
             const data = await fetchMentors({ q });
             setMentors(data);
         } catch (err) {
-            // Optional: you can show a toast or set error state here
             console.error(err);
             setMentors([]);
         } finally {
@@ -31,29 +31,38 @@ export default function MentorsListPage() {
         }
     }
 
-    useEffect(() => {
-        load();
-    }, []);
+    useEffect(() => { load(); }, []);
 
     return (
-        <div style={{ padding: 20, maxWidth: 1100, margin: "0 auto" }}>
-            <SearchBar
-                onSearch={(q) => {
-                    setQuery(q);
-                    load(q);
-                }}
-                initialQuery={query}
-            />
+        <>
+            <Header />
+            <div style={{ maxWidth: 1100, margin: "0 auto", padding: "16px 16px 32px" }}>
+                <h1 style={{
+                    margin: "8px 0 16px",
+                    fontFamily: '"Heebo","Roboto",Arial,sans-serif',
+                    fontWeight: 900,
+                    fontSize: "1.8rem",
+                    color: "var(--ink,#1f2937)",
+                    textAlign: "center"   // ← center
+                }}>
+                    Mentors
+                </h1>
 
-            {loading ? (
-                <div>טוען…</div>
-            ) : (
-                <MentorGrid mentors={mentors} onSelect={setSelected} />
-            )}
+                <SearchBar
+                    onSearch={(q) => { setQuery(q); load(q); }}
+                    initialQuery={query}
+                />
 
-            {selected && (
-                <MentorDetails mentorId={selected.id} onClose={() => setSelected(null)} />
-            )}
-        </div>
+                {loading ? (
+                    <div>טוען…</div>
+                ) : (
+                    <MentorGrid mentors={mentors} onSelect={setSelected} />
+                )}
+
+                {selected && (
+                    <MentorDetails mentorId={selected.id} onClose={() => setSelected(null)} />
+                )}
+            </div>
+        </>
     );
 }

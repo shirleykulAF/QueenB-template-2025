@@ -3,14 +3,15 @@
 import React, { useState } from "react";
 import s from "./SearchBar.module.css";
 
-/**
- * Simple search bar with a text input and a submit button.
- * Props:
- *  - initialQuery: string (optional)
- *  - onSearch: function(query: string)
- */
+function isRTL(str = "") {
+    return /[\u0590-\u05FF\u0600-\u06FF]/.test(str);
+}
+
 export default function SearchBar({ initialQuery = "", onSearch }) {
     const [q, setQ] = useState(initialQuery);
+
+    // Empty input → RTL (placeholder is Hebrew). Otherwise detect by content.
+    const inputDir = q.trim() === "" ? "rtl" : (isRTL(q) ? "rtl" : "ltr");
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -24,11 +25,9 @@ export default function SearchBar({ initialQuery = "", onSearch }) {
                 placeholder="חפשי מנטורית לפי שם או מקצוע"
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
-                dir="rtl"
+                dir={inputDir}
             />
-            <button className={s.button} type="submit">
-                חיפוש
-            </button>
+            <button className={s.button} type="submit">חיפוש</button>
         </form>
     );
 }
