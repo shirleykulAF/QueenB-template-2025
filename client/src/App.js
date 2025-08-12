@@ -1,8 +1,10 @@
 import React from "react";
+import MentorSignUp from "./components/mentorSignUp";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
-import Dashboard from "./components/Dashboard";
-import Form from "./components/Form";
+import ProfileUpdate from "./components/ProfileUpdate";
+import LoginPage from "./components/LoginPage"; // Add this import
+import RegistrationPage from "./components/RegistrationPage";
 
 const theme = createTheme({
   palette: {
@@ -33,7 +35,10 @@ function App() {
       <CssBaseline />
       <Router>
         <Routes>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/mentorsignup" element={<MentorSignUp />} />
+          <Route path="/" element={<LoginPage />} /> {/* Changed this */}
+          <Route path="/profile/edit" element={<ProfileUpdate />} />
+          <Route path="/register" element={<RegistrationPage />} />
           <Route path="/form" element={<Form />} />
         </Routes>
       </Router>
