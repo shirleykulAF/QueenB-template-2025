@@ -10,7 +10,7 @@ const baseURL = process.env.REACT_APP_API_URL;
 const MentorList = () => {
   const [mentors, setMentors] = useState([]);
   const [selectedMentor, setSelectedMentor] = useState(null);
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState(''); //stores what the user types in the search bar
 
   useEffect(() => {
     const fetchMentors = async () => {
@@ -25,7 +25,7 @@ const MentorList = () => {
     fetchMentors();
   }, []);
 
-  const filteredMentors = mentors.filter((m) => {
+  const filteredMentors = mentors.filter((m) => { // gili update: filter
     const q = query.trim().toLowerCase();
     if (!q) return true;
     const name = `${m.firstName || ''} ${m.lastName || ''}`;

@@ -28,7 +28,7 @@ function App() {
                 flexGrow: 1,
                 color: '#FBF4D7',
                 fontWeight: 600,
-                letterSpacing: '0.5px'
+                letterSpacing: '1px'
               }}
             >
               👑 Queens Match
