@@ -1,175 +1,123 @@
-const express = require("express");
-const cors = require("cors");
-const helmet = require("helmet");
-const morgan = require("morgan");
-const mongoose = require("mongoose");
-const rateLimit = require("express-rate-limit");
-require("dotenv").config();
+// server/index.js
+// Main server file - connects everything together
 
+const express = require('express');
+const cors = require('cors');
+const dotenv = require('dotenv');
+const path = require('path');
+
+// Load environment variables FIRST
+dotenv.config();
+
+// Import database connection
+const { connectDB } = require('./config/database');
+
+// Create Express app
 const app = express();
-const PORT = process.env.PORT || 5000;
 
-// MongoDB Connection
-const connectDB = async () => {
-  try {
-    if (process.env.MONGODB_URI && !process.env.MONGODB_URI.includes('your_')) {
-      await mongoose.connect(process.env.MONGODB_URI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      });
-      console.log("✅ MongoDB Atlas connected successfully");
-    } else {
-      console.log("⚠️  MONGODB_URI not configured, using local data storage");
-    }
-  } catch (error) {
-    console.error("❌ MongoDB connection error:", error.message);
-    console.log("⚠️  Continuing with local data storage");
-  }
-};
+// Connect to MongoDB
+connectDB();
 
-// Rate limiting
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
-  message: {
-    error: "Too many requests from this IP, please try again later.",
-  },
-  standardHeaders: true,
-  legacyHeaders: false,
-});
+// Middleware - ORDER MATTERS!
+app.use(cors()); // Allow cross-origin requests
+app.use(express.json()); // Parse JSON bodies
+app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 
-// Enhanced CORS configuration
-const corsOptions = {
-  origin: process.env.CORS_ORIGIN || "http://localhost:3000",
-  credentials: true,
-  optionsSuccessStatus: 200,
-  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-  allowedHeaders: [
-    "Origin",
-    "X-Requested-With",
-    "Content-Type",
-    "Accept",
-    "Authorization",
-  ],
-};
-
-// Middleware
-app.use(helmet());
-app.use(cors(corsOptions));
-app.use(limiter);
-app.use(morgan("combined"));
-app.use(express.json({ limit: "10mb" }));
-app.use(express.urlencoded({ extended: true, limit: "10mb" }));
-
-// Request logging middleware
+// Logging middleware (helpful for debugging)
 app.use((req, res, next) => {
   console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
   next();
 });
 
-// Routes
-app.use("/api/users", require("./routes/users"));
+// Import route files
+const mentorRoutes = require('./routes/mentorRoutes');
+const menteeRoutes = require('./routes/menteeRoutes');
 
-// Health check endpoint
-app.get("/api/health", (req, res) => {
+// Health check route - BEFORE other routes
+app.get('/api/health', (req, res) => {
   res.json({
-    message: "QueenB Server is running!",
+    status: 'OK',
+    message: 'QueenB API is running!',
     timestamp: new Date().toISOString(),
-    status: "healthy",
-    environment: process.env.NODE_ENV,
-    database: mongoose.connection.readyState === 1 ? "connected" : "disconnected",
+    database: 'MongoDB Connected',
+    routes: {
+      mentors: '/api/mentors',
+      mentees: '/api/mentees'
+    }
   });
 });
 
-// Root endpoint
-app.get("/", (req, res) => {
-  res.json({ 
-    message: "Welcome to QueenB API",
-    version: "1.0.0",
-    documentation: "/api/health"
+// Add this AFTER the health check route and BEFORE the 404 handler
+app.get('/api', (req, res) => {
+  res.json({
+    message: 'QueenB API v1.0',
+    documentation: 'See API_DOCUMENTATION.md for details',
+    endpoints: {
+      health: '/api/health',
+      mentors: {
+        getAll: 'GET /api/mentors',
+        search: 'GET /api/mentors/search?technology=React',
+        getOne: 'GET /api/mentors/:id',
+        create: 'POST /api/mentors',
+        update: 'PUT /api/mentors/:id',
+        delete: 'DELETE /api/mentors/:id'
+      },
+      mentees: {
+        getAll: 'GET /api/mentees',
+        getOne: 'GET /api/mentees/:id',
+        create: 'POST /api/mentees',
+        match: 'POST /api/mentees/:id/match',
+        update: 'PUT /api/mentees/:id',
+        delete: 'DELETE /api/mentees/:id'
+      }
+    }
   });
 });
 
-// Enhanced error handling middleware
-app.use((err, req, res, next) => {
-  console.error("❌ Error:", err);
-  
-  // MongoDB errors
-  if (err.name === "ValidationError") {
-    return res.status(400).json({
-      error: "Validation Error",
-      details: Object.values(err.errors).map(e => e.message)
-    });
-  }
-  
-  if (err.name === "CastError") {
-    return res.status(400).json({
-      error: "Invalid ID format"
-    });
-  }
-  
-  if (err.code === 11000) {
-    return res.status(409).json({
-      error: "Duplicate key error",
-      field: Object.keys(err.keyPattern)[0]
-    });
-  }
-  
-  // JWT errors
-  if (err.name === "JsonWebTokenError") {
-    return res.status(401).json({
-      error: "Invalid token"
-    });
-  }
-  
-  if (err.name === "TokenExpiredError") {
-    return res.status(401).json({
-      error: "Token expired"
-    });
-  }
-  
-  // Default error
-  res.status(err.status || 500).json({
-    error: process.env.NODE_ENV === "production" 
-      ? "Internal server error" 
-      : err.message || "Something went wrong!",
-    ...(process.env.NODE_ENV === "development" && { stack: err.stack })
+// API Routes - REGISTER YOUR ROUTES HERE!
+app.use('/api/mentors', mentorRoutes);
+app.use('/api/mentees', menteeRoutes);
+
+// Root route
+app.get('/', (req, res) => {
+  res.json({
+    message: 'Welcome to QueenB API',
+    endpoints: {
+      health: '/api/health',
+      mentors: '/api/mentors',
+      mentees: '/api/mentees'
+    }
   });
 });
 
-// 404 handler
-app.use("*", (req, res) => {
-  res.status(404).json({ 
-    error: "Route not found",
-    path: req.originalUrl,
+// 404 handler for unknown routes - MUST BE LAST
+app.use((req, res) => {
+  res.status(404).json({
+    error: 'Route not found',
+    path: req.path,
     method: req.method
   });
 });
 
-// Graceful shutdown
-process.on("SIGTERM", () => {
-  console.log("SIGTERM received, shutting down gracefully");
-  mongoose.connection.close(() => {
-    console.log("MongoDB connection closed");
-    process.exit(0);
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error('Error:', err.stack);
+  res.status(500).json({
+    success: false,
+    error: 'Something went wrong!',
+    message: err.message
   });
 });
 
 // Start server
-const startServer = async () => {
-  try {
-    await connectDB();
-    
-    app.listen(PORT, () => {
-      console.log(`🚀 Server is running on port ${PORT}`);
-      console.log(`📱 Health check: http://localhost:${PORT}/api/health`);
-      console.log(`🌍 Environment: ${process.env.NODE_ENV}`);
-      console.log(`🔗 CORS Origin: ${process.env.CORS_ORIGIN || "http://localhost:3000"}`);
-    });
-  } catch (error) {
-    console.error("❌ Failed to start server:", error);
-    process.exit(1);
-  }
-};
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`🚀 Server is running on port ${PORT}`);
+  console.log(`📍 Test endpoints:`);
+  console.log(`   http://localhost:${PORT}/`);
+  console.log(`   http://localhost:${PORT}/api/health`);
+  console.log(`   http://localhost:${PORT}/api/mentors`);
+  console.log(`   http://localhost:${PORT}/api/mentees`);
+});
 
-startServer();
+module.exports = app;
