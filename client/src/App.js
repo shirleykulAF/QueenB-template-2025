@@ -5,7 +5,10 @@ import {
   createTheme, 
   CssBaseline
 } from "@mui/material";
-import Dashboard from "./components/Dashboard";
+import ProfileUpdate from './components/ProfileUpdate';
+import LoginPage from './components/LoginPage'; // Add this import
+import RegistrationPage from './components/RegistrationPage';
+
 
 const theme = createTheme({
   palette: {
@@ -30,14 +33,16 @@ const theme = createTheme({
   },
 });
 
-
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Router>
         <Routes>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/" element={<LoginPage />} /> {/* Changed this */}
+          <Route path="/profile/edit" element={<ProfileUpdate />} />
+          <Route path="/register" element={<RegistrationPage />} />
+
         </Routes>
       </Router>
     </ThemeProvider>
