@@ -1,11 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { 
-  ThemeProvider, 
-  createTheme, 
-  CssBaseline
-} from "@mui/material";
+import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
 import Dashboard from "./components/Dashboard";
+import Form from "./components/Form";
 
 const theme = createTheme({
   palette: {
@@ -30,7 +27,6 @@ const theme = createTheme({
   },
 });
 
-
 function App() {
   return (
     <ThemeProvider theme={theme}>
@@ -38,6 +34,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Dashboard />} />
+          <Route path="/form" element={<Form />} />
         </Routes>
       </Router>
     </ThemeProvider>
