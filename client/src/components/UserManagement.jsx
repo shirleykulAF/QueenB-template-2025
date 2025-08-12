@@ -6,9 +6,6 @@ function UserManagement() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    setUsers([]);
-  }, []);
 
   const fetchUsers = async () => {
     try {
@@ -21,6 +18,11 @@ function UserManagement() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchUsers();
+    // setUsers([]);
+  }, []);
 
   return (
     <Box sx={{ mt: 4, mb: 4, mx: 4 }}>

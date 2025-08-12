@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import UserManagement from "./UserManagement";
 
-function App() {
+function Dashboard() {
   return (
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static" elevation={2}>
@@ -22,4 +22,4 @@ function App() {
   );
 }
 
-export default App;
+export default Dashboard;
