@@ -40,14 +40,10 @@ function App() {
       <CssBaseline />
       <Router>
         <Routes>
-<<<<<<< HEAD
-          <Route path="/" element={<MentorSignUp />} />
-=======
+          <Route path="/mentorsignup" element={<MentorSignUp />} />
           <Route path="/" element={<LoginPage />} /> {/* Changed this */}
           <Route path="/profile/edit" element={<ProfileUpdate />} />
           <Route path="/register" element={<RegistrationPage />} />
-
->>>>>>> origin/main
         </Routes>
       </Router>
     </ThemeProvider>
