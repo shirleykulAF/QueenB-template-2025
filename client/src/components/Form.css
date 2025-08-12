@@ -77,3 +77,11 @@
   outline: none;
   box-shadow: 0 0 10px rgba(79, 70, 229, 0.7);
 }
+.error {
+  color: red;
+  font-size: 0.9rem;
+  display: block;
+  margin-top: 0;
+  padding: 0;
+}
+
