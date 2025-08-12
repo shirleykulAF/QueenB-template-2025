@@ -12,18 +12,18 @@ const PORT = process.env.PORT || 5000;
 // MongoDB Connection
 const connectDB = async () => {
   try {
-    if (process.env.MONGODB_URI) {
+    if (process.env.MONGODB_URI && !process.env.MONGODB_URI.includes('your_')) {
       await mongoose.connect(process.env.MONGODB_URI, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
       });
-      console.log(" MongoDB Atlas connected successfully");
+      console.log("✅ MongoDB Atlas connected successfully");
     } else {
-      console.log(" MONGODB_URI not set, using local data");
+      console.log("⚠️  MONGODB_URI not configured, using local data storage");
     }
   } catch (error) {
-    console.error(" MongoDB connection error:", error.message);
-    console.log(" Continuing with local data storage");
+    console.error("❌ MongoDB connection error:", error.message);
+    console.log("⚠️  Continuing with local data storage");
   }
 };
 
