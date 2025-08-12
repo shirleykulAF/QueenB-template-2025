@@ -1,4 +1,5 @@
 import React from "react";
+import MentorSignUp from "./components/mentorSignUp";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { 
   ThemeProvider, 
@@ -37,7 +38,7 @@ function App() {
       <CssBaseline />
       <Router>
         <Routes>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/" element={<MentorSignUp />} />
         </Routes>
       </Router>
     </ThemeProvider>
