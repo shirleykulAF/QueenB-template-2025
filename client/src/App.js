@@ -1,5 +1,4 @@
 import React from "react";
-import MentorSignUp from "./components/mentorSignUp";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
 import ProfileUpdate from "./components/ProfileUpdate";
@@ -7,24 +6,29 @@ import LoginPage from "./components/LoginPage"; // Add this import
 import RegistrationPage from "./components/RegistrationPage";
 
 const theme = createTheme({
+  direction: "rtl",
   palette: {
-    primary: {
-      main: "#6366f1",
-    },
-    secondary: {
-      main: "#ec4899",
-    },
-    background: {
-      default: "#f8fafc",
-    },
+    mode: "light",
+    primary: { main: "#f43f5e" },
+    secondary: { main: "#fb7185" },
+    background: { default: "#fff5f7" },
   },
+  shape: { borderRadius: 16 },
   typography: {
-    fontFamily: "Roboto, Arial, sans-serif",
-    h4: {
-      fontWeight: 600,
+    fontFamily: '"Heebo", "Roboto", Arial, sans-serif',
+    h4: { fontWeight: 900 },
+    h6: { fontWeight: 700 },
+  },
+  components: {
+    MuiPaper: {
+      styleOverrides: {
+        root: { borderRadius: 16, boxShadow: "0 4px 14px rgba(0,0,0,.08)" },
+      },
     },
-    h6: {
-      fontWeight: 500,
+    MuiButton: {
+      styleOverrides: {
+        root: { borderRadius: 12 },
+      },
     },
   },
 });
@@ -39,7 +43,6 @@ function App() {
           <Route path="/" element={<LoginPage />} /> {/* Changed this */}
           <Route path="/profile/edit" element={<ProfileUpdate />} />
           <Route path="/register" element={<RegistrationPage />} />
-          <Route path="/form" element={<Form />} />
         </Routes>
       </Router>
     </ThemeProvider>
