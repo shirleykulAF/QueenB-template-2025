@@ -1,0 +1,13 @@
+.mentor-meta {
+  margin-top: 8px;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.mentor-meta p {
+  margin: 4px 0;
+}
+
+.mentor-meta strong {
+  font-weight: 600;
+}

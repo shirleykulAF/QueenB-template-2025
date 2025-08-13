@@ -12,8 +12,8 @@ router.get('/', async (req, res) => {
     }
 });
 
-// GET /mentors/:id
-router.get('/:id', async (req, res) => {
+// GET /mentor/:id
+router.get('/mentor/:id', async (req, res) => {
     try {
         const mentor = await Mentor.findById(req.params.id);
         if (!mentor) {
@@ -24,5 +24,6 @@ router.get('/:id', async (req, res) => {
         res.status(500).json({ message: 'Server Error' });
     }
 });
+
 
 module.exports = router;

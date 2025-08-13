@@ -1,33 +1,20 @@
-import React, { useEffect, useState } from 'react';
-// import MentorCard from '../components/MentorCard';
+import React, { useState } from 'react';
 import MentorCard from '../../components/MentorCard/MentorCard';
 import MentorModal from '../../components/MentorModal/MentorModal';
-import axios from 'axios';
+import useMentorsList from '../../hooks/useMentorsList';
 import './MentorList.css';
 
-const baseURL = process.env.REACT_APP_API_URL;
-
 const MentorList = () => {
-  const [mentors, setMentors] = useState([]);
+  const { mentors, loading, error } = useMentorsList();
   const [selectedMentor, setSelectedMentor] = useState(null);
 
-  useEffect(() => {
-    const fetchMentors = async () => {
-      try {
-        const res = await axios.get(`${baseURL}/api/mentors`);
-        setMentors(res.data);
-      } catch (err) {
-        console.error('Error fetching mentors:', err);
-      }
-    };
-
-    fetchMentors();
-  }, []);
+  if (loading) return <div className="mentor-list"><p>Loading mentors...</p></div>;
+  if (error) return <div className="mentor-list"><p>Error: {error}</p></div>;
 
   return (
     <div className="mentor-list">
       <h1>מנטוריות</h1>
-      <div className="mentor-list-cards" >
+      <div className="mentor-list-cards">
         {mentors.map(mentor => (
           <MentorCard 
             key={mentor._id} 
@@ -39,7 +26,6 @@ const MentorList = () => {
 
       {/* Modal to display mentor details */}
       <MentorModal mentor={selectedMentor} onClose={() => setSelectedMentor(null)} />
-        
     </div>
   );
 };

@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const mentorSchema = new mongoose.Schema({
     firstName: String,
     lastName: String,
-    technology: [String],
+    technologies: [String],
     yearsOfExperience: Number,
     description: String,
     email: String,

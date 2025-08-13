@@ -6,7 +6,9 @@ import {
   CssBaseline
 } from "@mui/material";
 
-import MentorList from "./pages/MentorList";
+import MentorList from "./pages/MentorList/MentorList"; 
+import MentorHome from "./pages/MentorHome/MentorHome"; 
+
 
 const theme = createTheme({
   palette: {
@@ -39,6 +41,8 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<MentorList />} />
+          <Route path="/mentor-home" element={<MentorHome />} />
+          <Route path="/mentors" element={<MentorList />} />
         </Routes>
       </Router>
     </ThemeProvider>

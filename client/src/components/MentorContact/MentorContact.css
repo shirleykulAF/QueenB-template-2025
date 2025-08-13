@@ -1,0 +1,9 @@
+.mentor-contact {
+  margin-top: 16px;
+  text-align: center;
+}
+
+.mentor-contact p {
+  margin: 4px 0;
+  word-break: break-word; /* long emails/links won’t overflow */
+}

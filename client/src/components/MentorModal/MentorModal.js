@@ -1,6 +1,8 @@
 import React from 'react';
 import { FaEnvelope, FaLinkedin, FaWhatsapp } from 'react-icons/fa';
-import './MentorModal.css'; // No "styles" import
+import './MentorModal.css'; 
+import MentorHeader from "../MentorHeader/MentorHeader";
+import MentorInfo from "../MentorInfo/MentorInfo";
 
 const MentorModal = ({ mentor, onClose }) => {
     if (!mentor) return null;
@@ -14,7 +16,8 @@ const MentorModal = ({ mentor, onClose }) => {
         return digits;
     };
 
-    const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${mentor.email}`;
+    const email = mentor.email || '';
+    const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}`;
 
     return (
         <div className="background" onClick={onClose}>
@@ -22,7 +25,11 @@ const MentorModal = ({ mentor, onClose }) => {
                 <button onClick={onClose} className="closeBtn">
                     &times;
                 </button>
-                <img 
+                
+                <MentorHeader mentor={mentor} />
+                <MentorInfo mentor={mentor} />
+                
+                {/* <img 
                     src={mentor.image} 
                     alt={`${mentor.firstName} ${mentor.lastName}`} 
                     className="avatar"
@@ -31,6 +38,7 @@ const MentorModal = ({ mentor, onClose }) => {
                 <p><strong>טכנולוגיות:</strong> {mentor.technologies.join(', ')}</p>
                 <p><strong>נסיון:</strong> {mentor.yearsOfExperience} שנים</p>
                 <p>{mentor.description}</p>
+                 */}
                 <div className="contactIcons">
                     <a href={gmailLink} target="_blank" rel="noreferrer" title="שלחי אימייל">
                         <FaEnvelope size={24} color="#D44638" />
