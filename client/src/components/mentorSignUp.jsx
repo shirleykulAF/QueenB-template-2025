@@ -171,82 +171,108 @@ function MentorSignUp() {
           />
 
           {/* ---- Tags (chips) with MUI Autocomplete; keep your labels ---- */}
-
-          <label id="progLangs-label" className="label">Programming Languages</label>
-          <Autocomplete
+            <label id="progLangs-label" className="label">Programming Languages</label>
+            <Autocomplete
             multiple
             freeSolo
             options={programmingLanguageSuggestions}
             value={programmingLanguages}
             onChange={(e, newValue) => setProgrammingLanguages(newValue)}
-            renderTags={(value, getTagProps) =>
-              value.map((option, index) => (
-                <Chip label={option} {...getTagProps({ index })} key={option + index} />
-              ))
+            renderTags={(value) =>
+                value.map((option, index) => (
+                <Chip
+                    label={option}
+                    key={`${option}-${index}`}
+                    onDelete={() => {
+                    const updated = [...programmingLanguages];
+                    updated.splice(index, 1);
+                    setProgrammingLanguages(updated);
+                    }}
+                />
+                ))
             }
             renderInput={(params) => (
-              // Keep your styling: plain input wrapped with the provided ref
-              <div ref={params.InputProps.ref}>
+                <div ref={params.InputProps.ref} className="autocomplete">
+                    {params.InputProps.startAdornment}
                 <input
-                  type="text"
-                  className="input"
-                  placeholder="Type and press Enter"
-                  aria-labelledby="progLangs-label"
-                  {...params.inputProps}
+                    {...params.inputProps}
+                    type="text"
+                    className="autocomplete-input"
+                    placeholder="Type and press Enter"
+                    aria-labelledby="progLangs-label"
                 />
-              </div>
+                </div>
             )}
-          />
+            />
 
-          <label id="technologies-label" className="label">Technologies</label>
-          <Autocomplete
+            <label id="technologies-label" className="label">Technologies</label>
+            <Autocomplete
             multiple
             freeSolo
             options={technologySuggestions}
             value={technologies}
             onChange={(e, newValue) => setTechnologies(newValue)}
-            renderTags={(value, getTagProps) =>
-              value.map((option, index) => (
-                <Chip label={option} {...getTagProps({ index })} key={option + index} />
-              ))
+            renderTags={(value) =>
+                value.map((option, index) => (
+                <Chip
+                    label={option}
+                    key={`${option}-${index}`}
+                    onDelete={() => {
+                    const updated = [...technologies];
+                    updated.splice(index, 1);
+                    setTechnologies(updated);
+                    }}
+                />
+                ))
             }
             renderInput={(params) => (
-              <div ref={params.InputProps.ref}>
+                <div ref={params.InputProps.ref} className="autocomplete">
+                    {params.InputProps.startAdornment}
                 <input
-                  type="text"
-                  className="input"
-                  placeholder="e.g. React, Node.js, Docker"
-                  aria-labelledby="technologies-label"
-                  {...params.inputProps}
+                    {...params.inputProps}
+                    type="text"
+                    className="autocomplete-input"
+                    placeholder="e.g. React, Node.js, Docker"
+                    aria-labelledby="technologies-label"
                 />
-              </div>
+                </div>
             )}
-          />
+            />
 
-          <label id="domains-label" className="label">Domains</label>
-          <Autocomplete
+            <label id="domains-label" className="label">Domains</label>
+            <Autocomplete
             multiple
             freeSolo
             options={domainSuggestions}
             value={domains}
             onChange={(e, newValue) => setDomains(newValue)}
-            renderTags={(value, getTagProps) =>
-              value.map((option, index) => (
-                <Chip label={option} {...getTagProps({ index })} key={option + index} />
-              ))
+            renderTags={(value) =>
+                value.map((option, index) => (
+                <Chip
+                    label={option}
+                    key={`${option}-${index}`}
+                    onDelete={() => {
+                    const updated = [...domains];
+                    updated.splice(index, 1);
+                    setDomains(updated);
+                    }}
+                />
+                ))
             }
             renderInput={(params) => (
-              <div ref={params.InputProps.ref}>
+                <div ref={params.InputProps.ref} className="autocomplete">
+                    {params.InputProps.startAdornment}
                 <input
-                  type="text"
-                  className="input"
-                  placeholder="e.g. Web, ML, DevOps"
-                  aria-labelledby="domains-label"
-                  {...params.inputProps}
+                    {...params.inputProps}
+                    type="text"
+                    className="autocomplete-input"
+                    placeholder="e.g. Web, ML, DevOps"
+                    aria-labelledby="domains-label"
                 />
-              </div>
+                </div>
             )}
-          />
+            />
+
 
           <label htmlFor="linkedin" className="label">LinkedIn</label>
           <input
