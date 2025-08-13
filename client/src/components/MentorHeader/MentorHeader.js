@@ -2,7 +2,6 @@ import React from "react";
 import "./MentorHeader.css";
 
 const MentorHeader = ({ mentor }) => {
-    console.log("MentorHeader props:", mentor);
     const fullName = [mentor?.firstName, mentor?.lastName].filter(Boolean).join(" ");
     const image = mentor?.image;
 

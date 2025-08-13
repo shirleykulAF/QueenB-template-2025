@@ -19,13 +19,14 @@ app.use(express.urlencoded({ extended: true }));
 
 
 // Routes
-app.use("/api/users", require("./routes/users"));
+// app.use("/api/users", require("./routes/users"));
 
+// MongoDB connection
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
-// MongoDB connection
+// Routes
 app.use("/api/mentors", mentorsRoutes);
 
 // Health check endpoint

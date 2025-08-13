@@ -6,13 +6,13 @@ const MentorContact = ({ mentor }) => {
     return (
         <div className="mentor-contact">
             <p>
-                <strong>אימייל:</strong> {mentor?.email ?? "—"}
+                <strong>Email:</strong> {mentor?.email ?? "—"}
             </p>
             <p>
-                <strong>טלפון:</strong> {mentor?.phone ?? "—"}
+                <strong>Phone:</strong> {mentor?.phone ?? "—"}
             </p>
             <p>
-                <strong>לינדקין:</strong> {mentor?.linkedin ?? "—"}
+                <strong>Linkedin:</strong> {mentor?.linkedin ?? "—"}
             </p>
         </div>
     );

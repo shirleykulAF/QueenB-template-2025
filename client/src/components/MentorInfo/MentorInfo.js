@@ -7,10 +7,10 @@ const MentorInfo = ({ mentor = {}}) => {
     return (
         <div className="mentor-info">
             <p>
-                <strong>נסיון:</strong> {yearsOfExperience ?? "—"} שנים
+                <strong>Experience:</strong> {yearsOfExperience ?? "—"} years
             </p>
             <p>
-                <strong>טכנולוגיות:</strong><br />
+                <strong>Technologies:</strong><br />
                  {technologies.length ? technologies.join(", ") : "—"}
             </p>
         </div>

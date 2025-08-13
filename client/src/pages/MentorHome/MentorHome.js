@@ -21,8 +21,6 @@ const MentorHome = () => {
   if (error) return <div>Error: {error.message}</div>;
   if (!mentor) return <div>No mentor data found</div>;
 
-    console.log("MentorHeader props:", mentor);
-
   return (
     <div className="mentor-info">
       <h1>"aaaaa"</h1>
