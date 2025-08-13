@@ -5,39 +5,19 @@ import {
   createTheme, 
   CssBaseline
 } from "@mui/material";
-import Dashboard from "./components/Dashboard";
+import HomePage from "./components/HomePage";
+import { useTheme } from "./hook/useTheme";
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#6366f1",
-    },
-    secondary: {
-      main: "#ec4899",
-    },
-    background: {
-      default: "#f8fafc",
-    },
-  },
-  typography: {
-    fontFamily: "Roboto, Arial, sans-serif",
-    h4: {
-      fontWeight: 600,
-    },
-    h6: {
-      fontWeight: 500,
-    },
-  },
-});
 
 
 function App() {
+  const theme = useTheme();
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Router>
         <Routes>
-          <Route path="/" element={<Dashboard />} />
+        <Route path="/" element={<HomePage />} />
         </Routes>
       </Router>
     </ThemeProvider>
