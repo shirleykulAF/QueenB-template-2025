@@ -9,6 +9,7 @@ import ProfileUpdate from './components/ProfileUpdate';
 import LoginPage from './components/LoginPage'; // Add this import
 import RegistrationPage from './components/RegistrationPage';
 import MentorsListPage from "./pages/MentorsListPage";
+import MentorSignUp from "./components/mentorSignUp";
 
 const theme = createTheme({
   direction: "rtl",
@@ -48,7 +49,7 @@ function App() {
           <Route path="/" element={<LoginPage />} /> {/* Changed this */}
           <Route path="/profile/edit" element={<ProfileUpdate />} />
           <Route path="/register" element={<RegistrationPage />} />
-          <Route path="/" element={<MentorsListPage />} />
+          <Route path="/mentors" element={<MentorsListPage />} />
         </Routes>
       </Router>
     </ThemeProvider>

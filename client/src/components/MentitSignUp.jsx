@@ -6,6 +6,7 @@ export default function MentitSignUp() {
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
   const [phoneError, setPhoneError] = useState(" ");
@@ -18,8 +19,36 @@ export default function MentitSignUp() {
   }
 
   function handleForm() {
-    //
-  }
+  const payload = {
+    email,
+    password,
+    firstName,
+    lastName,
+    phoneNumber: phone,
+    generalDescription: description || ""
+  };
+
+  fetch("http://localhost:5000/api/auth/register-mentee", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+    body: JSON.stringify(payload)
+  })
+    .then(async (r) => {
+      const data = await r.json().catch(() => ({}));
+      if (!r.ok) {
+        const msg = data?.error || data?.message || (data?.errors?.[0]?.msg) || "Registration failed";
+        throw new Error(msg);
+      }
+      return data;
+    })
+    .then((data) => {
+      console.log("Mentee registered:", data);
+      alert("Mentee registered!");
+    })
+    .catch((err) => alert(err.message));
+}
+
 
   return (
     <div className="container">
@@ -78,6 +107,19 @@ export default function MentitSignUp() {
             placeholder="Enter your email"
             className="input"
           />
+
+          <label htmlFor="password" className="label">
+            password
+          </label>
+          <input
+            id="password"
+            type="text"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="choose password"
+            className="input"
+          />
+
           <label htmlFor="description" className="label">
             Description
           </label>
