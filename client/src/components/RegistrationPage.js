@@ -4,6 +4,17 @@ import { PersonAdd } from "@mui/icons-material";
 import MentorSignUp from "./MentorSignUp";
 import MentitSignUp from "./MentitSignUp";
 import Footer from "./Footer";
+import React, { useState } from 'react';
+import {
+  Box,
+  Container,
+  Paper,
+  Typography,
+  Tabs,
+  Tab
+} from '@mui/material';
+import { PersonAdd } from '@mui/icons-material';
+
 const RegistrationPage = () => {
   const [tabValue, setTabValue] = useState(0); // 0 = Mentor, 1 = Mentee
 
@@ -48,7 +59,6 @@ const RegistrationPage = () => {
                 <Tab label="Register as Mentor" icon={<PersonAdd />} />
                 <Tab label="Register as Mentee" icon={<PersonAdd />} />
               </Tabs>
-
               {/* Tab Content */}
               {tabValue === 0 && <MentorSignUp />}
               {tabValue === 1 && <MentitSignUp />}
@@ -58,6 +68,13 @@ const RegistrationPage = () => {
       </Box>
       <Footer />
     </>
+            {/* Tab Content */}
+            {tabValue === 0 && <MentorSignUp />}
+            {tabValue === 1 && <MentitSignUp />}
+          </Box>
+        </Paper>
+      </Container>
+    </Box>
   );
 };
 
