@@ -11,9 +11,9 @@ import {
   Box
 } from "@mui/material";
 
-import MentorList from "./pages/MentorList";
-import SignupForm from "./components/SignupForm";
-import LoginForm from "./components/LoginForm";
+import MentorList from "./pages/MentorList/MentorList";
+import SignupForm from "./components/Login-Signup/SignupForm";
+import LoginForm from "./components/Login-Signup/LoginForm";
 
 const theme = createTheme({
   palette: {
