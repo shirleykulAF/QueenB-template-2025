@@ -23,7 +23,6 @@ const MentorHome = () => {
 
   return (
     <div className="mentor-info">
-      <h1>"aaaaa"</h1>
       <MentorHeader mentor={mentor} />
       <MentorInfo mentor={mentor} />
       <MentorContact mentor={mentor} />

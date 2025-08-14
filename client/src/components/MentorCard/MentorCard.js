@@ -1,7 +1,6 @@
 import React from 'react';
 import './MentorCard.css';
 import MentorHeader from "../MentorHeader/MentorHeader";
-import MentorInfo from "../MentorInfo/MentorInfo";
 
 const MentorCard = ({ mentor, onClick }) => {
   return (
