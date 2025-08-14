@@ -101,8 +101,8 @@ function App() {
 
         <Routes>
           <Route path="/" element={<MentorList />} />
-          <Route path="/mentors" element={<MentorList />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
+          {/* <Route path="/mentors" element={<MentorList />} />
+          <Route path="*" element={<Navigate to="/" replace />} /> */}
         </Routes>
       </Router>
     </ThemeProvider>

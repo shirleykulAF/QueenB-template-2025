@@ -13,7 +13,7 @@ router.get("/", (req, res) => {
 // POST /api/users/register - Register a new user
 router.post("/register", async (req, res) => {
   try{
-    const { firstName, lastName, email } = req.body;
+    const { firstName, lastName, email, userType, image } = req.body;
     
     // check if user already exists
     const existingUser = await User.findOne({email})
@@ -22,12 +22,32 @@ router.post("/register", async (req, res) => {
     }
 
     // Create a new user instance
-    const user = new User({
+    const userData = {
       firstName, 
       lastName, 
-      email 
-    });
-    await user.save();
+      email,
+      userType
+
+    };
+    
+    if (image) {
+      userData.image = image;
+    }
+
+    if (userType === 'mentor'){
+      const { technologies, yearsOfExperience, description, phone, linkedin } = req.body;
+      userData.technologies = technologies ? technologies.split(',') : [];
+      userData.yearsOfExperience = yearsOfExperience;
+      userData.description = description;
+      userData.phone = phone;
+      userData.linkedin = linkedin;
+    }
+
+    const user = new User(userData);
+    const savedUser = await user.save();
+
+    console.log("User saved successfully!", savedUser._id);
+
     res.status(201).json({
       success: true, 
       message: "User registered successfully", 

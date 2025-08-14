@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AuthToggle = ({ isLogin, setIsLogin }) => {
+const AuthToggle = ({ isLogin, setIsLogin, userType, setUserType }) => {
   return (
     <div style={{
       display: 'flex',
@@ -23,7 +23,7 @@ const AuthToggle = ({ isLogin, setIsLogin }) => {
           transform: isLogin ? 'translateY(-2px)' : 'none'
         }}
         onClick={() => setIsLogin(true)}
-      >
+        >
         Login
       </button>
       <button 
@@ -44,6 +44,14 @@ const AuthToggle = ({ isLogin, setIsLogin }) => {
       >
         Sign Up
       </button>
+      {!isLogin && (
+        <div style={{marginTop: '1rem'} }>
+          <button onClick={() => setUserType('mentee')}>Mentee</button>
+          <button onClick={() => setUserType('mentor')}>Mentor</button>
+        </div>
+      )
+
+      }
     </div>
   );
 };

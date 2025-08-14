@@ -18,8 +18,18 @@ const userSchema = new mongoose.Schema({
         trim: true,
         lowercase: true,
         match: /.+\@.+\..+/
-    }
-});
+    },
+    userType: {
+        type: String,
+        enum: ['mentee', 'mentor'],
+        required: true
+    },
+    image: {type: String},
+    technologies: {type: [String]},
+    yearsOfExperience: {type: Number},
+    description: {type: String},
+    phone: {type: String},
+    linkedin: {type: String}
+}, { timestamps: true });
 
-
-module.exports = mongoose.model('User', userSchema); // Export the User model
+module.exports = mongoose.model('User', userSchema);
