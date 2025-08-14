@@ -19,17 +19,14 @@ app.use(express.urlencoded({ extended: true }));
 
 
 // Routes
-app.use("/api/users", require("./routes/users"));
+// app.use("/api/users", require("./routes/users"));
 
-// ***** temporary 
-// MongoDB connection - temporary until Inbal finish her part
+// MongoDB connection
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("MongoDB connection error:", err));
-// temporary until here
 
-
-// MongoDB connection
+// Routes
 app.use("/api/mentors", mentorsRoutes);
 
 // Health check endpoint
@@ -53,7 +50,7 @@ app.use((err, req, res, next) => {
 });
 
 // 404 handler
-app.use("*", (req, res) => {
+app.use((req, res) => {
   res.status(404).json({ error: "Route not found" });
 });
 
