@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import './MentorSignupForm.css';
+import './SignupForm.css';
 import { useFormState } from '../hooks/FormState';
 import { useFormValidation } from '../hooks/FormValidation';
 import FormField from '../FormField';
@@ -89,7 +89,7 @@ const MentorSignupForm = ( {onSuccess} ) => {
     return (
         <div className="mentee-signup-container">
             <form onSubmit={handleSubmit} className="mentee-signup-form">
-                <h2>Mentor Regestration</h2>
+                <h2>Mentor Registration</h2>
 
                 {mentorFields.map(field => (
                     <FormField

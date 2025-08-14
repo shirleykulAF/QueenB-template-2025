@@ -1,0 +1,671 @@
+/* ===========================================
+   SHARED SIGNUP FORMS CSS
+   For both Mentee & Mentor signup forms
+   =========================================== */
+
+/* CSS Variables for consistent theming */
+:root {
+  --primary-purple: #86007C;
+  --light-purple: #EFA1E2;
+  --cream-bg: #FBF4D7;
+  --dark-purple: #4D3A4D;
+  --white: #ffffff;
+  --text-dark: #2c2c2c;
+  --text-light: #666666;
+  --success-green: #10B981;
+  --error-red: #EF4444;
+  --border-light: #e5e5e5;
+  --shadow-light: 0 2px 8px rgba(134, 0, 124, 0.1);
+  --shadow-medium: 0 4px 16px rgba(134, 0, 124, 0.15);
+  --shadow-heavy: 0 8px 32px rgba(134, 0, 124, 0.2);
+  --border-radius: 12px;
+  --border-radius-small: 8px;
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===========================================
+   CONTAINER & MAIN LAYOUT
+   =========================================== */
+
+.mentee-signup-container,
+.mentor-signup-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--cream-bg) 0%, var(--white) 70%);
+  padding: 2rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.mentee-signup-form,
+.mentor-signup-form {
+  background: var(--white);
+  padding: 3rem 2.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-heavy);
+  width: 100%;
+  border: 1px solid rgba(134, 0, 124, 0.1);
+  position: relative;
+  overflow: hidden;
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* Mentee form - narrower */
+.mentee-signup-form {
+  max-width: 450px;
+}
+
+/* Mentor form - wider for more content */
+.mentor-signup-form {
+  max-width: 600px;
+}
+
+/* Purple accent line at top */
+.mentee-signup-form::before,
+.mentor-signup-form::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-purple), var(--light-purple));
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+
+/* ===========================================
+   HEADER STYLING
+   =========================================== */
+
+.mentee-signup-form h2,
+.mentor-signup-form h2 {
+  color: var(--dark-purple);
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.75rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+.mentor-signup-form h2 {
+  font-size: 1.85rem;
+  margin-bottom: 2.5rem;
+}
+
+/* ===========================================
+   FORM GROUP & INPUT STYLING
+   =========================================== */
+
+.form-group {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+/* More spacing for mentor form */
+.mentor-signup-form .form-group {
+  margin-bottom: 1.75rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 500;
+  color: var(--dark-purple);
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.025em;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border: 2px solid var(--border-light);
+  border-radius: var(--border-radius-small);
+  font-size: 1rem;
+  color: var(--text-dark);
+  background-color: var(--white);
+  transition: var(--transition-smooth);
+  font-family: inherit;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--text-light);
+  opacity: 0.8;
+}
+
+/* Focus states */
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: var(--primary-purple);
+  box-shadow: 0 0 0 3px rgba(134, 0, 124, 0.1);
+  transform: translateY(-1px);
+}
+
+/* Disabled states */
+.form-group input:disabled,
+.form-group textarea:disabled,
+.form-group select:disabled {
+  background-color: #f8f9fa;
+  color: var(--text-light);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Required field indicator */
+.form-group label::after {
+  content: ' *';
+  color: var(--error-red);
+  font-weight: 600;
+}
+
+.form-group label.optional::after {
+  content: '';
+}
+
+/* ===========================================
+   SPECIAL INPUT TYPES
+   =========================================== */
+
+/* Textarea for description */
+.form-group textarea {
+  min-height: 100px;
+  resize: vertical;
+  font-family: inherit;
+  line-height: 1.5;
+}
+
+/* Mentor form textarea - bigger */
+.mentor-signup-form .form-group textarea {
+  min-height: 120px;
+  padding: 1rem;
+  line-height: 1.6;
+}
+
+/* Number inputs */
+.form-group input[type="number"] {
+  -moz-appearance: textfield;
+  text-align: center;
+  font-weight: 600;
+}
+
+.form-group input[type="number"]::-webkit-outer-spin-button,
+.form-group input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* URL inputs */
+.form-group input[type="url"],
+.form-group input[type="tel"] {
+  direction: ltr;
+  text-align: left;
+  font-family: 'Courier New', monospace;
+}
+
+/* ===========================================
+   MENTOR-SPECIFIC FIELD STYLING
+   =========================================== */
+
+/* Technologies field with special styling */
+.technologies-container {
+  position: relative;
+}
+
+.technologies-container input {
+  padding-right: 3rem;
+}
+
+.technologies-hint {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  background: var(--cream-bg);
+  color: var(--text-light);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  pointer-events: none;
+  opacity: 0.8;
+  font-weight: 500;
+}
+
+.technologies-help {
+  font-size: 0.8rem;
+  color: var(--text-light);
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+/* Experience years with visual indicator */
+.experience-group {
+  position: relative;
+}
+
+.experience-indicator {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--primary-purple);
+  font-weight: 600;
+  font-size: 0.9rem;
+  pointer-events: none;
+  background: var(--white);
+  padding: 0 0.5rem;
+}
+
+/* Two-column layout for contact info */
+.contact-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* ===========================================
+   FORM SECTIONS (FOR MENTOR)
+   =========================================== */
+
+.form-section {
+  margin-bottom: 2.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.form-section:last-of-type {
+  border-bottom: none;
+  margin-bottom: 1rem;
+}
+
+.form-section-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--dark-purple);
+  margin-bottom: 1.5rem;
+  text-align: center;
+  position: relative;
+}
+
+.form-section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary-purple), var(--light-purple));
+  border-radius: 1px;
+}
+
+/* Professional summary styling */
+.professional-summary {
+  background: linear-gradient(135deg, var(--cream-bg) 0%, rgba(134, 0, 124, 0.05) 100%);
+  padding: 1.5rem;
+  border-radius: var(--border-radius-small);
+  margin: 1rem 0;
+}
+
+.professional-summary textarea {
+  background: transparent;
+  border: 1px solid rgba(134, 0, 124, 0.2);
+}
+
+/* ===========================================
+   HELP TEXT
+   =========================================== */
+
+.file-help {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-light);
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+/* ===========================================
+   IMAGE PREVIEW
+   =========================================== */
+
+.image-preview,
+.image-preview-container {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.image-preview img {
+  max-width: 120px;
+  max-height: 120px;
+  border-radius: var(--border-radius-small);
+  border: 2px solid var(--border-light);
+  box-shadow: var(--shadow-light);
+  transition: var(--transition-smooth);
+  object-fit: cover;
+}
+
+/* Mentor form - slightly larger image */
+.mentor-signup-form .image-preview img {
+  max-width: 150px;
+  max-height: 150px;
+}
+
+.image-preview img:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-medium);
+}
+
+.remove-image-button {
+  background: var(--error-red);
+  color: var(--white);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius-small);
+  font-size: 0.8rem;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: var(--transition-smooth);
+}
+
+.remove-image-button:hover {
+  background: #dc2626;
+  transform: translateY(-1px);
+}
+
+/* ===========================================
+   BUTTONS
+   =========================================== */
+
+.submit-button {
+  width: 100%;
+  background: linear-gradient(135deg, var(--primary-purple) 0%, var(--light-purple) 100%);
+  color: var(--white);
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: var(--border-radius);
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  text-transform: none;
+  letter-spacing: 0.025em;
+  margin-top: 1rem;
+  box-shadow: var(--shadow-light);
+}
+
+/* Mentor form - slightly bigger button */
+.mentor-signup-form .submit-button {
+  padding: 1.25rem 2rem;
+  margin-top: 2rem;
+}
+
+.submit-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+  background: linear-gradient(135deg, var(--dark-purple) 0%, var(--primary-purple) 100%);
+}
+
+.submit-button:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-light);
+}
+
+.submit-button:disabled {
+  background: var(--text-light);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+  opacity: 0.7;
+}
+
+/* ===========================================
+   ERROR & SUCCESS MESSAGES
+   =========================================== */
+
+.error-message {
+  background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+  color: var(--error-red);
+  padding: 1rem;
+  border-radius: var(--border-radius-small);
+  margin: 1rem 0;
+  font-size: 0.9rem;
+  border: 1px solid #fecaca;
+  text-align: center;
+  font-weight: 500;
+  animation: shake 0.5s ease-in-out;
+}
+
+.success-message {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  color: var(--success-green);
+  padding: 1rem;
+  border-radius: var(--border-radius-small);
+  margin: 1rem 0;
+  font-size: 0.9rem;
+  border: 1px solid #bbf7d0;
+  text-align: center;
+  font-weight: 500;
+  animation: slideDown 0.5s ease-out;
+}
+
+/* ===========================================
+   ANIMATIONS
+   =========================================== */
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-3px); }
+  20%, 40%, 60%, 80% { transform: translateX(3px); }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===========================================
+   RESPONSIVE DESIGN
+   =========================================== */
+
+/* Mobile devices */
+@media (max-width: 480px) {
+  .mentee-signup-container,
+  .mentor-signup-container {
+    padding: 1rem 0.5rem;
+  }
+  
+  .mentee-signup-form,
+  .mentor-signup-form {
+    padding: 2rem 1.5rem;
+    max-width: 100%;
+    margin: 0.5rem;
+  }
+  
+  .mentee-signup-form h2,
+  .mentor-signup-form h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-group {
+    margin-bottom: 1.25rem;
+  }
+  
+  .mentor-signup-form .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    padding: 0.75rem;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  .submit-button {
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+  }
+  
+  .mentor-signup-form .submit-button {
+    padding: 1rem 1.5rem;
+  }
+  
+  .image-preview img,
+  .mentor-signup-form .image-preview img {
+    max-width: 100px;
+    max-height: 100px;
+  }
+  
+  .technologies-hint {
+    display: none; /* Hide on mobile to save space */
+  }
+  
+  .contact-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  
+  .form-section {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+  }
+}
+
+/* Tablet devices */
+@media (min-width: 481px) and (max-width: 768px) {
+  .mentee-signup-form {
+    max-width: 400px;
+    padding: 2.5rem 2rem;
+  }
+  
+  .mentor-signup-form {
+    max-width: 550px;
+    padding: 2.5rem 2rem;
+  }
+}
+
+/* Desktop devices */
+@media (min-width: 769px) {
+  .mentee-signup-container,
+  .mentor-signup-container {
+    padding: 3rem 2rem;
+  }
+  
+  .mentee-signup-form {
+    max-width: 450px;
+  }
+  
+  .mentor-signup-form {
+    max-width: 600px;
+  }
+}
+
+/* Large screens */
+@media (min-width: 1200px) {
+  .mentor-signup-form {
+    max-width: 650px;
+    padding: 3.5rem 3rem;
+  }
+}
+
+/* ===========================================
+   ACCESSIBILITY & REDUCED MOTION
+   =========================================== */
+
+@media (prefers-contrast: high) {
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    border-width: 3px;
+  }
+  
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    box-shadow: 0 0 0 4px rgba(134, 0, 124, 0.3);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ===========================================
+   LOADING STATES
+   =========================================== */
+
+.form-loading {
+  position: relative;
+  overflow: hidden;
+}
+
+.form-loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(134, 0, 124, 0.1),
+    transparent
+  );
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* ===========================================
+   PRINT STYLES
+   =========================================== */
+
+@media print {
+  .mentee-signup-container,
+  .mentor-signup-container {
+    background: white;
+    box-shadow: none;
+  }
+  
+  .mentee-signup-form,
+  .mentor-signup-form {
+    box-shadow: none;
+    border: 2px solid #000;
+  }
+  
+  .submit-button {
+    display: none;
+  }
+}
