@@ -1,16 +1,27 @@
-import React from 'react';
-import SearchBar from './SearchBar';
-import { Box,Typography } from "@mui/material";
+import React from "react";
+import { Box, Typography } from "@mui/material";
 
+import SearchBar from "./SearchBar";
+import AllMentorsCards from "./AllMentorsCards";
 
 function HomePage() {
   return (
-    <Box sx={{display: "flex", flexDirection: "column", alignItems: "center", marginTop: 4, gap:5}}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        marginTop: 4,
+        gap: 5,
+      }}
+    >
       <Typography variant="h2">Find Your Mentor</Typography>
-         <SearchBar/>
 
+      <SearchBar />
+
+      <AllMentorsCards />
+      
     </Box>
-    
   );
 }
 
