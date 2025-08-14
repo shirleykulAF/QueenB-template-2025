@@ -1,6 +1,8 @@
 import React from 'react';
 import { FaEnvelope, FaLinkedin, FaWhatsapp } from 'react-icons/fa';
-import './MentorModal.css'; // No "styles" import
+import './MentorModal.css'; 
+import MentorHeader from "../MentorHeader/MentorHeader";
+import MentorInfo from "../MentorInfo/MentorInfo";
 
 const MentorModal = ({ mentor, onClose }) => {
     if (!mentor) return null;
@@ -14,7 +16,8 @@ const MentorModal = ({ mentor, onClose }) => {
         return digits;
     };
 
-    const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${mentor.email}`;
+    const email = mentor.email || '';
+    const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}`;
 
     return (
         <div className="background" onClick={onClose}>
@@ -22,27 +25,22 @@ const MentorModal = ({ mentor, onClose }) => {
                 <button onClick={onClose} className="closeBtn">
                     &times;
                 </button>
-                <img 
-                    src={mentor.image} 
-                    alt={`${mentor.firstName} ${mentor.lastName}`} 
-                    className="avatar"
-                />
-                <h2>{`${mentor.firstName} ${mentor.lastName}`}</h2>
-                <p><strong>טכנולוגיות:</strong> {mentor.technologies.join(', ')}</p>
-                <p><strong>נסיון:</strong> {mentor.yearsOfExperience} שנים</p>
-                <p>{mentor.description}</p>
+                
+                <MentorHeader mentor={mentor} />
+                <MentorInfo mentor={mentor} />
+                
                 <div className="contactIcons">
-                    <a href={gmailLink} target="_blank" rel="noreferrer" title="שלחי אימייל">
+                    <a href={gmailLink} target="_blank" rel="noreferrer" title="Send Email">
                         <FaEnvelope size={24} color="#D44638" />
                     </a>
-                    <a href={mentor.linkedin} target="_blank" rel="noreferrer" title="פרופיל לינקדין">
+                    <a href={mentor.linkedin} target="_blank" rel="noreferrer" title="LinkedIn Profile">
                         <FaLinkedin size={24} color="#0077B5" />
                     </a>
                     <a
                         href={`https://wa.me/${formatPhoneForWhatsApp(mentor.phone)}`}
                         target="_blank"
                         rel="noreferrer"
-                        title="שלחי וואטסאפ"
+                        title="Send WhatsApp Message"
                     >
                         <FaWhatsapp size={24} color="#25D366" />
                     </a>

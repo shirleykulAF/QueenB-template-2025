@@ -19,6 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 
 
 // Routes
+<<<<<<< HEAD
 app.use("/api/users", require("./routes/users"));
 
 
@@ -28,8 +29,16 @@ mongoose.connect(process.env.MONGO_URI)
   .catch((err) => console.error("MongoDB connection error:", err));
 // temporary until here
 
+=======
+// app.use("/api/users", require("./routes/users"));
+>>>>>>> 49d6891fc336e613c5de4d3e346b3108f666a287
 
 // MongoDB connection
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((err) => console.error("MongoDB connection error:", err));
+
+// Routes
 app.use("/api/mentors", mentorsRoutes);
 
 // Health check endpoint
@@ -53,10 +62,13 @@ app.use((err, req, res, next) => {
 });
 
 // 404 handler
+<<<<<<< HEAD
 // app.use("*", (req, res) => {
 //   res.status(404).json({ error: "Route not found" });
 // });
 
+=======
+>>>>>>> 49d6891fc336e613c5de4d3e346b3108f666a287
 app.use((req, res) => {
   res.status(404).json({ error: "Route not found" });
 });
