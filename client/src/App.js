@@ -1,48 +1,119 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { 
   ThemeProvider, 
   createTheme, 
   CssBaseline
 } from "@mui/material";
 
+<<<<<<< HEAD
+import MentorList from "./pages/MentorList/MentorList";
+import AuthPage from "./components/Login-Signup/AuthPage";
+import NavBar from "./components/Layout/NavBar";
+=======
 import MentorList from "./pages/MentorList/MentorList"; 
 import MentorHome from "./pages/MentorHome/MentorHome"; 
 
+>>>>>>> 49d6891fc336e613c5de4d3e346b3108f666a287
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#6366f1",
+      main: "#86007C",
+      light: "#EFA1E2",
+      dark: "#4D3A4D",
     },
     secondary: {
-      main: "#ec4899",
+      main: "#EFA1E2",
+      light: "#FBF4D7",
+      dark: "#86007C",
     },
     background: {
-      default: "#f8fafc",
+      default: "#FBF4D7",
+      paper: "#FFFFFF",
+    },
+    text: {
+      primary: "#4D3A4D",
+      secondary: "#86007C",
     },
   },
   typography: {
     fontFamily: "Roboto, Arial, sans-serif",
     h4: {
       fontWeight: 600,
+      color: "#4D3A4D",
     },
     h6: {
       fontWeight: 500,
+      color: "#4D3A4D",
+    },
+  },
+  components: {
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          background: "linear-gradient(135deg, #86007C 0%, #EFA1E2 100%)",
+          boxShadow: "0 4px 20px rgba(134, 0, 124, 0.3)",
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8,
+          textTransform: "none",
+          fontWeight: 500,
+        },
+        contained: {
+          background: "linear-gradient(135deg, #86007C 0%, #EFA1E2 100%)",
+          "&:hover": {
+            background: "linear-gradient(135deg, #4D3A4D 0%, #86007C 100%)",
+          },
+        },
+      },
     },
   },
 });
 
-
 function App() {
+  const [user, setUser] = useState(null);
+
+  const handleAuthSuccess = (userData) => {
+    console.log('User authenticated:', userData);
+    setUser(userData);
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+  };
+
+  // If user is not logged in, show auth page
+  if (!user) {
+    return (
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <AuthPage onAuthSuccess={handleAuthSuccess} />
+      </ThemeProvider>
+    );
+  }
+
+  // If user is logged in, show the main app
   return (
-     <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
       <CssBaseline />
       <Router>
+        {/* Navigation Bar */}
+        <NavBar user={user} onLogout={handleLogout} />
+
         <Routes>
           <Route path="/" element={<MentorList />} />
+<<<<<<< HEAD
+          {/* <Route path="/mentors" element={<MentorList />} />
+          <Route path="*" element={<Navigate to="/" replace />} /> */}
+=======
           <Route path="/mentor-home" element={<MentorHome />} />
           <Route path="/mentors" element={<MentorList />} />
+>>>>>>> 49d6891fc336e613c5de4d3e346b3108f666a287
         </Routes>
       </Router>
     </ThemeProvider>

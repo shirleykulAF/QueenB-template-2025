@@ -1,0 +1,414 @@
+/* ===========================================
+   AUTH TOGGLE - CSS
+   Login/Signup + Mentee/Mentor Buttons
+   =========================================== */
+
+/* CSS Variables */
+:root {
+  --primary-purple: #86007C;
+  --light-purple: #EFA1E2;
+  --cream-bg: #FBF4D7;
+  --dark-purple: #4D3A4D;
+  --white: #ffffff;
+  --text-dark: #2c2c2c;
+  --text-light: #666666;
+  --shadow-light: 0 2px 8px rgba(134, 0, 124, 0.1);
+  --shadow-medium: 0 4px 15px rgba(134, 0, 124, 0.3);
+  --border-radius: 12px;
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===========================================
+   MAIN CONTAINER
+   =========================================== */
+
+.auth-toggle-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem 1rem 1rem;
+  gap: 1.5rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ===========================================
+   LOGIN/SIGNUP BUTTONS ROW
+   =========================================== */
+
+.auth-mode-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.auth-mode-button {
+  padding: 0.75rem 1.5rem;
+  border: 2px solid var(--primary-purple);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: var(--transition-smooth);
+  text-transform: none;
+  letter-spacing: 0.025em;
+  min-width: 100px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Active state for login/signup */
+.auth-mode-button.active {
+  background: linear-gradient(135deg, var(--primary-purple) 0%, var(--light-purple) 100%);
+  color: var(--white);
+  box-shadow: var(--shadow-medium);
+  transform: translateY(-2px);
+}
+
+/* Inactive state for login/signup */
+.auth-mode-button.inactive {
+  background: var(--white);
+  color: var(--primary-purple);
+  box-shadow: var(--shadow-light);
+  transform: none;
+}
+
+.auth-mode-button:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-medium);
+}
+
+.auth-mode-button.active:hover {
+  background: linear-gradient(135deg, var(--dark-purple) 0%, var(--primary-purple) 100%);
+}
+
+.auth-mode-button.inactive:hover {
+  background: linear-gradient(135deg, #f8f9fa 0%, var(--cream-bg) 100%);
+}
+
+/* ===========================================
+   USER TYPE SELECTION (MENTEE/MENTOR)
+   =========================================== */
+
+.user-type-selection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  animation: slideDown 0.4s ease-out;
+}
+
+.user-type-label {
+  font-size: 0.9rem;
+  color: var(--dark-purple);
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.025em;
+}
+
+.user-type-buttons {
+  display: flex;
+  background: var(--white);
+  border-radius: var(--border-radius);
+  padding: 0.25rem;
+  box-shadow: var(--shadow-light);
+  border: 1px solid rgba(134, 0, 124, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.user-type-button {
+  padding: 0.625rem 1.25rem;
+  border: none;
+  background: transparent;
+  color: var(--text-dark);
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: var(--transition-smooth);
+  position: relative;
+  z-index: 2;
+  min-width: 80px;
+  text-align: center;
+  border-radius: calc(var(--border-radius) - 0.25rem);
+}
+
+/* Active user type button */
+.user-type-button.active {
+  color: var(--white);
+  font-weight: 600;
+}
+
+/* Sliding background indicator */
+.user-type-buttons::before {
+  content: '';
+  position: absolute;
+  top: 0.25rem;
+  bottom: 0.25rem;
+  width: calc(50% - 0.25rem);
+  background: linear-gradient(135deg, var(--primary-purple) 0%, var(--light-purple) 100%);
+  border-radius: calc(var(--border-radius) - 0.25rem);
+  transition: var(--transition-smooth);
+  z-index: 1;
+  box-shadow: 0 2px 8px rgba(134, 0, 124, 0.2);
+}
+
+/* Move background to right when mentor is selected */
+.user-type-buttons.mentor-selected::before {
+  left: calc(50% + 0.25rem);
+}
+
+/* Default position for mentee */
+.user-type-buttons.mentee-selected::before {
+  left: 0.25rem;
+}
+
+.user-type-button:hover {
+  transform: scale(1.02);
+}
+
+/* ===========================================
+   STEP INDICATOR (OPTIONAL)
+   =========================================== */
+
+.auth-steps {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.auth-step {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-light);
+  transition: var(--transition-smooth);
+}
+
+.auth-step.active {
+  background: var(--primary-purple);
+  transform: scale(1.2);
+}
+
+.auth-step.completed {
+  background: var(--light-purple);
+}
+
+/* ===========================================
+   ANIMATIONS
+   =========================================== */
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ===========================================
+   HEBREW TEXT SUPPORT
+   =========================================== */
+
+.user-type-button[data-lang="he"] {
+  direction: rtl;
+  font-family: 'Segoe UI', 'Arial Hebrew', Arial, sans-serif;
+}
+
+/* ===========================================
+   RESPONSIVE DESIGN
+   =========================================== */
+
+/* Mobile devices */
+@media (max-width: 480px) {
+  .auth-toggle-container {
+    padding: 1.5rem 0.5rem 1rem 0.5rem;
+    gap: 1.25rem;
+  }
+  
+  .auth-mode-buttons {
+    gap: 0.75rem;
+  }
+  
+  .auth-mode-button {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.9rem;
+    min-width: 85px;
+  }
+  
+  .user-type-buttons {
+    padding: 0.2rem;
+  }
+  
+  .user-type-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    min-width: 70px;
+  }
+  
+  .user-type-label {
+    font-size: 0.8rem;
+  }
+}
+
+/* Tablet devices */
+@media (min-width: 481px) and (max-width: 768px) {
+  .auth-mode-button {
+    min-width: 110px;
+  }
+  
+  .user-type-button {
+    min-width: 90px;
+  }
+}
+
+/* Desktop and larger */
+@media (min-width: 769px) {
+  .auth-toggle-container {
+    padding: 2.5rem 2rem 1.5rem 2rem;
+    gap: 2rem;
+  }
+  
+  .auth-mode-buttons {
+    gap: 1.25rem;
+  }
+  
+  .auth-mode-button {
+    padding: 0.875rem 1.75rem;
+    min-width: 120px;
+  }
+  
+  .user-type-button {
+    padding: 0.75rem 1.5rem;
+    min-width: 100px;
+  }
+}
+
+/* ===========================================
+   ACCESSIBILITY & REDUCED MOTION
+   =========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-mode-button,
+  .user-type-button,
+  .user-type-buttons::before {
+    transition: none;
+  }
+  
+  .user-type-selection {
+    animation: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .auth-mode-button {
+    border-width: 3px;
+  }
+  
+  .user-type-buttons {
+    border-width: 2px;
+  }
+}
+
+/* Focus states for keyboard navigation */
+.auth-mode-button:focus,
+.user-type-button:focus {
+  outline: 3px solid rgba(134, 0, 124, 0.4);
+  outline-offset: 2px;
+}
+
+/* ===========================================
+   DARK MODE SUPPORT (FUTURE)
+   =========================================== */
+
+@media (prefers-color-scheme: dark) {
+  .auth-mode-button.inactive {
+    background: #2d2d2d;
+    color: var(--light-purple);
+    border-color: var(--light-purple);
+  }
+  
+  .user-type-buttons {
+    background: #2d2d2d;
+    border-color: rgba(239, 161, 226, 0.2);
+  }
+  
+  .user-type-button {
+    color: #e5e5e5;
+  }
+}
+
+/* ===========================================
+   ENHANCED VISUAL FEEDBACK
+   =========================================== */
+
+/* Ripple effect on click */
+.auth-mode-button:active,
+.user-type-button:active {
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-mode-button:active::after,
+.user-type-button:active::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  animation: ripple 0.6s ease-out;
+}
+
+@keyframes ripple {
+  to {
+    width: 100px;
+    height: 100px;
+    opacity: 0;
+  }
+}
+
+/* Loading state for buttons */
+.auth-mode-button.loading,
+.user-type-button.loading {
+  position: relative;
+  color: transparent;
+  pointer-events: none;
+}
+
+.auth-mode-button.loading::after,
+.user-type-button.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
