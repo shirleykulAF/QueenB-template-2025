@@ -89,7 +89,7 @@ const MenteeSignupForm = ( {onSuccess} ) => {
     return (
         <div className="mentee-signup-container">
             <form onSubmit={handleSubmit} className="mentee-signup-form">
-                <h2>Mentee Sign Up</h2>
+                <h2>Mentor Regestration</h2>
 
                 {menteeFields.map(field => (
                     <FormField

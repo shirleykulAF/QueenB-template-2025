@@ -1,28 +1,28 @@
 export const menteeFields = [
   {
     name: 'firstName',
-    label: 'firstName',
+    label: 'First Name',
     type: 'text',
     required: true,
     placeholder: 'Insert your first name'
   },
   {
     name: 'lastName',
-    label: 'lastName',
+    label: 'Last Name',
     type: 'text',
     required: true,
     placeholder: 'Insert your last name'
   },
   {
     name: 'email',
-    label: 'email',
+    label: 'E-mail',
     type: 'email',
     required: true,
     placeholder: 'Insert your email'
   },
   {
     name: 'imageUrl',
-    label: 'imageUrl',
+    label: 'ImageUrl',
     type: 'url',
     required: false,
     placeholder: 'https://example.com/image.jpg'
@@ -33,7 +33,7 @@ export const mentorFields = [
   ...menteeFields,
     {
         name: 'technologies',
-        label: 'technologies',
+        label: 'Technologies',
         type: 'text',
         required: true,
         placeholder: 'React, Node.js, Python'
