@@ -1,7 +1,7 @@
 import React from "react";
 import './SignupForm.css';
-import { useFormState } from '../../hooks/FormState';
-import { useFormValidation } from '../../hooks/FormValidation';
+import { useFormState } from '../../hooks/useFormState';
+import { useFormValidation } from '../../hooks/useFormValidation';
 import FormField from '../FormField';
 import { menteeFields } from './config/formFields';
 
