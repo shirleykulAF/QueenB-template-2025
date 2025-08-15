@@ -6,7 +6,7 @@ import './MenteeHome.css';
 
 const baseURL = process.env.REACT_APP_API_URL;
 
-const MentorList = () => {
+const MenteeHome = () => {
   const { mentors, loading, error } = useMentorsList();
   const [selectedMentor, setSelectedMentor] = useState(null);
   const [query, setQuery] = useState(''); //stores what the user types in the search bar
@@ -53,4 +53,4 @@ const MentorList = () => {
   );
 };
 
-export default MentorList;
+export default MenteeHome;

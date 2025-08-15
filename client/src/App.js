@@ -6,7 +6,7 @@ import {
   CssBaseline
 } from "@mui/material";
 
-import MentorList from "./pages/MenteeHome/MenteeHome";
+import MenteeHome from "./pages/MenteeHome/MenteeHome";
 import AuthPage from "./components/Login-Signup/AuthPage";
 import NavBar from "./components/Layout/NavBar";
 
@@ -100,9 +100,9 @@ function App() {
         <NavBar user={user} onLogout={handleLogout} />
 
         <Routes>
-          <Route path="/" element={<MentorList />} />
+          <Route path="/" element={<MenteeHome />} />
           {/* <Route path="/mentor-home" element={<MentorHome />} />
-          <Route path="/mentors" element={<MentorList />} /> */}
+          <Route path="/mentors" element={<MenteeHome />} /> */}
         </Routes>
       </Router>
     </ThemeProvider>
