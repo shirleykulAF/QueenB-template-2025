@@ -1,13 +1,13 @@
 const express = require("express");
 const User = require("../models/User");
 const router = express.Router();
-const { getAllUsers } = require("../services/usersService");
+// const { getAllUsers } = require("../services/usersService");
 
-// GET /api/users - Get all users
-router.get("/", (req, res) => {
-  const users = getAllUsers();
-  res.json(users);
-});
+// // GET /api/users - Get all users
+// router.get("/", (req, res) => {
+//   const users = getAllUsers();
+//   res.json(users);
+// });
 
 
 // POST /api/users/register - Register a new user
