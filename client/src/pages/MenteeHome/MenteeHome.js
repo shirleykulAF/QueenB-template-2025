@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import MentorCard from '../../components/MentorCard/MentorCard';
 import MentorModal from '../../components/MentorModal/MentorModal';
 import useMentorsList from '../../hooks/useMentorsList';
-import './MentorList.css';
+import './MenteeHome.css';
 
 const baseURL = process.env.REACT_APP_API_URL;
 

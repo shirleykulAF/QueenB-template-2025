@@ -6,7 +6,7 @@ import {
   CssBaseline
 } from "@mui/material";
 
-import MentorList from "./pages/MentorList/MentorList";
+import MentorList from "./pages/MenteeHome/MenteeHome";
 import AuthPage from "./components/Login-Signup/AuthPage";
 import NavBar from "./components/Layout/NavBar";
 
