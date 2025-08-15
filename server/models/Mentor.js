@@ -12,4 +12,4 @@ const mentorSchema = new mongoose.Schema({
     image: String // URL to the mentor's image
 });
 
-module.exports = mongoose.model('Mentor', mentorSchema);
+module.exports = mongoose.model('Users', mentorSchema);
