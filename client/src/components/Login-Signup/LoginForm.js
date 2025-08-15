@@ -76,6 +76,7 @@ const LoginForm = ({ onSuccess }) => {
             }}
             required
             disabled={loading}
+            placeholder="Enter your email"
           />
         </div>
 

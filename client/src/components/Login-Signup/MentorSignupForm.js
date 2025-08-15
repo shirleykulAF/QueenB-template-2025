@@ -2,7 +2,7 @@ import React from "react";
 import './SignupForm.css';
 import { useFormState } from '../../hooks/useFormState';
 import { useFormValidation } from '../../hooks/useFormValidation';
-import FormField from '../FormField';
+import FormField from './FormField';
 import { mentorFields } from './config/formFields';
 
 const MentorSignupForm = ( {onSuccess} ) => {
