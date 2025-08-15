@@ -1,61 +1,121 @@
-/* LoginForm.css */
+/* client/src/components/Login-Signup/LoginForm.css */
+
+/* CSS Variables for consistent theming */
+:root {
+  --primary-purple: #86007C;
+  --light-purple: #EFA1E2;
+  --cream-bg: #FBF4D7;
+  --dark-purple: #4D3A4D;
+  --white: #ffffff;
+  --text-dark: #2c2c2c;
+  --text-light: #666666;
+  --error-red: #EF4444;
+  --border-light: #e5e5e5;
+  --shadow-light: 0 2px 8px rgba(134, 0, 124, 0.1);
+  --shadow-medium: 0 4px 16px rgba(134, 0, 124, 0.15);
+  --border-radius: 12px;
+  --border-radius-small: 8px;
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===========================================
+   MAIN CONTAINER
+   =========================================== */
+
 .login-container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #FBF4D7 0%, #EFA1E2 100%);
+  background: linear-gradient(135deg, var(--cream-bg) 0%, var(--light-purple) 100%);
   padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .login-form {
-  background: white;
-  padding: 2rem;
-  border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(77, 58, 77, 0.15);
+  background: var(--white);
+  padding: 2.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-medium);
   width: 100%;
   max-width: 400px;
   border: 1px solid rgba(239, 161, 226, 0.2);
+  position: relative;
+  overflow: hidden;
 }
+
+/* Purple accent line at top */
+.login-form::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-purple), var(--light-purple));
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+
+/* ===========================================
+   HEADER STYLING
+   =========================================== */
 
 .login-form h2 {
   text-align: center;
   margin-bottom: 2rem;
-  color: #4D3A4D;
+  color: var(--dark-purple);
   font-weight: 600;
-  background: linear-gradient(45deg, #86007C, #EFA1E2);
+  font-size: 1.75rem;
+  background: linear-gradient(45deg, var(--primary-purple), var(--light-purple));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  letter-spacing: -0.025em;
 }
+
+/* ===========================================
+   FORM GROUPS & INPUTS
+   =========================================== */
 
 .form-group {
   margin-bottom: 1.5rem;
+  position: relative;
 }
 
 .form-group label {
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 500;
-  color: #4D3A4D;
+  color: var(--dark-purple);
+  font-size: 0.9rem;
+  letter-spacing: 0.025em;
 }
 
 .form-group input {
   width: 100%;
-  padding: 0.75rem;
-  border: 2px solid rgba(239, 161, 226, 0.3);
-  border-radius: 8px;
+  padding: 0.875rem 1rem;
+  border: 2px solid var(--border-light);
+  border-radius: var(--border-radius-small);
   font-size: 1rem;
-  transition: all 0.3s ease;
-  box-sizing: border-box;
+  color: var(--text-dark);
   background: rgba(251, 244, 215, 0.1);
+  transition: var(--transition-smooth);
+  box-sizing: border-box;
+  font-family: inherit;
+  outline: none;
+}
+
+.form-group input::placeholder {
+  color: var(--text-light);
+  opacity: 0.8;
 }
 
 .form-group input:focus {
   outline: none;
-  border-color: #86007C;
+  border-color: var(--primary-purple);
   box-shadow: 0 0 0 3px rgba(134, 0, 124, 0.1);
-  background: white;
+  background: var(--white);
+  transform: translateY(-1px);
 }
 
 .form-group input:disabled {
@@ -64,64 +124,130 @@
   opacity: 0.6;
 }
 
+/* ===========================================
+   PASSWORD INPUT CONTAINER
+   =========================================== */
+
+.password-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input-container input {
+  padding-right: 3rem; /* מקום לכפתור ההצגה */
+}
+
+.password-toggle {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  color: var(--dark-purple);
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: var(--transition-smooth);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2rem;
+  min-height: 2rem;
+}
+
+.password-toggle:hover:not(:disabled) {
+  background-color: rgba(134, 0, 124, 0.1);
+  color: var(--primary-purple);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.password-toggle:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.password-toggle:focus {
+  outline: 2px solid rgba(134, 0, 124, 0.3);
+  outline-offset: 2px;
+}
+
+/* ===========================================
+   ERROR MESSAGES
+   =========================================== */
+
 .error-message {
-  background: linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(239, 161, 226, 0.1));
-  color: #86007C;
-  padding: 0.75rem;
-  border-radius: 8px;
+  background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+  color: var(--error-red);
+  padding: 0.875rem 1rem;
+  border-radius: var(--border-radius-small);
   margin-bottom: 1rem;
   text-align: center;
-  border: 1px solid rgba(220, 38, 38, 0.2);
+  border: 1px solid #fecaca;
+  font-size: 0.9rem;
+  font-weight: 500;
+  animation: shake 0.5s ease-in-out;
 }
+
+/* ===========================================
+   SUBMIT BUTTON
+   =========================================== */
 
 .submit-button {
   width: 100%;
-  padding: 0.875rem;
-  background: linear-gradient(135deg, #86007C 0%, #EFA1E2 100%);
-  color: white;
+  padding: 0.875rem 1.5rem;
+  background: linear-gradient(135deg, var(--primary-purple) 0%, var(--light-purple) 100%);
+  color: var(--white);
   border: none;
-  border-radius: 8px;
+  border-radius: var(--border-radius-small);
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: var(--transition-smooth);
   box-shadow: 0 4px 15px rgba(134, 0, 124, 0.3);
+  letter-spacing: 0.025em;
 }
 
 .submit-button:hover:not(:disabled) {
-  background: linear-gradient(135deg, #4D3A4D 0%, #86007C 100%);
+  background: linear-gradient(135deg, var(--dark-purple) 0%, var(--primary-purple) 100%);
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(134, 0, 124, 0.4);
 }
 
 .submit-button:disabled {
-  background: linear-gradient(135deg, #4D3A4D 0%, rgba(77, 58, 77, 0.5) 100%);
+  background: linear-gradient(135deg, var(--dark-purple) 0%, rgba(77, 58, 77, 0.5) 100%);
   cursor: not-allowed;
   transform: none;
-  box-shadow: none;
+  box-shadow: 0 2px 8px rgba(134, 0, 124, 0.2);
+  opacity: 0.7;
 }
 
-/* Auth toggle styles for switching between login/signup */
-.auth-toggle {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 2rem;
-  gap: 1rem;
+/* ===========================================
+   ANIMATIONS
+   =========================================== */
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-3px); }
+  20%, 40%, 60%, 80% { transform: translateX(3px); }
 }
 
-.auth-toggle button {
-  padding: 0.5rem 1rem;
-  border: 2px solid #6366f1;
-  background: white;
-  color: #6366f1;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-weight: 500;
+/* ===========================================
+   RESPONSIVE DESIGN
+   =========================================== */
+
+/* Desktop devices */
+@media (min-width: 769px) {
+  .login-container {
+    padding: 3rem 2rem;
+  }
+  
+  .login-form {
+    max-width: 420px;
+    padding: 3rem 2.5rem;
+  }
 }
 
-.auth-toggle button.active,
-.auth-toggle button:hover {
-  background: #6366f1;
-  color: white;
-}
+

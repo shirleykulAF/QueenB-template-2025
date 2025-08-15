@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import './SignupForm.css';
 import { useFormState } from '../../hooks/useFormState';
 import { useFormValidation } from '../../hooks/useFormValidation';
@@ -20,14 +20,20 @@ const MentorSignupForm = ( {onSuccess} ) => {
         firstName: '',
         lastName: '',
         email: '',
+        passworsd: '',
         imageUrl: '',
+        technologies: '',
+        yearsOfExperience: '',
+        linkedIn: '',
+        phone: '',
+        description: '',
         userType: 'mentor'
     });
 
-    const { validateRequired, validateEmail, validateImageUrl } = useFormValidation();
+    const { validateRequired, validateEmail, validateImageUrl, validatePassword } = useFormValidation();
 
     const validateForm = () => {
-        const requiredFields = ['firstName', 'lastName', 'email', 'technologies', 'yearsOfExperience', 'linkedin', 'phone'];
+        const requiredFields = ['firstName', 'lastName', 'email', 'password', 'technologies', 'yearsOfExperience', 'linkedin', 'phone'];
         const missingFields = validateRequired(requiredFields, formData);
         if (missingFields) {    
             setError(missingFields);
@@ -45,6 +51,13 @@ const MentorSignupForm = ( {onSuccess} ) => {
             setError(imageError);
             return false;
         };
+
+        const passwordError = validatePassword(formData.password);
+        if (passwordError) {    
+            setError(passwordError);
+            return false;
+        };
+
         return true;
     };
 
@@ -74,6 +87,9 @@ const MentorSignupForm = ( {onSuccess} ) => {
 
             if (data.success) {
                 setSuccess(data.message);
+                localStorage.setItem('authToken', data.token);
+                localStorage.setItem('user', JSON.stringify(data.user));
+                
                 resetForm();
                 if (onSuccess) onSuccess(data.user); // Call the onSuccess callback with the user data
             } else {

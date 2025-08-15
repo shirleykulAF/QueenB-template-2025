@@ -1,24 +1,34 @@
 import React, { useState } from 'react';
 import './LoginForm.css';
+import { useFormValidation }  from '../../hooks/useFormValidation';
 
 const LoginForm = ({ onSuccess }) => {
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-
+  const [showPassword, setShowPassword] = useState(false);
+  const { validateEmail } = useFormValidation();
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (!email.trim()) {
-      setError('Email is required');
+    if (!email.trim() || !password.trim()) {
+      setError('Email and password are required');
       return;
     }
 
-    if (!/\S+@\S+\.\S+/.test(email)) {
-      setError('Email is invalid');
+    const emailError = validateEmail(email);
+    if (emailError) {
+      setError(emailError);
       return;
     }
-
+    
+    if (password.length < 6) {
+      setError('Password must be at least 6 characters long');
+      return;
+    } 
+    
     setLoading(true);
     setError('');
 
@@ -28,12 +38,15 @@ const LoginForm = ({ onSuccess }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email })
+        body: JSON.stringify({ email, password })
       });
 
       const data = await response.json();
 
       if (data.success) {
+        localStorage.setItem('authToken', data.token);
+        localStorage.setItem('user', JSON.stringify(data.user)); 
+
         if (onSuccess) onSuccess(data.user);
       } else {
         setError(data.message || 'Login failed');
@@ -64,6 +77,37 @@ const LoginForm = ({ onSuccess }) => {
             required
             disabled={loading}
           />
+        </div>
+
+        <div className='form-group'>
+          <label htmlFor='password'>Password</label >
+          <div className='password-input-container'>
+            <input
+              type={showPassword ? 'text' : 'password'}
+              id='password'
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                if (error) setError('');
+              }}
+              required
+              disabled={loading}
+              minLength={6}
+              placeholder='Enter your password'
+            />
+            <button
+              type='button'
+              className='password-toggle'
+              onClick={() => setShowPassword(!showPassword)}
+              disabled={loading}
+              aria-label={showPassword ? "Hide password" : "Show password"}
+
+            >
+              {showPassword ? 'Hide' : 'Show'}
+            </button>
+
+          </div>
+
         </div>
 
         {error && <div className="error-message">{error}</div>}

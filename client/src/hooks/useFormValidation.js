@@ -34,9 +34,28 @@ export const useFormValidation = () => {
     return null;
   };
 
+  const validatePhoneNumber = (phone) => {
+    const phoneRegex = /^\+?[1-9]\d{1,14}$/; // E.164 format
+    if (phone && !phoneRegex.test(phone)) {
+      return 'Invalid phone number format';
+    }
+    return null;
+  };
+
+  const validatePassword = (password) => {
+    if (password && password.length < 6) {
+      return 'Password must be at least 6 characters long';
+    }
+    return null;
+  };
+
   return {
     validateRequired,
     validateEmail,
-    validateImageUrl
+    validateImageUrl,
+    validatePhoneNumber,
+    validatePassword
   };
 };
+
+export default useFormValidation;

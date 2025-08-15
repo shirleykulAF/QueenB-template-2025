@@ -1,21 +1,18 @@
 const express = require("express");
 const User = require("../models/User");
-const router = express.Router();
-// const { getAllUsers } = require("../services/usersService");
+const bcrypt = require('bcryptjs');
 
-// // GET /api/users - Get all users
-// router.get("/", (req, res) => {
-//   const users = getAllUsers();
-//   res.json(users);
-// });
+const router = express.Router();
+const jwt = require("jsonwebtoken");
 
 
 // POST /api/users/register - Register a new user
 router.post("/register", async (req, res) => {
   try{
-    const { firstName, lastName, email, userType, image } = req.body;
+    const { firstName, lastName, email, password, userType, image } = req.body;
     
     // check if user already exists
+
     const existingUser = await User.findOne({email})
     if (existingUser) {
       return res.status(400).json({ message: "email already in use" });
@@ -26,6 +23,7 @@ router.post("/register", async (req, res) => {
       firstName, 
       lastName, 
       email,
+      password,
       userType
 
     };
@@ -46,17 +44,29 @@ router.post("/register", async (req, res) => {
     const user = new User(userData);
     const savedUser = await user.save();
 
+    // Generate a JWT token
+    const token = jwt.sign(
+      {
+        userId: savedUser._id,
+        userType: savedUser.userType,
+        email: savedUser.email
+      },
+      process.env.JWT_SECRET || 'fallbackSecret',
+      { expiresIn: '1h' }
+    );
+
     console.log("User saved successfully!", savedUser._id);
 
     res.status(201).json({
       success: true, 
       message: "User registered successfully", 
-      user 
+      user: savedUser,
+      token 
     });
   } catch (error) {
     res.status(500).json({ 
       success: false,
-      message: "Server error",
+      message: "Server error during registration",
       error: error.message });
   }
 })
@@ -64,25 +74,54 @@ router.post("/register", async (req, res) => {
 // POST /api/users/login - Login a user
 router.post("/login", async (req, res) => {
     try {
-        const {email} = req.body;
-        const user = await User.findOne({email});
-        if (!user) {
-            return res.status(404).json({ 
+        const {email, password} = req.body;
+        
+        if (!email || !password) {
+            return res.status(400).json({ 
               success: false,
-              message: "User not found"
+              message: "Email and password are required"
             });
         }
+
+        const user = await User.findOne({email});
+        if (!user) {
+            return res.status(401).json({ 
+              success: false,
+              message: "Invalid email"
+            });
+        }
+
+        const isPasswordValid = await user.comparePassword(password);
+        if (!isPasswordValid) {
+            return res.status(401).json({ 
+              success: false,
+              message: "Invalid password"
+            });
+        }
+
+        const token = jwt.sign(
+            {
+                userId: user._id,
+                userType: user.userType,
+                email: user.email
+            },
+            process.env.JWT_SECRET || 'fallbackSecret',
+            { expiresIn: '7d' } // Token expires in 7 days
+        );
+
+        console.log("User logged in successfully!", user._id);
 
         res.json({
             success: true,
             message: "User logged in successfully",
-            user
+            user: user,
+            token: token
         });
 
     } catch (error) {
         res.status(500).json({
           success: false,
-          message: "Server error", error: error.message,
+          message: "Server error during login", error: error.message,
           error: error.message
         });
 

@@ -20,16 +20,17 @@ const MenteeSignupForm = ( {onSuccess} ) => {
         firstName: '',
         lastName: '',
         email: '',
+        password: '',
         imageUrl: '',
         userType: 'mentee'
     });
 
-    const { validateRequired, validateEmail, validateImageUrl } = useFormValidation();
+    const { validateRequired, validateEmail, validateImageUrl, validatePassword } = useFormValidation();
 
 
     const validateForm = () => {
 
-        const requiredFields = ['firstName', 'lastName', 'email'];
+        const requiredFields = ['firstName', 'lastName', 'email', 'password'];
         const missingFields = validateRequired(requiredFields, formData);
         if (missingFields) {    
             setError(missingFields);
@@ -47,7 +48,15 @@ const MenteeSignupForm = ( {onSuccess} ) => {
             setError(imageError);
             return false;
         };
+
+        const passwordError = validatePassword(formData.password);
+        if (passwordError) {
+            setError(passwordError);
+            return false;
+        };
+
         return true;
+        
     };
 
     const handleSubmit = async (e) => {
@@ -74,6 +83,9 @@ const MenteeSignupForm = ( {onSuccess} ) => {
 
             if (data.success) {
                 setSuccess(data.message);
+                localStorage.setItem('token', data.token); // Store the token in localStorage
+                localStorage.setItem('user', JSON.stringify(data.user)); // Store user data
+
                 resetForm();
                 if (onSuccess) onSuccess(data.user); // Call the onSuccess callback with the user data
             } else {

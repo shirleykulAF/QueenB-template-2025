@@ -20,6 +20,13 @@ export const menteeFields = [
     required: true,
     placeholder: 'Insert your email'
   },
+   { name: 'password',
+    label: 'Password',
+    type: 'password',
+    required: true,
+    placeholder: 'Insert your password',
+    minLength: 6
+  },
   {
     name: 'imageUrl',
     label: 'ImageUrl',

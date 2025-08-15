@@ -158,11 +158,11 @@
 }
 
 /* Required field indicator */
-.form-group label::after {
+/* .form-group label::after {
   content: ' *';
   color: var(--error-red);
   font-weight: 600;
-}
+} */
 
 .form-group label.optional::after {
   content: '';
@@ -182,7 +182,7 @@
 
 /* Mentor form textarea - bigger */
 .mentor-signup-form .form-group textarea {
-  min-height: 120px;
+  min-height: 100px;
   padding: 1rem;
   line-height: 1.6;
 }
@@ -485,86 +485,8 @@
 }
 
 /* ===========================================
-   RESPONSIVE DESIGN
+   DESKTOP DESIGN
    =========================================== */
-
-/* Mobile devices */
-@media (max-width: 480px) {
-  .mentee-signup-container,
-  .mentor-signup-container {
-    padding: 1rem 0.5rem;
-  }
-  
-  .mentee-signup-form,
-  .mentor-signup-form {
-    padding: 2rem 1.5rem;
-    max-width: 100%;
-    margin: 0.5rem;
-  }
-  
-  .mentee-signup-form h2,
-  .mentor-signup-form h2 {
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
-  }
-  
-  .form-group {
-    margin-bottom: 1.25rem;
-  }
-  
-  .mentor-signup-form .form-group {
-    margin-bottom: 1.5rem;
-  }
-  
-  .form-group input,
-  .form-group textarea,
-  .form-group select {
-    padding: 0.75rem;
-    font-size: 16px; /* Prevents zoom on iOS */
-  }
-  
-  .submit-button {
-    padding: 0.875rem 1.5rem;
-    font-size: 1rem;
-  }
-  
-  .mentor-signup-form .submit-button {
-    padding: 1rem 1.5rem;
-  }
-  
-  .image-preview img,
-  .mentor-signup-form .image-preview img {
-    max-width: 100px;
-    max-height: 100px;
-  }
-  
-  .technologies-hint {
-    display: none; /* Hide on mobile to save space */
-  }
-  
-  .contact-row {
-    grid-template-columns: 1fr;
-    gap: 0;
-  }
-  
-  .form-section {
-    margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
-  }
-}
-
-/* Tablet devices */
-@media (min-width: 481px) and (max-width: 768px) {
-  .mentee-signup-form {
-    max-width: 400px;
-    padding: 2.5rem 2rem;
-  }
-  
-  .mentor-signup-form {
-    max-width: 550px;
-    padding: 2.5rem 2rem;
-  }
-}
 
 /* Desktop devices */
 @media (min-width: 769px) {
