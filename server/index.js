@@ -62,13 +62,10 @@ app.use((err, req, res, next) => {
 });
 
 // 404 handler
-<<<<<<< HEAD
 // app.use("*", (req, res) => {
 //   res.status(404).json({ error: "Route not found" });
 // });
 
-=======
->>>>>>> 49d6891fc336e613c5de4d3e346b3108f666a287
 app.use((req, res) => {
   res.status(404).json({ error: "Route not found" });
 });
