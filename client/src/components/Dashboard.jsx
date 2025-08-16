@@ -6,20 +6,23 @@ import {
   Typography
 } from "@mui/material";
 import UserManagement from "./UserManagement";
+import SearchBar from "./SearchBar";
 
-function App() {
+function Dashboard() {
   return (
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static" elevation={2}>
           <Toolbar>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 } }>
               👑 QueenB - Example Bar
             </Typography>
+            
           </Toolbar>
         </AppBar>
-        <UserManagement />
+      {/* <UserManagement /> */}
+      <SearchBar/>
       </Box>
   );
 }
 
-export default App;
+  export default Dashboard;

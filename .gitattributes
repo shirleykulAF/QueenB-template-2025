@@ -1,0 +1,4 @@
+* text=auto eol=lf
+
+# Ensure consistent line endings (LF) across all environments (Windows, macOS, Linux)
+# This prevents Git from introducing CRLF endings on Windows machines
