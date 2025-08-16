@@ -6,9 +6,10 @@ import {
   CssBaseline
 } from "@mui/material";
 
-import MentorList from "./pages/MenteeHome/MenteeHome";
+import MenteeHome from "./pages/MenteeHome/MenteeHome"; 
 import AuthPage from "./components/Login-Signup/AuthPage";
 import NavBar from "./components/Layout/NavBar";
+import MentorHome from "./pages/MentorHome/MentorHome";
 
 const theme = createTheme({
   palette: {
@@ -99,11 +100,17 @@ function App() {
         {/* Navigation Bar */}
         <NavBar user={user} onLogout={handleLogout} />
 
-        <Routes>
-          <Route path="/" element={<MentorList />} />
-          {/* <Route path="/mentor-home" element={<MentorHome />} />
-          <Route path="/mentors" element={<MentorList />} /> */}
-        </Routes>
+        {/* <Routes>
+          <Route path="/" element={<MentorHome />} />
+        </Routes> */}
+
+        <Routes> 
+          <Route path="/" element={
+            user.userType === 'mentor' 
+              ? <MentorHome user={user} />
+              : <MenteeHome user={user} />
+          } />
+        </Routes> 
       </Router>
     </ThemeProvider>
   );

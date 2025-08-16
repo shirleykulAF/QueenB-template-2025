@@ -4,9 +4,9 @@ import MentorContact from "../../components/MentorContact/MentorContact";
 import { useMentorData } from "../../hooks/useMentorData";
 import { useEffect } from "react";
 
-const MentorHome = () => {
+const MentorHome = ( {user} ) => {
   
-  const mentorId = "6894e568d3a1b111f32f2d99"; // TODO - replace with dynamic source
+  const mentorId = user._id;
 
   const { mentor, loading, error } = useMentorData(mentorId);
 
