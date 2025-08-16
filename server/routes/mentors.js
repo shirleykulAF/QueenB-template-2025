@@ -5,7 +5,7 @@ const User = require('../models/User');
 // GET /mentors
 router.get('/', async (req, res) => {
     try {
-        const mentors = await User.find();
+        const mentors = await User.find({ userType: 'mentor' }); // Only mentors
         res.json(mentors);
     } catch (error) {
         res.status(500).json({ message: 'Server Error: ' + error.message });
