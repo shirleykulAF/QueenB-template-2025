@@ -7,14 +7,10 @@ import {
 } from "@mui/material";
 import MentorDialog from "./MentorDialog";
 
-function MentorCard() {
+function MentorCard({mentor}) {
   const [open, setOpen] = useState(false);
-  const [MentorInfo, setMentorInfo] = useState({
-    profileImag: "",
-    firstName: "Mentor",
-    lastName: "Name",
-    Technologies: "Technologies"
-  })
+  
+  const [MentorInfo, setMentorInfo] = useState([])
 
   return (
     <>

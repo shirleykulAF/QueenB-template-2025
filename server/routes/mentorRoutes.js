@@ -6,7 +6,7 @@ const router = express.Router();
 const Mentor = require('../models/Mentor');
 
 // ==========================================
-// GET /api/mentors - Get all mentors
+// GET /api/mentors - Get all mentors 
 // ==========================================
 router.get('/', async (req, res) => {
   try {
@@ -30,7 +30,7 @@ router.get('/', async (req, res) => {
 });
 
 // ==========================================
-// GET /api/mentors/search - Search mentors
+// GET /api/mentors/search - Search mentors // by full name or Technologis
 // ==========================================
 router.get('/search', async (req, res) => {
   try {
