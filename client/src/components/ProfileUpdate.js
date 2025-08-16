@@ -33,6 +33,7 @@ import {
 } from "@mui/icons-material";
 
 import Footer from "./Footer";
+import Header from "./Header/Header.jsx";
 
 const ProfileUpdate = () => {
   const [formData, setFormData] = useState({
@@ -274,6 +275,7 @@ const ProfileUpdate = () => {
 
   return (
     <>
+      <Header />
       <Box bgcolor="background.default" minHeight="100vh" py={4}>
         <Container maxWidth="md">
           <Paper elevation={3} sx={{ borderRadius: 3, overflow: "hidden" }}>
