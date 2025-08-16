@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import MentorCard from '../../components/MentorCard/MentorCard';
-import MentorModal from '../../components/MentorModal/MentorModal';
+import MentorCard from '../../components/Mentor/MentorCard/MentorCard';
+import MentorModal from '../../components/Mentor/MentorModal/MentorModal';
 import useMentorsList from '../../hooks/useMentorsList';
 import './MenteeHome.css';
 

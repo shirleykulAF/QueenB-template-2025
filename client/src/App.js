@@ -3,7 +3,7 @@ import { ThemeProvider, CssBaseline } from "@mui/material";
 
 import { theme } from "./theme";
 import { useAuth } from "./hooks/useAuth";
-import AuthPage from "./components/Login-Signup/AuthPage";
+import AuthPage from "./components/Auth/AuthPage";
 import AppLayout from "./components/Layout/AppLayout";
 
 function App() {

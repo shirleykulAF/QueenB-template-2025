@@ -1,6 +1,6 @@
-import MentorHeader from "../../components/MentorHeader/MentorHeader";
-import MentorInfo from "../../components/MentorInfo/MentorInfo";
-import MentorContact from "../../components/MentorContact/MentorContact";
+import MentorHeader from "../../components/Mentor/MentorHeader/MentorHeader";
+import MentorInfo from "../../components/Mentor/MentorInfo/MentorInfo";
+import MentorContact from "../../components/Mentor/MentorContact/MentorContact";
 import { useMentorData } from "../../hooks/useMentorData";
 import { useEffect } from "react";
 
