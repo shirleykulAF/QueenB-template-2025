@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import "./Form.css";
+import { useNavigate } from "react-router-dom";
 
 export default function MentitSignUp() {
+  const navigate = useNavigate();
+  
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
@@ -45,6 +48,7 @@ export default function MentitSignUp() {
     .then((data) => {
       console.log("Mentee registered:", data);
       alert("Mentee registered!");
+      navigate("/mentors");  
     })
     .catch((err) => alert(err.message));
 }

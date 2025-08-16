@@ -73,3 +73,59 @@ code {
   color: var(--ink);
 }
 .input::placeholder { color: var(--muted); }
+
+/* Mentors page title */
+.mentorsTitle {
+  margin: 8px 0 16px;
+  font-family: "Heebo","Roboto",Arial,sans-serif;
+  font-weight: 900;
+  font-size: 1.8rem;
+  color: var(--ink);
+  text-align: center;
+}
+
+/* Filters bar layout */
+.filtersBar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+  align-items: end;
+}
+
+/* Clear filters button — reuse .button styles but tone it down */
+.clearBtn {
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #f9fafb;
+  color: var(--ink);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* MultiSelect component styles */
+.multiSelect {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 220px;
+}
+.multiSelectLabel {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--ink);
+}
+.multiSelectSelect {
+  min-height: 96px;
+  padding: 6px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--ink);
+  font-size: 14px;
+}
+.multiSelectHint {
+  color: var(--muted);
+  font-size: 12px;
+}
