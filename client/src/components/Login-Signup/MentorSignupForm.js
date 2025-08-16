@@ -2,7 +2,7 @@ import React from "react";
 import './SignupForm.css';
 import { useFormState } from '../../hooks/useFormState';
 import { useFormValidation } from '../../hooks/useFormValidation';
-import FormField from '../FormField';
+import FormField from './FormField';
 import { mentorFields } from './config/formFields';
 
 const MentorSignupForm = ( {onSuccess} ) => {
@@ -87,8 +87,8 @@ const MentorSignupForm = ( {onSuccess} ) => {
 
             if (data.success) {
                 setSuccess(data.message);
-                localStorage.setItem('authToken', data.token);
-                localStorage.setItem('user', JSON.stringify(data.user));
+                sessionStorage.setItem('authToken', data.token);
+                sessionStorage.setItem('user', JSON.stringify(data.user));
                 
                 resetForm();
                 if (onSuccess) onSuccess(data.user); // Call the onSuccess callback with the user data

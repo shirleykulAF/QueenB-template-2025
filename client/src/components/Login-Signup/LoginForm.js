@@ -44,8 +44,8 @@ const LoginForm = ({ onSuccess }) => {
       const data = await response.json();
 
       if (data.success) {
-        localStorage.setItem('authToken', data.token);
-        localStorage.setItem('user', JSON.stringify(data.user)); 
+        sessionStorage.setItem('authToken', data.token);
+        sessionStorage.setItem('user', JSON.stringify(data.user)); 
 
         if (onSuccess) onSuccess(data.user);
       } else {
@@ -76,6 +76,7 @@ const LoginForm = ({ onSuccess }) => {
             }}
             required
             disabled={loading}
+            placeholder="Enter your email"
           />
         </div>
 

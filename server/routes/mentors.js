@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const Mentor = require('../models/Mentor');
+const User = require('../models/User');
 
 // GET /mentors
 router.get('/', async (req, res) => {
     try {
-        const mentors = await Mentor.find();
+        const mentors = await User.find();
         res.json(mentors);
     } catch (error) {
         res.status(500).json({ message: 'Server Error: ' + error.message });
@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
 // GET /mentor/:id
 router.get('/mentor/:id', async (req, res) => {
     try {
-        const mentor = await Mentor.findById(req.params.id);
+        const mentor = await User.findById(req.params.id);
         if (!mentor) {
             return res.status(404).json({ message: 'Mentor not found' });
         }

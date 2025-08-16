@@ -2,7 +2,7 @@ import React from "react";
 import './SignupForm.css';
 import { useFormState } from '../../hooks/useFormState';
 import { useFormValidation } from '../../hooks/useFormValidation';
-import FormField from '../FormField';
+import FormField from './FormField';
 import { menteeFields } from './config/formFields';
 
 const MenteeSignupForm = ( {onSuccess} ) => {
@@ -83,8 +83,8 @@ const MenteeSignupForm = ( {onSuccess} ) => {
 
             if (data.success) {
                 setSuccess(data.message);
-                localStorage.setItem('token', data.token); // Store the token in localStorage
-                localStorage.setItem('user', JSON.stringify(data.user)); // Store user data
+                sessionStorage.setItem('token', data.token); // Store the token in localStorage
+                sessionStorage.setItem('user', JSON.stringify(data.user)); // Store user data
 
                 resetForm();
                 if (onSuccess) onSuccess(data.user); // Call the onSuccess callback with the user data
