@@ -1,0 +1,234 @@
+.sectionContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 6rem 0;
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.sectionHeader h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.sectionHeader h2::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background: #f43f5e;
+  border-radius: 2px;
+}
+
+.sectionHeader p {
+  font-size: 1.2rem;
+  color: #6b7280;
+}
+
+.stepsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+.stepCard {
+  text-align: center;
+  padding: 2rem 1rem;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.stepCard:hover {
+  transform: translateY(-5px);
+}
+
+.stepNumber {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 30px;
+  background: #f43f5e;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.stepIcon {
+  font-size: 3rem;
+  margin: 1rem 0;
+}
+
+.stepCard h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #1f2937;
+}
+
+.stepCard p {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.contactSection {
+  background: #fff;
+  padding: 5rem 0;
+  text-align: center;
+}
+
+.contactContent {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: 3rem;
+  max-width: 900px;
+  margin: 3rem auto 0 auto;
+}
+
+.contactCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  flex: 1 1 200px;
+  max-width: 250px;
+}
+
+.contactIcon {
+  font-size: 2.5rem;
+}
+
+.contactDetails h4 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+}
+
+.contactValue {
+  font-size: 1.1rem;
+  color: #f43f5e;
+  font-weight: 600;
+}
+
+.contactValue a {
+  color: #f43f5e;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.contactValue a:hover {
+  text-decoration: underline;
+}
+
+.about {
+  background: #f8fafc;
+  padding: 5rem 0;
+}
+
+.aboutContent {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: grid;
+  gap: 2rem;
+}
+
+.aboutGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.aboutText h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.aboutText h2::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  background: #f43f5e;
+  border-radius: 2px;
+}
+
+.aboutText p {
+  font-size: 1.1rem;
+  color: #4b5563;
+  line-height: 1.7;
+}
+
+.aboutHighlights {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.highlightTag {
+  background: #f43f5e;
+  color: white;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.aboutStats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.statItem {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.statNumber {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #f43f5e;
+  margin-bottom: 0.25rem;
+}
+
+.statLabel {
+  font-size: 1rem;
+  color: #6b7280;
+}
