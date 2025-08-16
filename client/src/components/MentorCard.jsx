@@ -9,6 +9,12 @@ import MentorDialog from "./MentorDialog";
 
 function MentorCard() {
   const [open, setOpen] = useState(false);
+  const [MentorInfo, setMentorInfo] = useState({
+    profileImag: "",
+    firstName: "Mentor",
+    lastName: "Name",
+    Technologies: "Technologies"
+  })
 
   return (
     <>

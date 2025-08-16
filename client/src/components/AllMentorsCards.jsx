@@ -13,6 +13,7 @@ function AllMentorsCards() {
         width: "80%",
       }}
     >
+        {/* need to switch with real api*/}
       <MentorCard />
       <MentorCard />
       <MentorCard />
