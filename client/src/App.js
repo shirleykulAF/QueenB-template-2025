@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { 
   ThemeProvider, 
@@ -73,13 +73,25 @@ const theme = createTheme({
 function App() {
   const [user, setUser] = useState(null);
 
+  // Load user from sessionStorage on initial render
+  useEffect(() => {
+    const savedUser = sessionStorage.getItem('user');
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
+    }
+  }, []);
+
+  // Handle authentication success
   const handleAuthSuccess = (userData) => {
-    console.log('User authenticated:', userData);
+    console.log('User authenticated:', userData); 
     setUser(userData);
   };
 
+  // Handle logout
   const handleLogout = () => {
     setUser(null);
+    sessionStorage.removeItem('user');
+    sessionStorage.removeItem('authToken');
   };
 
   // If user is not logged in, show auth page

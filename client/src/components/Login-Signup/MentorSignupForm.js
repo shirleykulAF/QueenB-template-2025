@@ -87,8 +87,8 @@ const MentorSignupForm = ( {onSuccess} ) => {
 
             if (data.success) {
                 setSuccess(data.message);
-                localStorage.setItem('authToken', data.token);
-                localStorage.setItem('user', JSON.stringify(data.user));
+                sessionStorage.setItem('authToken', data.token);
+                sessionStorage.setItem('user', JSON.stringify(data.user));
                 
                 resetForm();
                 if (onSuccess) onSuccess(data.user); // Call the onSuccess callback with the user data
