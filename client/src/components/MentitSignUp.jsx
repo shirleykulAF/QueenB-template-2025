@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function MentitSignUp() {
   const navigate = useNavigate();
-  
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
@@ -31,7 +31,7 @@ export default function MentitSignUp() {
     generalDescription: description || ""
   };
 
-  fetch("http://localhost:5000/api/auth/register-mentee", {
+  fetch("/api/auth/register-mentee", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     credentials: "include",

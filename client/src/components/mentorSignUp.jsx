@@ -1,9 +1,13 @@
+// client/src/components/mentorSignUp.jsx
 import React, { useState } from "react";
 import "./Form.css";
 import Autocomplete from "@mui/material/Autocomplete";
 import Chip from "@mui/material/Chip";
+import { useNavigate } from "react-router-dom";  
 
 function MentorSignUp() {
+  const navigate = useNavigate();  
+
   const [firstName, setFirstName] = useState("");
   const [lastName,  setLastName]  = useState("");
   const [phone,     setPhone]     = useState("");
@@ -21,7 +25,6 @@ function MentorSignUp() {
 
   const [phoneError, setPhoneError] = useState("");
 
-  // Suggestions (customize or fetch later)
   const programmingLanguageSuggestions = [
     "JavaScript","Python","Java","C++","C#","TypeScript","Go","Rust","SQL","Swift","Kotlin","Scala","Ruby"
   ];
@@ -48,7 +51,15 @@ function MentorSignUp() {
     setImage(file);
   }
 
+  // normalize LinkedIn so express-validator isURL passes (adds protocol if missing)
+  function normalizeLinkedin(url) { 
+    const v = (url || "").trim();
+    if (!v) return "";
+    return v.startsWith("http://") || v.startsWith("https://") ? v : `https://${v}`;
+  }
+
   function handleForm() {
+    // ---- Client-side checks to match your server validators ----
     if (!firstName || !lastName || !email || !password || !phone) {
       alert("Please fill first name, last name, email, password, and phone.");
       return;
@@ -59,40 +70,67 @@ function MentorSignUp() {
       return;
     }
 
+    // ensure non-empty description because server requires it (unless you relaxed it)
+    if (!String(description || "").trim()) { 
+      alert("Please add a short general description."); 
+      return; }
+
+    // ensure each list has at least one item (server requires non-empty)
+    if ( //  
+      programmingLanguages.length === 0 ||  
+      technologies.length === 0 ||           
+      domains.length === 0                   
+    ) {                                     
+      alert("Please add at least one Programming Language, Technology, and Domain."); //  
+      return;  
+    }  
+
+    // yearsOfExperience must be an integer string
+    const yoe = String(parseInt(yearsOfExperience || "0", 10));  
+
     const fd = new FormData();
-    fd.append("email", email);
+    fd.append("email", email.trim());
     fd.append("password", password);
-    fd.append("firstName", firstName);
-    fd.append("lastName", lastName);
-    fd.append("phoneNumber", phone);
-    fd.append("yearsOfExperience", String(yearsOfExperience || 0));
-    fd.append("generalDescription", description || "");
-    fd.append("linkedinUrl", linkedin || "");
+    fd.append("firstName", firstName.trim());
+    fd.append("lastName", lastName.trim());
+    fd.append("phoneNumber", phone.trim());
+    fd.append("yearsOfExperience", yoe);                  
+    fd.append("generalDescription", String(description).trim());  
+
+    // only append linkedinUrl if provided; add protocol if missing
+    const linked = normalizeLinkedin(linkedin);  
+    if (linked) fd.append("linkedinUrl", linked);  
 
     // Join arrays as CSV strings (backend will split)
     fd.append("programmingLanguages", programmingLanguages.join(","));
     fd.append("technologies", technologies.join(","));
     fd.append("domains", domains.join(","));
 
-    // File field name must match multer single('photo') on server
-    fd.append("profilePhoto", image);
+    // File field name MUST match multer.single('profilePhoto') on server
+    fd.append("profilePhoto", image); // (kept, but corrected comment)
 
-    fetch("http://localhost:5000/api/auth/register-mentor", {
+    // (optional) debug payload
+    // for (const [k, v] of fd.entries()) console.log("FD:", k, v);
+
+    fetch("/api/auth/register-mentor", {
       method: "POST",
-      body: fd,
-      credentials: "include",
+      body: fd,                   // don't set Content-Type with FormData
+      credentials: "include",     // keep session cookie
     })
       .then(async (r) => {
         const data = await r.json().catch(() => ({}));
         if (!r.ok) {
-          const msg = data?.error || data?.message || data?.errors?.[0]?.msg || "Registration failed";
-          throw new Error(msg);
+          const list = Array.isArray(data?.errors)
+            ? data.errors.map((e) => `${e.param}: ${e.msg}`).join("\n")  
+            : data?.error || data?.message || "Registration failed";     
+          throw new Error(list);
         }
         return data;
       })
       .then((data) => {
         console.log("Mentor registered:", data);
         alert("Mentor registered!");
+        navigate("/profile/edit");  
       })
       .catch((err) => alert(err.message));
   }
@@ -170,109 +208,108 @@ function MentorSignUp() {
             placeholder="Enter years of experience"
           />
 
-          {/* ---- Tags (chips) with MUI Autocomplete; keep your labels ---- */}
-            <label id="progLangs-label" className="label">Programming Languages</label>
-            <Autocomplete
+          {/* ---- Tags (chips) with MUI Autocomplete ---- */}
+          <label id="progLangs-label" className="label">Programming Languages</label>
+          <Autocomplete
             multiple
             freeSolo
             options={programmingLanguageSuggestions}
             value={programmingLanguages}
             onChange={(e, newValue) => setProgrammingLanguages(newValue)}
             renderTags={(value) =>
-                value.map((option, index) => (
+              value.map((option, index) => (
                 <Chip
-                    label={option}
-                    key={`${option}-${index}`}
-                    onDelete={() => {
+                  label={option}
+                  key={`${option}-${index}`}
+                  onDelete={() => {
                     const updated = [...programmingLanguages];
                     updated.splice(index, 1);
                     setProgrammingLanguages(updated);
-                    }}
+                  }}
                 />
-                ))
+              ))
             }
             renderInput={(params) => (
-                <div ref={params.InputProps.ref} className="autocomplete">
-                    {params.InputProps.startAdornment}
+              <div ref={params.InputProps.ref} className="autocomplete">
+                {params.InputProps.startAdornment}
                 <input
-                    {...params.inputProps}
-                    type="text"
-                    className="autocomplete-input"
-                    placeholder="Type and press Enter"
-                    aria-labelledby="progLangs-label"
+                  {...params.inputProps}
+                  type="text"
+                  className="autocomplete-input"
+                  placeholder="Type and press Enter"
+                  aria-labelledby="progLangs-label"
                 />
-                </div>
+              </div>
             )}
-            />
+          />
 
-            <label id="technologies-label" className="label">Technologies</label>
-            <Autocomplete
+          <label id="technologies-label" className="label">Technologies</label>
+          <Autocomplete
             multiple
             freeSolo
             options={technologySuggestions}
             value={technologies}
             onChange={(e, newValue) => setTechnologies(newValue)}
             renderTags={(value) =>
-                value.map((option, index) => (
+              value.map((option, index) => (
                 <Chip
-                    label={option}
-                    key={`${option}-${index}`}
-                    onDelete={() => {
+                  label={option}
+                  key={`${option}-${index}`}
+                  onDelete={() => {
                     const updated = [...technologies];
                     updated.splice(index, 1);
                     setTechnologies(updated);
-                    }}
+                  }}
                 />
-                ))
+              ))
             }
             renderInput={(params) => (
-                <div ref={params.InputProps.ref} className="autocomplete">
-                    {params.InputProps.startAdornment}
+              <div ref={params.InputProps.ref} className="autocomplete">
+                {params.InputProps.startAdornment}
                 <input
-                    {...params.inputProps}
-                    type="text"
-                    className="autocomplete-input"
-                    placeholder="e.g. React, Node.js, Docker"
-                    aria-labelledby="technologies-label"
+                  {...params.inputProps}
+                  type="text"
+                  className="autocomplete-input"
+                  placeholder="e.g. React, Node.js, Docker"
+                  aria-labelledby="technologies-label"
                 />
-                </div>
+              </div>
             )}
-            />
+          />
 
-            <label id="domains-label" className="label">Domains</label>
-            <Autocomplete
+          <label id="domains-label" className="label">Domains</label>
+          <Autocomplete
             multiple
             freeSolo
             options={domainSuggestions}
             value={domains}
             onChange={(e, newValue) => setDomains(newValue)}
             renderTags={(value) =>
-                value.map((option, index) => (
+              value.map((option, index) => (
                 <Chip
-                    label={option}
-                    key={`${option}-${index}`}
-                    onDelete={() => {
+                  label={option}
+                  key={`${option}-${index}`}
+                  onDelete={() => {
                     const updated = [...domains];
                     updated.splice(index, 1);
                     setDomains(updated);
-                    }}
+                  }}
                 />
-                ))
+              ))
             }
             renderInput={(params) => (
-                <div ref={params.InputProps.ref} className="autocomplete">
-                    {params.InputProps.startAdornment}
+              <div ref={params.InputProps.ref} className="autocomplete">
+                {params.InputProps.startAdornment}
                 <input
-                    {...params.inputProps}
-                    type="text"
-                    className="autocomplete-input"
-                    placeholder="e.g. Web, ML, DevOps"
-                    aria-labelledby="domains-label"
+                  {...params.inputProps}
+                  type="text"
+                  className="autocomplete-input"
+                  placeholder="e.g. Web, ML, DevOps"
+                  aria-labelledby="domains-label"
                 />
-                </div>
+              </div>
             )}
-            />
-
+          />
 
           <label htmlFor="linkedin" className="label">LinkedIn</label>
           <input
@@ -285,7 +322,7 @@ function MentorSignUp() {
           />
 
           <label htmlFor="image" className="label">Image</label>
-          <input id="image" type="file" onChange={handleImage} />
+          <input id="image" type="file" onChange={handleImage} accept="image/*" /> {/* CHANGED: accept */}
 
           <button type="button" className="button" onClick={handleForm}>
             Confirm
