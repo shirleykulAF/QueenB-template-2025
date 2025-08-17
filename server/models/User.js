@@ -43,7 +43,7 @@ const userSchema = new mongoose.Schema({
     linkedin: {type: String},
     favoriteMentors: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User' // Assuming mentors are also in the User collection
+        ref: 'User' 
     }]
 }, { timestamps: true });
 
