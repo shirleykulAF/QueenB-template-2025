@@ -4,6 +4,7 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const mongoose = require('mongoose');
 const mentorsRoutes = require('./routes/mentors');
+const favoritesRouter = require('./routes/favorites');
 require("dotenv").config();
 
 const app = express();
@@ -15,9 +16,12 @@ app.use(cors());
 app.use(morgan("combined"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/api/users", require("./routes/users"));
-app.use("/api/mentors", mentorsRoutes);
 
+
+// API Routes
+app.use("/api/mentors", mentorsRoutes);
+app.use("/api/users", require("./routes/users"));
+app.use('/api/favorites', favoritesRouter);
 
 
 // MongoDB connection
