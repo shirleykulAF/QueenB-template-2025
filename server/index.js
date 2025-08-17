@@ -5,6 +5,7 @@ const morgan = require("morgan");
 const mongoose = require('mongoose');
 const mentorsRoutes = require('./routes/mentors');
 const favoritesRouter = require('./routes/favorites');
+const tipsRouter = require('./routes/tips');
 require("dotenv").config();
 
 const app = express();
@@ -22,6 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/mentors", mentorsRoutes);
 app.use("/api/users", require("./routes/users"));
 app.use('/api/favorites', favoritesRouter);
+app.use('/api/tips', tipsRouter);
 
 
 // MongoDB connection
