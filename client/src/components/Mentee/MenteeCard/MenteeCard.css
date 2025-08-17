@@ -1,0 +1,108 @@
+/* ===========================================
+   MENTEE CARD COMPONENT STYLES
+   Exactly matching MentorCard design
+   =========================================== */
+
+:root {
+  --hl-pink: #EFA1E2;
+  --hl-purple: #86007C;
+  --hl-cream: #FBF4D7;
+  --hl-plum: #4D3A4D;
+}
+
+/* ===========================================
+   MAIN CARD CONTAINER - exactly like mentor-card
+   =========================================== */
+
+.mentee-card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 16px;
+  width: 250px;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  text-align: center;
+  position: relative;
+  background: white;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.mentee-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+
+/* ===========================================
+   FAVORITE BUTTON - exactly matching mentor style
+   =========================================== */
+
+.mentee-card-fav {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.favorite-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  padding: 0;
+}
+
+/* ===========================================
+   MENTEE HEADER - matching mentor-header structure
+   =========================================== */
+
+.mentee-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+/* ===========================================
+   PROFILE IMAGE - exactly like mentor-avatar
+   =========================================== */
+
+.mentee-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.mentee-avatar-placeholder {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--hl-pink), var(--hl-cream));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--hl-plum);
+  margin: 0 auto;
+}
+
+/* ===========================================
+   MENTEE INFO - exactly matching mentor header styles
+   =========================================== */
+
+.mentee-header h3,
+.mentee-name {
+  margin: 8px 0 0;
+  font-size: 1.1rem;
+  color: var(--hl-plum);
+  font-weight: 600;
+}
+
+.mentee-header p,
+.mentee-email {
+  margin: 4px 0 0;
+  font-size: 0.9rem;
+  color: #666;
+  word-break: break-word;
+}
