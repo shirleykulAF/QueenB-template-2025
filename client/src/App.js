@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
 import ProfileUpdate from "./components/ProfileUpdate";
-import LoginPage from "./components/LoginPage"; // Add this import
 import RegistrationPage from "./components/RegistrationPage";
 import MentorsListPage from "./pages/MentorsListPage";
 import MentorSignUp from "./components/mentorSignUp";

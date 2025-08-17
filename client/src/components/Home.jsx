@@ -172,10 +172,15 @@ export default function Home() {
                   <path d="M12 11.065l11-7.065h-22l11 7.065z" />
                 </svg>
               </div>
-              <div className={s.contactDetails}>
-                <h4>Email Us</h4>
-                <div className={s.contactValue}>queenb.program@gmail.com</div>
-              </div>
+             <div className={s.contactDetails}>
+              <h4>Email Us</h4>
+              <a 
+                href="mailto:queenb.program@gmail.com" 
+                className={s.contactValue}
+              >
+                queenb.program@gmail.com
+              </a>
+            </div>
             </div>
 
             <div className={s.contactCard}>
@@ -192,7 +197,14 @@ export default function Home() {
               </div>
               <div className={s.contactDetails}>
                 <h4>WhatsApp</h4>
-                <div className={s.contactValue}>+972 55-7258235</div>
+                <a 
+                  href="https://wa.me/972557258235" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className={s.contactValue}
+                >
+                  +972 55-7258235
+                </a>
               </div>
             </div>
 
