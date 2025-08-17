@@ -6,7 +6,7 @@ import Header from "../components/Header/Header";
 import SearchBar from "../components/SearchBar/SearchBar";
 import MentorGrid from "../components/MentorGrid/MentorGrid";
 import MentorDetails from "../components/MentorDetails/MentorDetails";
-import MultiSelect from "../components/MultiSelect";
+import FilterAutoButton from "../components/FilterAutoButton";
 
 /* Normalize a value to an array (handles arrays or comma-separated strings) */
 function toArray(v) {
@@ -103,7 +103,7 @@ export default function MentorsListPage() {
         });
     }, [mentors, query, selTech, selLang, selDomain]);
 
-    function clearFilters() {
+    function clearAllFilters() {
         setSelTech([]);
         setSelLang([]);
         setSelDomain([]);
@@ -127,33 +127,25 @@ export default function MentorsListPage() {
 
         {/* Filters */}
         <div className="filtersBar">
-          <MultiSelect
+          <FilterAutoButton
             label="Technologies"
             options={techOpts}
             value={selTech}
             onChange={setSelTech}
-          />
-          <MultiSelect
+        />
+        <FilterAutoButton
             label="Programming Languages"
             options={langOpts}
             value={selLang}
             onChange={setSelLang}
-          />
-          <MultiSelect
+        />
+        <FilterAutoButton
             label="Domains"
             options={domainOpts}
             value={selDomain}
             onChange={setSelDomain}
-          />
-
-          <button
-            type="button"
-            className="clearBtn"
-            onClick={clearFilters}
-            aria-label="Clear filters"
-          >
-            Clear Filters
-          </button>
+        />
+        <button className="clearBtn" onClick={clearAllFilters}>Clear Filters</button>
         </div>
 
         {/* Results */}
