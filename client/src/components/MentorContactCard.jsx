@@ -7,8 +7,11 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
+import MentorFullName from "./mentor/MentorFullName";
+import MentorTechnologies from "./mentor/MentorTechnologies";
 
-function MentorContactCard() {
+
+function MentorContactCard({ mentor }) {
   return (
     <Card
       sx={{
@@ -19,27 +22,31 @@ function MentorContactCard() {
     >
       <CardMedia
         sx={{ height: 200, width: 200 }}
-        image="https://i.pinimg.com/564x/8a/2a/bb/8a2abb6c8d8049e52314d791b9c20ac0.jpg"
+        image={mentor.profileImage}
         title="Mentor photo"
       />
-      
+
       <CardContent>
-        <Typography variant="h1">Mentor Name</Typography>
-        <Typography variant="h3">Technologies</Typography>
-        <Typography variant="p">
-          Full-stack developer with 5 years of experience. Passionate about
-          mentoring junior developers.
+        <MentorFullName mentor={mentor} />
+
+        <MentorTechnologies mentor={mentor} />
+
+        <Typography variant="h5">
+          Years of experience: {mentor.yearsOfExperience}
         </Typography>
+
+        <p></p>
+
+        <Typography variant="h4">About Me:</Typography>
+        <Typography variant="p">{mentor.description}</Typography>
       </CardContent>
 
-      <CardActionArea sx={{display:"flex", alignItems: "center"}}>
+      <CardActionArea sx={{ display: "flex", alignItems: "center" }}>
         <Button>Whatsapp</Button>
         <Button>Email</Button>
         <Button>Linkdin</Button>
         <Button>Phone</Button>
-
       </CardActionArea>
-
     </Card>
   );
 }

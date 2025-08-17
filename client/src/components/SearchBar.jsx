@@ -12,13 +12,13 @@ function SearchBar() {
   return (
     <Box>
       <InputLabel id="select-label">Select Search Category</InputLabel>
-      <Select labelId="select-label" sx={{width:180}}>
+      <Select labelId="select-label" sx={{width:200}}>
         <MenuItem value="" disabled>
           Search By
         </MenuItem>
         <MenuItem value="technologies">Technologies</MenuItem>
-        <MenuItem value="firstName">First Name</MenuItem>
-        <MenuItem value="lastName">Last Name</MenuItem>
+        <MenuItem value="fullName">Full Name</MenuItem>
+        <MenuItem value="years-of-experince">Years of experience</MenuItem>
       </Select>
 
       <TextField
@@ -27,7 +27,7 @@ function SearchBar() {
         placeholder="Search..."
         sx={{ width: 700 }}
       />
-      <Button>Search</Button>
+      <Button sx={{backgroundColor: "white"}}>Search</Button>
     </Box>
   );
 }
