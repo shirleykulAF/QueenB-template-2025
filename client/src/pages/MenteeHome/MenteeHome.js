@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import MentorCard from '../../components/Mentor/MentorCard/MentorCard';
 import MentorModal from '../../components/Mentor/MentorModal/MentorModal';
 import useMentorsList from '../../hooks/useMentorsList';
+import useFavorites from '../../hooks/useFavorites';
 import './MenteeHome.css';
 
 const baseURL = process.env.REACT_APP_API_URL;
@@ -10,6 +11,7 @@ const MenteeHome = ( {user} ) => {
   const { mentors, loading, error } = useMentorsList();
   const [selectedMentor, setSelectedMentor] = useState(null);
   const [query, setQuery] = useState(''); //stores what the user types in the search bar
+  const { addFavorite, removeFavorite, isFavorite } = useFavorites(user?._id);
 
   if (loading) return <div className="mentor-list"><p>Loading mentors...</p></div>;
   if (error) return <div className="mentor-list"><p>Error: {error}</p></div>;
@@ -27,6 +29,13 @@ const MenteeHome = ( {user} ) => {
       .every((w) => haystack.includes(w));
   });
 
+  // Sort mentors: favorites first
+    const sortedMentors = [...filteredMentors].sort((a, b) => {
+        const aFav = isFavorite(a._id) ? -1 : 1;
+        const bFav = isFavorite(b._id) ? -1 : 1;
+        return aFav - bFav;
+    });
+
   return (
     <div className="mentor-list">
       <h1>Mentors</h1>
@@ -38,11 +47,14 @@ const MenteeHome = ( {user} ) => {
         aria-label="search"
       />
       <div className="mentor-list-cards" >
-        {filteredMentors.map(mentor => (
+        {sortedMentors.map(mentor => (
           <MentorCard 
             key={mentor._id} 
             mentor={mentor} 
             onClick={setSelectedMentor}
+            isFavorite={isFavorite}
+            addFavorite={addFavorite}
+            removeFavorite={removeFavorite}
           />
         ))}
       </div>

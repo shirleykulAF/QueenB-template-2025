@@ -40,7 +40,11 @@ const userSchema = new mongoose.Schema({
     yearsOfExperience: {type: Number},
     description: {type: String},
     phone: {type: String},
-    linkedin: {type: String}
+    linkedin: {type: String},
+    favoriteMentors: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User' // Assuming mentors are also in the User collection
+    }]
 }, { timestamps: true });
 
 userSchema.pre('save', async function(next) {
