@@ -17,7 +17,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/api/users", require("./routes/users"));
 app.use("/api/mentors", mentorsRoutes);
-app.use("/api/users", require("./routes/users"));
 
 
 
