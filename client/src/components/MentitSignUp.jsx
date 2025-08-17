@@ -3,8 +3,13 @@ import {
   Box,
   TextField,
   Button,
-  Paper
+  Paper,
+  Snackbar,
+  Alert
 } from '@mui/material';
+import {
+  CheckCircle as CheckCircleIcon
+} from '@mui/icons-material';
 import PasswordRequirementsBubble from './PasswordRequirementsBubble'; // Import your existing component
 
 export default function MenteeSignUp() {
@@ -18,6 +23,8 @@ export default function MenteeSignUp() {
   const [phoneError, setPhoneError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   function validatePhone(phone) {
     if (phone.length < 10 || phone.length > 10) {
@@ -73,7 +80,7 @@ export default function MenteeSignUp() {
     return true;
   }
 
-  function handleForm() {
+  async function handleForm() {
     // Validate all fields before submission
     const isPhoneValid = validatePhone(phone);
     const isPasswordValid = validatePassword(password);
@@ -89,6 +96,8 @@ export default function MenteeSignUp() {
       return;
     }
 
+    setIsSubmitting(true);
+
     const payload = {
       email,
       password,
@@ -98,45 +107,57 @@ export default function MenteeSignUp() {
       generalDescription: description || "",
     };
 
-    fetch("http://localhost:5000/api/auth/register-mentee", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-      body: JSON.stringify(payload),
-    })
-      .then(async (r) => {
-        const data = await r.json().catch(() => ({}));
-        if (!r.ok) {
-          const msg =
-            data?.error ||
-            data?.message ||
-            data?.errors?.[0]?.msg ||
-            "Registration failed";
-          throw new Error(msg);
-        }
-        return data;
-      })
-      .then((data) => {
-        console.log("Mentee registered:", data);
-        alert("Mentee registered successfully!");
-      })
-      .catch((err) => alert(err.message));
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/register-mentee", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json().catch(() => ({}));
+      
+      if (!response.ok) {
+        const msg =
+          data?.error ||
+          data?.message ||
+          data?.errors?.[0]?.msg ||
+          "Registration failed";
+        throw new Error(msg);
+      }
+
+      console.log("Mentee registered:", data);
+      
+      // Show success message
+      setShowSuccess(true);
+      
+      // Navigate to home after 2 seconds
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 2000);
+
+    } catch (err) {
+      alert(err.message);
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   const isFormValid = !passwordError && !confirmPasswordError && !phoneError && 
                      firstName && lastName && email && password && confirmPassword && phone;
 
   return (
-        <Paper sx={{ 
-          p: 4, 
-          maxWidth: 400, 
-          width: '100%', 
-          borderRadius: 3,
-          boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
-          margin: '0 auto', // Centers horizontally
-          mt: 4, // Margin top for spacing from top
-          backgroundColor: '#ffffff'
-        }}>
+    <>
+      <Paper sx={{ 
+        p: 4, 
+        maxWidth: 400, 
+        width: '100%', 
+        borderRadius: 3,
+        boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
+        margin: '0 auto', // Centers horizontally
+        mt: 4, // Margin top for spacing from top
+        backgroundColor: '#ffffff'
+      }}>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
           <TextField
             label="First Name"
@@ -145,6 +166,7 @@ export default function MenteeSignUp() {
             required
             fullWidth
             variant="outlined"
+            disabled={isSubmitting}
           />
 
           <TextField
@@ -154,6 +176,7 @@ export default function MenteeSignUp() {
             required
             fullWidth
             variant="outlined"
+            disabled={isSubmitting}
           />
 
           <TextField
@@ -169,6 +192,7 @@ export default function MenteeSignUp() {
             variant="outlined"
             error={!!phoneError}
             helperText={phoneError}
+            disabled={isSubmitting}
           />
 
           <TextField
@@ -179,6 +203,7 @@ export default function MenteeSignUp() {
             required
             fullWidth
             variant="outlined"
+            disabled={isSubmitting}
           />
 
           <TextField
@@ -194,6 +219,7 @@ export default function MenteeSignUp() {
             variant="outlined"
             error={!!passwordError}
             helperText={passwordError}
+            disabled={isSubmitting}
           />
 
           <PasswordRequirementsBubble password={password} />
@@ -211,6 +237,7 @@ export default function MenteeSignUp() {
             variant="outlined"
             error={!!confirmPasswordError}
             helperText={confirmPasswordError}
+            disabled={isSubmitting}
           />
 
           <TextField
@@ -222,11 +249,12 @@ export default function MenteeSignUp() {
             fullWidth
             variant="outlined"
             placeholder="Tell us something about yourself"
+            disabled={isSubmitting}
           />
 
           <Button
             onClick={handleForm}
-            disabled={!isFormValid}
+            disabled={!isFormValid || isSubmitting}
             fullWidth
             variant="contained"
             size="large"
@@ -243,9 +271,28 @@ export default function MenteeSignUp() {
               }
             }}
           >
-            Create Account
+            {isSubmitting ? 'Creating Account...' : 'Create Account'}
           </Button>
         </Box>
       </Paper>
+
+      {/* Success Snackbar */}
+      <Snackbar
+        open={showSuccess}
+        autoHideDuration={2000}
+        onClose={() => setShowSuccess(false)}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert 
+          onClose={() => setShowSuccess(false)} 
+          severity="success" 
+          variant="filled"
+          icon={<CheckCircleIcon />}
+          sx={{ width: '100%' }}
+        >
+          Welcome to QueenB! Account created successfully! Redirecting to home...
+        </Alert>
+      </Snackbar>
+    </>
   );
 }

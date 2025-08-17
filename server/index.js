@@ -40,7 +40,7 @@ app.use(session({
 // Routes
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/mentors", require("./routes/mentors"));
-
+app.use("/api/admin", require("./routes/admin"))
 // Health check endpoint with session info
 app.get("/api/health", (req, res) => {
   res.json({

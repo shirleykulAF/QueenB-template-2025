@@ -51,11 +51,11 @@ const LoginPage = () => {
 
         if (data.user.userType === "mentor") {
           setTimeout(() => navigate("/profile/edit"), 1500);
-        } else {
-          setMessage({
-            type: "info",
-            text: "Logged in as mentee. Only mentors can edit profiles.",
-          });
+        } else if (data.user.userType === "mentee") {
+          setTimeout(() => navigate("/mentors"), 1500);
+        }
+        else if (data.user.userType === "admin") {
+          setTimeout(() => navigate("/admin/users"), 1500);
         }
       } else {
         setMessage({ type: "error", text: data.error || "Login failed" });

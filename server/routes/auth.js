@@ -5,6 +5,7 @@ const multer = require("multer");
 const User = require("../models/User");
 const Mentor = require("../models/Mentor");
 const Mentee = require("../models/Mentee");
+const Admin = require("../models/Admin");
 const uploadPhoto = require("../middleware/upload");
 
 // Validation rules for mentee registration (unchanged)
@@ -38,10 +39,10 @@ const loginValidation = [
   body("password").notEmpty().withMessage("Password is required")
 ];
 
-// POST /api/auth/register-mentor - With photo upload
+// POST /api/auth/register-mentor - With photo upload (unchanged)
 router.post("/register-mentor", 
-  uploadPhoto,        // Handle file upload first
-  mentorValidation,   // Then validate other fields
+  uploadPhoto,        
+  mentorValidation,   
   async (req, res) => {
     try {
       const errors = validationResult(req);
@@ -49,7 +50,6 @@ router.post("/register-mentor",
         return res.status(400).json({ errors: errors.array() });
       }
 
-      // Check if photo was uploaded
       if (!req.file) {
         return res.status(400).json({ 
           error: "Profile photo is required",
@@ -63,7 +63,6 @@ router.post("/register-mentor",
         mimetype: req.file.mimetype
       });
 
-      // Parse arrays if they come as strings (form-data)
       let { programmingLanguages, technologies, domains } = req.body;
       
       if (typeof programmingLanguages === 'string') {
@@ -81,13 +80,11 @@ router.post("/register-mentor",
         generalDescription, phoneNumber, linkedinUrl
       } = req.body;
 
-      // Check if user exists
       const existingUser = await User.findOne({ email });
       if (existingUser) {
         return res.status(400).json({ error: "Email already registered" });
       }
 
-      // Create user account
       const user = new User({
         email,
         password,
@@ -95,7 +92,6 @@ router.post("/register-mentor",
       });
       await user.save();
 
-      // Create mentor profile with photo
       const mentor = new Mentor({
         userId: user._id,
         firstName,
@@ -117,7 +113,6 @@ router.post("/register-mentor",
 
       await mentor.save();
 
-      // Auto-login after registration
       req.session.userId = user._id;
       req.session.userType = user.userType;
       req.session.userEmail = user.email;
@@ -208,7 +203,7 @@ router.post("/register-mentee", menteeValidation, async (req, res) => {
   }
 });
 
-// POST /api/auth/login - Unchanged
+// POST /api/auth/login - Updated עם תמיכה באדמין
 router.post("/login", loginValidation, async (req, res) => {
   try {
     const errors = validationResult(req);
@@ -230,8 +225,15 @@ router.post("/login", loginValidation, async (req, res) => {
     let profile = null;
     if (user.userType === "mentor") {
       profile = await Mentor.findOne({ userId: user._id }).select("-userId -__v -profilePhoto");
-    } else {
+    } else if (user.userType === "mentee") {
       profile = await Mentee.findOne({ userId: user._id }).select("-userId -__v");
+    } else if (user.userType === "admin") {
+      profile = await Admin.findOne({ userId: user._id }).select("-userId -__v");
+      // עדכון מועד התחברות אחרון לאדמין
+      if (profile) {
+        profile.lastLogin = new Date();
+        await profile.save();
+      }
     }
 
     res.json({
@@ -270,7 +272,7 @@ router.post("/logout", (req, res) => {
   });
 });
 
-// GET /api/auth/me - Unchanged
+// GET /api/auth/me - Updated עם תמיכה באדמין
 router.get("/me", async (req, res) => {
   if (!req.session.userId) {
     return res.status(401).json({ 
@@ -292,8 +294,10 @@ router.get("/me", async (req, res) => {
     let profile = null;
     if (user.userType === "mentor") {
       profile = await Mentor.findOne({ userId: user._id }).select("-userId -__v -profilePhoto");
-    } else {
+    } else if (user.userType === "mentee") {
       profile = await Mentee.findOne({ userId: user._id }).select("-userId -__v");
+    } else if (user.userType === "admin") {
+      profile = await Admin.findOne({ userId: user._id }).select("-userId -__v");
     }
 
     res.json({

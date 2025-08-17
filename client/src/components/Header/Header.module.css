@@ -85,6 +85,42 @@
   width: 100%;
 }
 
+/* User section for logged in users - replaces navigation */
+.userSection {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.welcomeText {
+  color: #fff;
+  font-weight: 500;
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+.signOutBtn {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.signOutBtn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.signOutBtn:active {
+  transform: translateY(0);
+}
+
 .actions {
   display: flex;
   align-items: center;
