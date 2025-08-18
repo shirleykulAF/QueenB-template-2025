@@ -6,6 +6,7 @@ import useMentorsList from '../../hooks/useMentorsList';
 import useFavorites from '../../hooks/useFavorites';
 import useRandomTip from '../../hooks/useRandomTip';
 import './MenteeHome.css';
+import ChatBot from '../../components/ChatBot';
 
 const baseURL = process.env.REACT_APP_API_URL;
 
@@ -92,6 +93,11 @@ const MenteeHome = ( {user} ) => {
       
       {/* Tips Section */}
       <Tips user={user} />
+
+      {/* ChatBot - floating side window */}
+      <div className="chatbot-floating">
+        <ChatBot />
+      </div>
     </div>
   );
 };

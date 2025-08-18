@@ -51,6 +51,24 @@
   justify-content: center;
 }
 
+/* Floating ChatBot window */
+.chatbot-floating {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  z-index: 1100;
+}
+
+@media (max-width: 680px) {
+  .chatbot-floating {
+    right: 12px;
+    left: 12px;
+    top: auto;
+    bottom: 12px;
+    transform: none;
+  }
+}
+
 /* Random Tip Popup */
 .random-tip-popup {
   position: fixed;
