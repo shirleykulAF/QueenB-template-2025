@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import "./Form.css";
+import { useNavigate } from "react-router-dom";
 
 export default function MentitSignUp() {
+  const navigate = useNavigate();
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
@@ -28,30 +31,28 @@ export default function MentitSignUp() {
       generalDescription: description || "",
     };
 
-    fetch("http://localhost:5000/api/auth/register-mentee", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-      body: JSON.stringify(payload),
+  fetch("/api/auth/register-mentee", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+    body: JSON.stringify(payload)
+  })
+    .then(async (r) => {
+      const data = await r.json().catch(() => ({}));
+      if (!r.ok) {
+        const msg = data?.error || data?.message || (data?.errors?.[0]?.msg) || "Registration failed";
+        throw new Error(msg);
+      }
+      return data;
     })
-      .then(async (r) => {
-        const data = await r.json().catch(() => ({}));
-        if (!r.ok) {
-          const msg =
-            data?.error ||
-            data?.message ||
-            data?.errors?.[0]?.msg ||
-            "Registration failed";
-          throw new Error(msg);
-        }
-        return data;
-      })
-      .then((data) => {
-        console.log("Mentee registered:", data);
-        alert("Mentee registered!");
-      })
-      .catch((err) => alert(err.message));
-  }
+    .then((data) => {
+      console.log("Mentee registered:", data);
+      alert("Mentee registered!");
+      navigate("/mentors");  
+    })
+    .catch((err) => alert(err.message));
+}
+
 
   return (
     <>

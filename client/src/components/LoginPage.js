@@ -50,13 +50,11 @@ const LoginPage = () => {
           text: `Welcome back! Logged in as ${data.user.userType}`,
         });
 
-        if (data.user.userType === "mentor") {
-          setTimeout(() => navigate("/profile/edit"), 1500);
-        } else {
-          setMessage({
-            type: "info",
-            text: "Logged in as mentee. Only mentors can edit profiles.",
-          });
+        // Redirect based on user type
+        if (data.user.userType === 'mentor') {
+          setTimeout(() => navigate('/profile/edit'), 1500);
+        } else if(data.user?.userType === "mentee") {
+          navigate("/mentors"); 
         }
       } else {
         setMessage({ type: "error", text: data.error || "Login failed" });
