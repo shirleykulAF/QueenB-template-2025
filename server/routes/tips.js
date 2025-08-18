@@ -77,6 +77,31 @@ router.get('/', async (req, res) => {
     }
 });
 
+// Get a random active tip (public endpoint)
+router.get('/random', async (req, res) => {
+    try {
+        const results = await Tip.aggregate([
+            { $match: { isActive: true } },
+            { $sample: { size: 1 } }
+        ]);
+
+        if (!results || results.length === 0) {
+            return res.status(404).json({ error: 'No tips available' });
+        }
+
+        const tip = results[0];
+        return res.json({
+            _id: tip._id,
+            title: tip.title || '',
+            text: tip.content || tip.title || '',
+            content: tip.content || ''
+        });
+    } catch (error) {
+        console.error('Error fetching random tip:', error);
+        res.status(500).json({ error: 'Failed to fetch random tip' });
+    }
+});
+
 // Get tip by ID (public endpoint)
 router.get('/:id', async (req, res) => {
     try {
