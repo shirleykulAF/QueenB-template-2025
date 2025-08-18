@@ -1,0 +1,227 @@
+/* ===========================================
+   MENTEES INDEX PAGE STYLES
+   Matching MenteeHome (mentors display) design
+   =========================================== */
+
+:root {
+  --hl-pink: #EFA1E2;
+  --hl-purple: #86007C;
+  --hl-cream: #FBF4D7;
+  --hl-plum: #4D3A4D;
+}
+
+/* ===========================================
+   MAIN CONTAINER - matching mentor-list class
+   =========================================== */
+
+.mentee-list {
+  padding: 32px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: linear-gradient(180deg, var(--hl-cream) 0%, #ffffff 65%);
+  border-radius: 16px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+}
+
+/* ===========================================
+   HEADER SECTION - matching mentor-list h1
+   =========================================== */
+
+.mentee-list h1 {
+  margin: 0 0 16px 0;
+  text-align: center;
+  color: var(--hl-plum);
+  letter-spacing: 0.5px;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.mentee-list-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.mentee-list-subtitle {
+  font-size: 1.1rem;
+  color: #666;
+  margin: 8px auto 0 auto;
+  max-width: 600px;
+  line-height: 1.5;
+}
+
+/* ===========================================
+   CONTROLS SECTION - matching mentor-list input styling
+   =========================================== */
+
+.mentee-list-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+  align-items: center;
+}
+
+/* Matching the exact input styling from MenteeHome.css */
+.mentee-search-input {
+  display: block;
+  width: min(720px, 92%);
+  margin: 8px auto 0 auto;
+  padding: 12px 16px;
+  font-size: 16px;
+  color: #2c2c2c;
+  background: #fff;
+  border: 2px solid var(--hl-pink);
+  border-radius: 12px;
+  outline: none;
+  transition: box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.mentee-search-input::placeholder {
+  color: #9aa0a6;
+}
+
+.mentee-search-input:focus {
+  border-color: var(--hl-purple);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--hl-purple) 20%, transparent);
+}
+
+.mentee-count {
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 500;
+  padding: 8px 16px;
+  background: rgba(239, 161, 226, 0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(239, 161, 226, 0.3);
+}
+
+/* ===========================================
+   CARDS GRID - matching mentor-list-cards
+   =========================================== */
+
+.mentee-list-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* ===========================================
+   NO MENTEES MESSAGE
+   =========================================== */
+
+.no-mentees-message {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: #666;
+  background: rgba(239, 161, 226, 0.05);
+  border-radius: 12px;
+  margin: 2rem 0;
+  border: 1px solid rgba(239, 161, 226, 0.2);
+}
+
+.no-mentees-message p {
+  font-size: 1.1rem;
+  margin: 0 0 16px 0;
+  color: var(--hl-plum);
+}
+
+.clear-search-btn {
+  background: var(--hl-purple);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+}
+
+.clear-search-btn:hover {
+  background: var(--hl-plum);
+}
+
+/* ===========================================
+   LOADING AND ERROR STATES
+   =========================================== */
+
+.mentee-list p {
+  text-align: center;
+  font-size: 1.1rem;
+  color: var(--hl-plum);
+  padding: 2rem;
+  background: rgba(239, 161, 226, 0.05);
+  border-radius: 12px;
+  margin: 2rem 0;
+  border: 1px solid rgba(239, 161, 226, 0.2);
+}
+
+/* ===========================================
+   RESPONSIVE DESIGN
+   =========================================== */
+
+@media (min-width: 768px) {
+  .mentee-list-controls {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .mentee-search-input {
+    max-width: 400px;
+    margin: 0;
+  }
+
+  .mentee-count {
+    order: 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .mentee-list {
+    padding: 24px 16px;
+    margin: 16px;
+    border-radius: 12px;
+  }
+
+  .mentee-list h1 {
+    font-size: 1.75rem;
+  }
+
+  .mentee-list-subtitle {
+    font-size: 1rem;
+  }
+
+  .mentee-list-cards {
+    gap: 16px;
+  }
+
+  .mentee-search-input {
+    width: 100%;
+    margin: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .mentee-list {
+    padding: 20px 12px;
+    margin: 8px;
+  }
+
+  .mentee-list h1 {
+    font-size: 1.5rem;
+  }
+
+  .mentee-list-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .mentee-list-cards {
+    gap: 12px;
+  }
+
+  .no-mentees-message {
+    padding: 1.5rem 1rem;
+  }
+}

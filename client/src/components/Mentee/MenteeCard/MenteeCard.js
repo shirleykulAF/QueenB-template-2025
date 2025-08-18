@@ -1,11 +1,11 @@
 import React from 'react';
 import UserCard from '../../UserBase/UserCard/UserCard';
 
-const MentorCard = ({ mentor, onClick, isFavorite, addFavorite, removeFavorite }) => {
+const MenteeCard = ({ mentee, onClick, isFavorite, addFavorite, removeFavorite }) => {
   return (
     <UserCard 
-      user={mentor}          
-      userType="mentor"      
+      user={mentee}           
+      userType="mentee"       
       onClick={onClick}
       isFavorite={isFavorite}
       addFavorite={addFavorite}
@@ -14,4 +14,4 @@ const MentorCard = ({ mentor, onClick, isFavorite, addFavorite, removeFavorite }
   );
 };
 
-export default MentorCard;
+export default MenteeCard;

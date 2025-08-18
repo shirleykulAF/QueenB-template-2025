@@ -1,14 +1,14 @@
 import React from 'react';
 import UserModal from '../../UserBase/UserModal/UserModal';
 
-const MentorModal = ({ mentor, onClose }) => {
+const MenteeModal = ({ mentee, onClose }) => {
   return (
     <UserModal 
-      user={mentor}           
-      userType="mentor"       
+      user={mentee}           
+      userType="mentee"       
       onClose={onClose}
     />
   );
 };
 
-export default MentorModal;
+export default MenteeModal;

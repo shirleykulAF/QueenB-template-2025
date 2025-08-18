@@ -1,13 +1,13 @@
 import React from 'react';
 import UserHeader from '../../UserBase/UserHeader/UserHeader';
 
-const MentorHeader = ({ mentor }) => {
+const MenteeHeader = ({ mentee }) => {
   return (
     <UserHeader 
-      user={mentor}           
-      userType="mentor"       
+      user={mentee}          
+      userType="mentee"      
     />
   );
 };
 
-export default MentorHeader;
+export default MenteeHeader;

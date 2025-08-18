@@ -26,7 +26,7 @@ function App() {
           alignItems: 'center', 
           height: '100vh' 
         }}>
-          טוען...
+          Loading...
         </div>
       </ThemeProvider>
     );
@@ -52,3 +52,6 @@ function App() {
 }
 
 export default App;
+
+
+
