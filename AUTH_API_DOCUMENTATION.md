@@ -256,18 +256,18 @@ The seed data includes test users with the password `password123`:
 
 **Mentors:**
 - sarah.cohen@example.com
-- david.levy@example.com
+- dana.levy@example.com
 - rachel.bendavid@example.com
-- michael.goldberg@example.com
+- michal.goldberg@example.com
 - yael.shapira@example.com
 - amit.peretz@example.com
 - tamar.weiss@example.com
-- ron.mizrahi@example.com
+- roni.mizrahi@example.com
 
 **Mentees:**
 - noa.katz@example.com
 - or.solomon@example.com
 - maya.friedman@example.com
-- itai.rosenberg@example.com
+- itay.rosenberg@example.com
 - shira.levi@example.com
-- guy.cohen@example.com
+- gaya.cohen@example.com
