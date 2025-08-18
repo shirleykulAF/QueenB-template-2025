@@ -1,0 +1,258 @@
+/* ========================================
+   USER MODAL - GENERIC STYLES
+   מבוסס על MentorModal.css הקיים
+   ======================================== */
+
+.user-modal__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(2px);
+    animation: fadeIn 0.3s ease-out;
+}
+
+.user-modal__content {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.3s ease-out;
+}
+
+/* ========================================
+   CLOSE BUTTON
+   ======================================== */
+
+.user-modal__close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.user-modal__close:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: #333;
+    transform: scale(1.1);
+}
+
+/* ========================================
+   CONTACT SECTION
+   ======================================== */
+
+.user-modal__contact {
+    margin-top: 2rem;
+    border-top: 1px solid #e5e5e5;
+    padding-top: 1.5rem;
+}
+
+.user-modal__contact-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-dark, #2c2c2c);
+}
+
+.user-modal__contact-icons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.user-modal__contact-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.user-modal__contact-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background: rgba(0, 0, 0, 0.1);
+}
+
+/* ========================================
+   ACTION BUTTONS
+   ======================================== */
+
+.user-modal__actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.user-modal__action-btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    min-width: 120px;
+}
+
+.user-modal__action-btn--primary {
+    background: linear-gradient(135deg, var(--primary-purple, #86007C), var(--light-purple, #EFA1E2));
+    color: white;
+}
+
+.user-modal__action-btn--primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(134, 0, 124, 0.3);
+}
+
+.user-modal__action-btn--secondary {
+    background: #f8f9fa;
+    color: var(--text-dark, #2c2c2c);
+    border: 1px solid #e5e5e5;
+}
+
+.user-modal__action-btn--secondary:hover {
+    background: #e9ecef;
+    transform: translateY(-1px);
+}
+
+/* ========================================
+   USER TYPE SPECIFIC STYLES
+   ======================================== */
+
+/* Mentor modal - גוון סגול */
+.user-modal__content--mentor {
+    border-top: 4px solid var(--primary-purple, #86007C);
+}
+
+.user-modal__content--mentor .user-modal__contact-title {
+    color: var(--primary-purple, #86007C);
+}
+
+/* Mentee modal - גוון ירוק */
+.user-modal__content--mentee {
+    border-top: 4px solid var(--success-green, #10B981);
+}
+
+.user-modal__content--mentee .user-modal__contact-title {
+    color: var(--success-green, #10B981);
+}
+
+.user-modal__content--mentee .user-modal__action-btn--primary {
+    background: linear-gradient(135deg, var(--success-green, #10B981), #34D399);
+}
+
+.user-modal__content--mentee .user-modal__action-btn--primary:hover {
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 768px) {
+    .user-modal__content {
+        width: 95%;
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+    
+    .user-modal__close {
+        top: 10px;
+        right: 10px;
+        font-size: 20px;
+    }
+    
+    .user-modal__contact-icons {
+        gap: 1rem;
+    }
+    
+    .user-modal__contact-link {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .user-modal__actions {
+        flex-direction: column;
+    }
+    
+    .user-modal__action-btn {
+        width: 100%;
+    }
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+
+.user-modal__close:focus-visible,
+.user-modal__contact-link:focus-visible,
+.user-modal__action-btn:focus-visible {
+    outline: 2px solid var(--primary-purple, #86007C);
+    outline-offset: 2px;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .user-modal__overlay,
+    .user-modal__content,
+    .user-modal__close,
+    .user-modal__contact-link,
+    .user-modal__action-btn {
+        animation: none;
+        transition: none;
+    }
+}

@@ -1,26 +1,14 @@
-import React from "react";
-import "./MentorInfo.css";
+import React from 'react';
+import UserInfo from '../../UserBase/UserInfo/UserInfo';
 
-const MentorInfo = ({ mentor = {}}) => {
-    const {technologies = [], yearsOfExperience} = mentor;
-
-    return (
-        <div className="mentor-info-section">
-            <p>
-                <strong>Experience:</strong> {yearsOfExperience ?? "—"} years
-            </p>
-            <div className="technologies-section">
-                <p><strong>Technologies:</strong></p>
-                {technologies.length ? (
-                    <ul className="technologies-list">
-                        {technologies.map((tech, index) => (
-                            <li key={index} className="tech-item">{tech}</li>
-                        ))}
-                    </ul>
-                ) : "—"}
-            </div>
-        </div>
-    );
+// 🔄 Wrapper פשוט שמחליף את MentorInfo הקיים
+const MentorInfo = ({ mentor }) => {
+  return (
+    <UserInfo 
+      user={mentor}           // 👈 mentor הופך ל-user
+      userType="mentor"       // 👈 מגדיר את הסוג
+    />
+  );
 };
 
 export default MentorInfo;

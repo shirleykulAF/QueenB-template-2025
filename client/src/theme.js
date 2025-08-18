@@ -13,7 +13,7 @@ export const theme = createTheme({
       dark: "#86007C",
     },
     background: {
-      default: "#FBF4D7",
+      default: "#FFFFFF",
       paper: "#FFFFFF",
     },
     text: {
@@ -29,7 +29,7 @@ export const theme = createTheme({
     },
     h6: {
       fontWeight: 500,
-      color: "#4D3A4D",
+      color: "#FFFFFF",
     },
   },
   components: {

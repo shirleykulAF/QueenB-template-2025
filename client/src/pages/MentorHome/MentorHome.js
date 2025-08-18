@@ -1,6 +1,7 @@
 import MentorHeader from "../../components/Mentor/MentorHeader/MentorHeader";
 import MentorInfo from "../../components/Mentor/MentorInfo/MentorInfo";
 import MentorContact from "../../components/Mentor/MentorContact/MentorContact";
+import Tips from "../../components/Tips/Tips";
 import { useMentorData } from "../../hooks/useMentorData";
 import { useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom';
@@ -39,6 +40,9 @@ const MentorHome = ( {user} ) => {
           Edit Profile
         </button>
       </div>
+      
+      {/* Tips Section */}
+      <Tips user={user} />
     </div>
   );
 }
