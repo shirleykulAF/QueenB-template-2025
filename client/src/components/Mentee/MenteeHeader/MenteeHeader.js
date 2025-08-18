@@ -1,16 +1,13 @@
-import React from "react";
-import "./UserHeader.css";
+import React from 'react';
+import UserHeader from '../../UserBase/UserHeader/UserHeader';
 
-const UserHeader = ({ user }) => {
-    const fullName = [user?.firstName, user?.lastName].filter(Boolean).join(" ");
-    const image = user?.image;
-
-    return (
-        <div className="user-header">
-             {image && <img className="user-avatar" src={image} alt={fullName} />}
-            <h3>{fullName}</h3>
-        </div>
-    );
+const MenteeHeader = ({ mentee }) => {
+  return (
+    <UserHeader 
+      user={mentee}          
+      userType="mentee"      
+    />
+  );
 };
 
-export default UserHeader;
+export default MenteeHeader;

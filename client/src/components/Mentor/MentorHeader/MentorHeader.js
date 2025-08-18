@@ -1,17 +1,13 @@
-import React from "react";
-import "./MentorHeader.css";
+import React from 'react';
+import UserHeader from '../../UserBase/UserHeader/UserHeader';
 
 const MentorHeader = ({ mentor }) => {
-    const fullName = [mentor?.firstName, mentor?.lastName].filter(Boolean).join(" ");
-    const image = mentor?.image;
-
-    return (
-        <div className="mentor-header">
-             {image && <img className="mentor-avatar" src={image} alt={fullName} />}
-            <h3>{fullName}</h3>
-            <p>{mentor?.description ?? "—"}</p>
-        </div>
-    );
+  return (
+    <UserHeader 
+      user={mentor}           
+      userType="mentor"       
+    />
+  );
 };
 
 export default MentorHeader;
