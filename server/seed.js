@@ -31,15 +31,15 @@ const mentorsData = [
     availability: 'available'
   },
   {
-    firstName: 'David',
+    firstName: 'Dana',
     lastName: 'Levy',
-    email: 'david.levy@example.com',
+    email: 'dana.levy@example.com',
     password: 'password123',
     phone: '052-2345678',
     technologies: ['Python', 'Django', 'PostgreSQL', 'Docker'],
     yearsOfExperience: 7,
     description: 'Backend specialist with focus on scalable systems and DevOps practices.',
-    linkedinUrl: 'https://linkedin.com/in/davidlevy',
+    linkedinUrl: 'https://linkedin.com/in/danalevy',
     availability: 'available'
   },
   {
@@ -55,15 +55,15 @@ const mentorsData = [
     availability: 'available'
   },
   {
-    firstName: 'Michael',
+    firstName: 'Michal',
     lastName: 'Goldberg',
-    email: 'michael.goldberg@example.com',
+    email: 'michal.goldberg@example.com',
     password: 'password123',
     phone: '054-4567890',
     technologies: ['Java', 'Spring Boot', 'Microservices', 'AWS', 'Kubernetes'],
     yearsOfExperience: 10,
     description: 'Enterprise architect with expertise in cloud-native applications and microservices.',
-    linkedinUrl: 'https://linkedin.com/in/michaelgoldberg',
+    linkedinUrl: 'https://linkedin.com/in/michalgoldberg',
     availability: 'busy'
   },
   {
@@ -103,15 +103,15 @@ const mentorsData = [
     availability: 'available'
   },
   {
-    firstName: 'Ron',
+    firstName: 'Roni',
     lastName: 'Mizrahi',
-    email: 'ron.mizrahi@example.com',
+    email: 'roni.mizrahi@example.com',
     password: 'password123',
     phone: '052-8901234',
     technologies: ['DevOps', 'CI/CD', 'Jenkins', 'GitLab', 'Terraform', 'Ansible'],
     yearsOfExperience: 9,
     description: 'DevOps engineer passionate about automation and infrastructure as code.',
-    linkedinUrl: 'https://linkedin.com/in/ronmizrahi',
+    linkedinUrl: 'https://linkedin.com/in/ronimizrahi',
     availability: 'available'
   }
 ];
@@ -146,9 +146,9 @@ const menteesData = [
     lookingFor: ['React Native', 'Mobile', 'Flutter']
   },
   {
-    firstName: 'Itai',
+    firstName: 'Itay',
     lastName: 'Rosenberg',
-    email: 'itai.rosenberg@example.com',
+    email: 'itay.rosenberg@example.com',
     password: 'password123',
     phone: '054-4444444',
     description: 'Looking for guidance in machine learning and AI',
@@ -164,9 +164,9 @@ const menteesData = [
     lookingFor: ['DevOps', 'AWS', 'Docker']
   },
   {
-    firstName: 'Guy',
+    firstName: 'Gaya',
     lastName: 'Cohen',
-    email: 'guy.cohen@example.com',
+    email: 'gaya.cohen@example.com',
     password: 'password123',
     phone: '058-6666666',
     description: 'Bootcamp graduate seeking full-stack mentorship',
@@ -222,12 +222,12 @@ async function seedDatabase() {
       console.log('  ✅ Matched Noa with Sarah');
     }
     
-    // Match Or with David (Backend mentor)
+    // Match Or with Dana (Backend mentor)
     const or = await Mentee.findOne({ email: 'or.solomon@example.com' });
-    const david = await Mentor.findOne({ email: 'david.levy@example.com' });
-    if (or && david) {
-      await or.addMentorMatch(david._id);
-      console.log('  ✅ Matched Or with David');
+    const dana = await Mentor.findOne({ email: 'dana.levy@example.com' });
+    if (or && dana) {
+      await or.addMentorMatch(dana._id);
+      console.log('  ✅ Matched Or with Dana');
     }
     
     // Match Maya with Amit (Mobile mentor)
