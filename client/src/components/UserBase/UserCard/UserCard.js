@@ -1,7 +1,7 @@
 import React from 'react';
 import './UserCard.css';
 import UserHeader from '../UserHeader/UserHeader';
-import { FaStar, FaRegStar, FaPlusCircle, FaPlus } from 'react-icons/fa';
+import { FaStar, FaRegStar, FaPlusCircle, FaPlus, FaCheck, FaCheckCircle } from 'react-icons/fa';
 import  useMyMentees  from '../../../hooks/useMyMentees';; // Adjust the import based on your project structure
 
 const UserCard = ({ 
@@ -39,21 +39,26 @@ const UserCard = ({
       onClick={() => onClick?.(user)}
     >
       {/* Favorite button */}
-      <div className="user-card__favorite">
-        <button className="favorite-btn" onClick={handleMyMentees}>
-          {isMyMentee(user._id) ? 
-            <FaPlusCircle color="#080b56ff" /> : 
-            <FaPlus color="#ccc" />
-          }
-        </button>
-      </div>
+      
 
+      { user?.userType === 'mentee' &&  (
+        <div className="user-card__favorite">
+          <button className="favorite-btn" onClick={handleMyMentees}>
+            {isMyMentee(user._id) ? 
+              <FaCheckCircle color="#bd0addff" /> : 
+              <FaCheckCircle color="#ccc" />
+            }
+          </button>
+        </div>
+      )}
+
+      { user?.userType === 'mentor' && (
       <div className="user-card__myMentees">
         <button className="favorite-btn" onClick={handleFavorite}>
           {isFavorite(user._id) ? <FaStar color="#FFD700" /> : <FaRegStar />}
         </button>
       </div>
-      
+      )}
         {/* User Header */}
       <UserHeader user={user} userType={userType} />
     </div>
