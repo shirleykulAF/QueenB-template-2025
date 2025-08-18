@@ -7,7 +7,8 @@
   "start": "node index.js",
   "server": "nodemon index.js",
   "dev": "nodemon index.js",
-  "seed": "node seed.js"
+  "seed": "node seed.js",
+  "test-auth": "node test-auth.js"
 },
   "dependencies": {
     "bcryptjs": "^3.0.2",
