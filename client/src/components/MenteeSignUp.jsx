@@ -7,12 +7,14 @@ import {
   Snackbar,
   Alert
 } from '@mui/material';
+import { useNavigate } from "react-router-dom";
 import {
   CheckCircle as CheckCircleIcon
 } from '@mui/icons-material';
 import PasswordRequirementsBubble from './PasswordRequirementsBubble'; // Import your existing component
 
 export default function MenteeSignUp() {
+  const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
@@ -133,7 +135,7 @@ export default function MenteeSignUp() {
       
       // Navigate to home after 2 seconds
       setTimeout(() => {
-        window.location.href = '/';
+        navigate("/mentors");
       }, 2000);
 
     } catch (err) {
@@ -150,7 +152,7 @@ export default function MenteeSignUp() {
     <>
       <Paper sx={{ 
         p: 4, 
-        maxWidth: 400, 
+        maxWidth: 500, 
         width: '100%', 
         borderRadius: 3,
         boxShadow: '0 20px 40px rgba(0,0,0,0.1)',

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Box, Container, Tabs, Tab } from "@mui/material";
 import { PersonAdd } from "@mui/icons-material";
 import MentorSignUp from "./mentorSignUp";
-import MentitSignUp from "./MentitSignUp";
+import MenteeSignUp from "./MenteeSignUp";
 import Footer from "./Footer";
 import Header from "./Header/Header";
 import registrationImg from "../assets/loginImg.svg";
@@ -75,7 +75,7 @@ const RegistrationPage = () => {
                 </Tabs>
 
                 {tabValue === 0 && <MentorSignUp />}
-                {tabValue === 1 && <MentitSignUp />}
+                {tabValue === 1 && <MenteeSignUp />}
               </Box>
             </Box>
           </Box>
