@@ -3,6 +3,7 @@ import MenteeCard from '../../components/Mentee/MenteeCard/MenteeCard';
 import MenteeModal from '../../components/Mentee/MenteeModal/MenteeModal';
 import useMenteesList from '../../hooks/useMenteesList';
 import useFavorites from '../../hooks/useFavorites';
+import useMyMentees from '../../hooks/useMyMentees';
 import './MenteesIndex.css';
 
 const baseURL = process.env.REACT_APP_API_URL;
@@ -12,9 +13,11 @@ const MenteesIndex = ({ user }) => {
   const [selectedMentee, setSelectedMentee] = useState(null);
   const [query, setQuery] = useState(''); // stores what the user types in the search bar
   const { addFavorite, removeFavorite, isFavorite } = useFavorites(user?._id);
+  const { addMentee, removeMentee, isMyMentee } = useMyMentees(user?._id);
 
   if (loading) return <div className="mentee-list"><p>Loading mentees...</p></div>;
   if (error) return <div className="mentee-list"><p>Error: {error}</p></div>;
+
 
   const filteredMentees = mentees.filter((mentee) => {
     const q = query.trim().toLowerCase();
@@ -32,6 +35,13 @@ const MenteesIndex = ({ user }) => {
 
   // Sort mentees: favorites first, then alphabetically by name
   const sortedMentees = [...filteredMentees].sort((a, b) => {
+    const aMyMentee = isMyMentee(a._id) ? -1 : 1;
+    const bMyMentee = isMyMentee(b._id) ? -1 : 1;
+    
+    if (aMyMentee !== bMyMentee) {
+      return aMyMentee - bMyMentee;
+    } 
+    
     // First sort by favorites
     const aFav = isFavorite(a._id) ? -1 : 1;
     const bFav = isFavorite(b._id) ? -1 : 1;
@@ -91,6 +101,10 @@ const MenteesIndex = ({ user }) => {
               isFavorite={isFavorite}
               addFavorite={addFavorite}
               removeFavorite={removeFavorite}
+              isMyMentee={isMyMentee}
+              addMentee={addMentee}
+              removeMentee={removeMentee}
+              userId={user._id}
             />
           ))}
         </div>
@@ -100,6 +114,9 @@ const MenteesIndex = ({ user }) => {
       <MenteeModal 
         mentee={selectedMentee} 
         onClose={() => setSelectedMentee(null)} 
+        isMyMentee={isMyMentee}
+        addMentee={addMentee}
+        removeMentee={removeMentee}
       />
     </div>
   );

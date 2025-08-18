@@ -10,6 +10,7 @@ const MenteeCard = ({ mentee, onClick, isFavorite, addFavorite, removeFavorite }
       isFavorite={isFavorite}
       addFavorite={addFavorite}
       removeFavorite={removeFavorite}
+      userId={mentee._id}   
     />
   );
 };
