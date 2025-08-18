@@ -8,21 +8,13 @@ import { useNavigate } from "react-router-dom";
 function MentorSignUp() {
   const navigate = useNavigate();  
 
+
   const [firstName, setFirstName] = useState("");
-  const [lastName,  setLastName]  = useState("");
-  const [phone,     setPhone]     = useState("");
-  const [email,     setEmail]     = useState("");
-  const [password,  setPassword]  = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
   const [description, setDescription] = useState("");
-  const [image,     setImage]     = useState(null);
-  const [linkedin,  setLinkedin]  = useState("");
-  const [yearsOfExperience, setYearsOfExperience] = useState("");
-
-  // Chip/tag arrays (multiple selections)
-  const [programmingLanguages, setProgrammingLanguages] = useState([]);
-  const [technologies,         setTechnologies]         = useState([]);
-  const [domains,              setDomains]              = useState([]);
-
+  const [image, setImage] = useState(null);
   const [phoneError, setPhoneError] = useState("");
 
   const programmingLanguageSuggestions = [
@@ -39,16 +31,11 @@ function MentorSignUp() {
     const ok = /^\d{10}$/.test(value);
     setPhoneError(ok ? "" : "Invalid phone number, use 10 digits.");
     return ok;
+
   }
 
   function handleImage(e) {
-    const file = e.target.files?.[0] ?? null;
-    if (!file) return setImage(null);
-    if (!file.type.startsWith("image/")) {
-      alert("Please select an image file.");
-      return;
-    }
-    setImage(file);
+    setImage(e.target.files[0]);
   }
 
   // normalize LinkedIn so express-validator isURL passes (adds protocol if missing)
@@ -329,8 +316,6 @@ function MentorSignUp() {
           </button>
         </form>
       </div>
-    </div>
+    </>
   );
 }
-
-export default MentorSignUp;
