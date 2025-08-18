@@ -3,19 +3,26 @@ import React, { useState } from "react";
 import "./Form.css";
 import Autocomplete from "@mui/material/Autocomplete";
 import Chip from "@mui/material/Chip";
-import { useNavigate } from "react-router-dom";  
+import { useNavigate } from "react-router-dom";
 
-function MentorSignUp() {
-  const navigate = useNavigate();  
-
+export default function MentorSignUp() {
+  const navigate = useNavigate();
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState(""); // Added missing password state
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
   const [phoneError, setPhoneError] = useState("");
+  const [yearsOfExperience, setYearsOfExperience] = useState(""); // Added missing state
+  const [linkedin, setLinkedin] = useState(""); // Added missing state
+  
+  // Added missing state for autocomplete arrays
+  const [programmingLanguages, setProgrammingLanguages] = useState([]);
+  const [technologies, setTechnologies] = useState([]);
+  const [domains, setDomains] = useState([]);
 
   const programmingLanguageSuggestions = [
     "JavaScript","Python","Java","C++","C#","TypeScript","Go","Rust","SQL","Swift","Kotlin","Scala","Ruby"
@@ -31,7 +38,6 @@ function MentorSignUp() {
     const ok = /^\d{10}$/.test(value);
     setPhoneError(ok ? "" : "Invalid phone number, use 10 digits.");
     return ok;
-
   }
 
   function handleImage(e) {
@@ -46,7 +52,7 @@ function MentorSignUp() {
   }
 
   function handleForm() {
-    // ---- Client-side checks to match your server validators ----
+    // Client-side checks to match your server validators
     if (!firstName || !lastName || !email || !password || !phone) {
       alert("Please fill first name, last name, email, password, and phone.");
       return;
@@ -57,23 +63,24 @@ function MentorSignUp() {
       return;
     }
 
-    // ensure non-empty description because server requires it (unless you relaxed it)
+    // ensure non-empty description because server requires it
     if (!String(description || "").trim()) { 
       alert("Please add a short general description."); 
-      return; }
+      return; 
+    }
 
     // ensure each list has at least one item (server requires non-empty)
-    if ( //  
+    if (
       programmingLanguages.length === 0 ||  
       technologies.length === 0 ||           
       domains.length === 0                   
-    ) {                                     
-      alert("Please add at least one Programming Language, Technology, and Domain."); //  
+    ) {
+      alert("Please add at least one Programming Language, Technology, and Domain.");
       return;  
-    }  
+    }
 
     // yearsOfExperience must be an integer string
-    const yoe = String(parseInt(yearsOfExperience || "0", 10));  
+    const yoe = String(parseInt(yearsOfExperience || "0", 10));
 
     const fd = new FormData();
     fd.append("email", email.trim());
@@ -81,12 +88,12 @@ function MentorSignUp() {
     fd.append("firstName", firstName.trim());
     fd.append("lastName", lastName.trim());
     fd.append("phoneNumber", phone.trim());
-    fd.append("yearsOfExperience", yoe);                  
-    fd.append("generalDescription", String(description).trim());  
+    fd.append("yearsOfExperience", yoe);
+    fd.append("generalDescription", String(description).trim());
 
     // only append linkedinUrl if provided; add protocol if missing
-    const linked = normalizeLinkedin(linkedin);  
-    if (linked) fd.append("linkedinUrl", linked);  
+    const linked = normalizeLinkedin(linkedin);
+    if (linked) fd.append("linkedinUrl", linked);
 
     // Join arrays as CSV strings (backend will split)
     fd.append("programmingLanguages", programmingLanguages.join(","));
@@ -94,22 +101,19 @@ function MentorSignUp() {
     fd.append("domains", domains.join(","));
 
     // File field name MUST match multer.single('profilePhoto') on server
-    fd.append("profilePhoto", image); // (kept, but corrected comment)
-
-    // (optional) debug payload
-    // for (const [k, v] of fd.entries()) console.log("FD:", k, v);
+    fd.append("profilePhoto", image);
 
     fetch("/api/auth/register-mentor", {
       method: "POST",
-      body: fd,                   // don't set Content-Type with FormData
-      credentials: "include",     // keep session cookie
+      body: fd,
+      credentials: "include",
     })
       .then(async (r) => {
         const data = await r.json().catch(() => ({}));
         if (!r.ok) {
           const list = Array.isArray(data?.errors)
             ? data.errors.map((e) => `${e.param}: ${e.msg}`).join("\n")  
-            : data?.error || data?.message || "Registration failed";     
+            : data?.error || data?.message || "Registration failed";
           throw new Error(list);
         }
         return data;
@@ -135,6 +139,7 @@ function MentorSignUp() {
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             className="input"
+            placeholder="Enter your first name"
           />
 
           <label htmlFor="lastName" className="label">Last Name</label>
@@ -144,6 +149,7 @@ function MentorSignUp() {
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
             className="input"
+            placeholder="Enter your last name"
           />
 
           <label htmlFor="phone" className="label">Phone</label>
@@ -153,6 +159,7 @@ function MentorSignUp() {
             value={phone}
             onChange={(e) => { setPhone(e.target.value); validatePhone(e.target.value); }}
             className="input"
+            placeholder="Enter your phone number"
           />
           {phoneError && <p className="error">{phoneError}</p>}
 
@@ -163,6 +170,7 @@ function MentorSignUp() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="input"
+            placeholder="Enter your email"
           />
 
           <label htmlFor="password" className="label">Password</label>
@@ -182,6 +190,7 @@ function MentorSignUp() {
             onChange={(e) => setDescription(e.target.value)}
             rows={5}
             className="textarea"
+            placeholder="Tell us something about yourself"
           />
 
           <label htmlFor="yearsOfExperience" className="label">Years of Experience</label>
@@ -195,7 +204,6 @@ function MentorSignUp() {
             placeholder="Enter years of experience"
           />
 
-          {/* ---- Tags (chips) with MUI Autocomplete ---- */}
           <label id="progLangs-label" className="label">Programming Languages</label>
           <Autocomplete
             multiple
@@ -309,13 +317,18 @@ function MentorSignUp() {
           />
 
           <label htmlFor="image" className="label">Image</label>
-          <input id="image" type="file" onChange={handleImage} accept="image/*" /> {/* CHANGED: accept */}
+          <input 
+            id="image" 
+            type="file" 
+            onChange={handleImage} 
+            accept="image/*" 
+          />
 
           <button type="button" className="button" onClick={handleForm}>
             Confirm
           </button>
         </form>
       </div>
-    </>
+    </div>
   );
 }
