@@ -5,6 +5,7 @@ const morgan = require("morgan");
 const mongoose = require('mongoose');
 const mentorsRoutes = require('./routes/mentors');
 const favoritesRouter = require('./routes/favorites');
+const tipsRouter = require('./routes/tips');
 const menteesRoutes = require('./routes/mentees');
 const usersRoutes = require('./routes/users');
 require("dotenv").config();
@@ -25,6 +26,7 @@ app.use("/api/mentors", mentorsRoutes);
 app.use("/api/mentees", menteesRoutes);
 app.use("/api/users", usersRoutes);
 app.use('/api/favorites', favoritesRouter);
+app.use('/api/tips', tipsRouter);
 
 
 // MongoDB connection
