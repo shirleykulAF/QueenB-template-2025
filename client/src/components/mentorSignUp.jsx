@@ -1,9 +1,14 @@
 // client/src/components/mentorSignUp.jsx
 import React, { useState } from "react";
-import "./Form.css";
-import Autocomplete from "@mui/material/Autocomplete";
-import Chip from "@mui/material/Chip";
-import { useNavigate } from "react-router-dom";
+import {
+  TextField,
+  Button,
+  Typography,
+  Paper,
+  Box,
+  Input
+} from '@mui/material';
+import PasswordRequirementsBubble from './PasswordRequirementsBubble'; // Import your existing component
 
 export default function MentorSignUp() {
   const navigate = useNavigate();
@@ -12,323 +17,307 @@ export default function MentorSignUp() {
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState(""); // Added missing password state
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
   const [phoneError, setPhoneError] = useState("");
-  const [yearsOfExperience, setYearsOfExperience] = useState(""); // Added missing state
-  const [linkedin, setLinkedin] = useState(""); // Added missing state
-  
-  // Added missing state for autocomplete arrays
-  const [programmingLanguages, setProgrammingLanguages] = useState([]);
-  const [technologies, setTechnologies] = useState([]);
-  const [domains, setDomains] = useState([]);
+  const [passwordError, setPasswordError] = useState("");
+  const [confirmPasswordError, setConfirmPasswordError] = useState("");
+  const [yearsOfExperience, setYearsOfExperience] = useState("");
+  const [technologies, setTechnologies] = useState("");
+  const [linkedin, setLinkedin] = useState("");
 
-  const programmingLanguageSuggestions = [
-    "JavaScript","Python","Java","C++","C#","TypeScript","Go","Rust","SQL","Swift","Kotlin","Scala","Ruby"
-  ];
-  const technologySuggestions = [
-    "React","Node.js","Express","MongoDB","PostgreSQL","MySQL","Docker","Kubernetes","AWS","Azure","GCP","Redux","Next.js"
-  ];
-  const domainSuggestions = [
-    "Web","Mobile","Data Science","Machine Learning","DevOps","Cloud","Cybersecurity","Backend","Frontend","Full Stack","E-commerce","EdTech"
-  ];
+  function validatePhone(phoneValue) {
+    if (phoneValue.length !== 10) {
+      setPhoneError("Invalid phone number, try again...");
+      return false;
+    } else {
+      setPhoneError("");
+      return true;
+    }
+  }
 
-  function validatePhone(value) {
-    const ok = /^\d{10}$/.test(value);
-    setPhoneError(ok ? "" : "Invalid phone number, use 10 digits.");
-    return ok;
+  // Strong password validation
+  function validatePassword(password) {
+    const requirements = {
+      minLength: password.length >= 8,
+      hasUpperCase: /[A-Z]/.test(password),
+      hasLowerCase: /[a-z]/.test(password),
+      hasNumber: /\d/.test(password),
+      hasSpecialChar: /[!@#$%^&*(),.?":{}|<>]/.test(password),
+    };
+
+    if (!requirements.minLength) {
+      setPasswordError("Password must be at least 8 characters long");
+      return false;
+    }
+    if (!requirements.hasUpperCase) {
+      setPasswordError("Password must contain at least one uppercase letter");
+      return false;
+    }
+    if (!requirements.hasLowerCase) {
+      setPasswordError("Password must contain at least one lowercase letter");
+      return false;
+    }
+    if (!requirements.hasNumber) {
+      setPasswordError("Password must contain at least one number");
+      return false;
+    }
+    if (!requirements.hasSpecialChar) {
+      setPasswordError("Password must contain at least one special character");
+      return false;
+    }
+
+    setPasswordError("");
+    return true;
+  }
+
+  // Validate password confirmation
+  function validateConfirmPassword(confirmPass) {
+    if (confirmPass !== password) {
+      setConfirmPasswordError("Passwords do not match");
+      return false;
+    }
+    setConfirmPasswordError("");
+    return true;
   }
 
   function handleImage(e) {
     setImage(e.target.files[0]);
   }
 
-  // normalize LinkedIn so express-validator isURL passes (adds protocol if missing)
-  function normalizeLinkedin(url) { 
-    const v = (url || "").trim();
-    if (!v) return "";
-    return v.startsWith("http://") || v.startsWith("https://") ? v : `https://${v}`;
-  }
-
   function handleForm() {
-    // Client-side checks to match your server validators
-    if (!firstName || !lastName || !email || !password || !phone) {
-      alert("Please fill first name, last name, email, password, and phone.");
+    // Validate all fields before submission
+    const isPhoneValid = validatePhone(phone);
+    const isPasswordValid = validatePassword(password);
+    const isConfirmPasswordValid = validateConfirmPassword(confirmPassword);
+
+    if (!isPhoneValid || !isPasswordValid || !isConfirmPasswordValid) {
       return;
     }
-    if (!validatePhone(phone)) return;
-    if (!image) {
-      alert("Please upload a profile photo.");
+
+    // Check if all required fields are filled
+    if (!firstName || !lastName || !email || !password || !yearsOfExperience || !technologies) {
+      alert("Please fill in all required fields");
       return;
     }
 
-    // ensure non-empty description because server requires it
-    if (!String(description || "").trim()) { 
-      alert("Please add a short general description."); 
-      return; 
-    }
+    // Create FormData for file upload
+    const formData = new FormData();
+    formData.append('firstName', firstName);
+    formData.append('lastName', lastName);
+    formData.append('phoneNumber', phone);
+    formData.append('email', email);
+    formData.append('password', password);
+    formData.append('generalDescription', description);
+    formData.append('yearsOfExperience', yearsOfExperience);
+    formData.append('technologies', technologies);
+    formData.append('domains', technologies); // Assuming technologies includes domains
+    formData.append('programmingLanguages', technologies); // Assuming technologies includes languages
+    if (linkedin) formData.append('linkedinUrl', linkedin);
+    if (image) formData.append('profilePhoto', image);
 
-    // ensure each list has at least one item (server requires non-empty)
-    if (
-      programmingLanguages.length === 0 ||  
-      technologies.length === 0 ||           
-      domains.length === 0                   
-    ) {
-      alert("Please add at least one Programming Language, Technology, and Domain.");
-      return;  
-    }
-
-    // yearsOfExperience must be an integer string
-    const yoe = String(parseInt(yearsOfExperience || "0", 10));
-
-    const fd = new FormData();
-    fd.append("email", email.trim());
-    fd.append("password", password);
-    fd.append("firstName", firstName.trim());
-    fd.append("lastName", lastName.trim());
-    fd.append("phoneNumber", phone.trim());
-    fd.append("yearsOfExperience", yoe);
-    fd.append("generalDescription", String(description).trim());
-
-    // only append linkedinUrl if provided; add protocol if missing
-    const linked = normalizeLinkedin(linkedin);
-    if (linked) fd.append("linkedinUrl", linked);
-
-    // Join arrays as CSV strings (backend will split)
-    fd.append("programmingLanguages", programmingLanguages.join(","));
-    fd.append("technologies", technologies.join(","));
-    fd.append("domains", domains.join(","));
-
-    // File field name MUST match multer.single('profilePhoto') on server
-    fd.append("profilePhoto", image);
-
-    fetch("/api/auth/register-mentor", {
+    fetch("http://localhost:5000/api/auth/register-mentor", {
       method: "POST",
-      body: fd,
       credentials: "include",
+      body: formData, // Use FormData for file upload
     })
       .then(async (r) => {
         const data = await r.json().catch(() => ({}));
         if (!r.ok) {
-          const list = Array.isArray(data?.errors)
-            ? data.errors.map((e) => `${e.param}: ${e.msg}`).join("\n")  
-            : data?.error || data?.message || "Registration failed";
-          throw new Error(list);
+          const msg =
+            data?.error ||
+            data?.message ||
+            data?.errors?.[0]?.msg ||
+            "Registration failed";
+          throw new Error(msg);
         }
         return data;
       })
       .then((data) => {
         console.log("Mentor registered:", data);
-        alert("Mentor registered!");
-        navigate("/profile/edit");  
+        alert("Mentor registered successfully!");
       })
-      .catch((err) => alert(err.message));
+      .catch((err) => {
+        console.error("Registration error:", err);
+        alert(err.message);
+      });
   }
 
+  const isFormValid = !passwordError && !confirmPasswordError && !phoneError && 
+                     firstName && lastName && email && password && confirmPassword && 
+                     phone && yearsOfExperience && technologies;
+
   return (
-    <div className="container">
-      <div className="form-card">
-        <form>
-          <h2 className="title">Registration</h2>
+    <Paper sx={{ 
+      p: 4, 
+      maxWidth: 400, 
+      width: '100%', 
+      borderRadius: 3,
+      boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
+      margin: '2rem auto',
+      backgroundColor: '#ffffff'
+    }}>
 
-          <label htmlFor="firstName" className="label">First Name</label>
-          <input
-            id="firstName"
-            type="text"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            className="input"
-            placeholder="Enter your first name"
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+        <TextField
+          label="First Name"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+          required
+          fullWidth
+          variant="outlined"
+        />
+
+        <TextField
+          label="Last Name"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+          required
+          fullWidth
+          variant="outlined"
+        />
+
+        <TextField
+          label="Phone"
+          type="tel"
+          value={phone}
+          onChange={(e) => {
+            setPhone(e.target.value);
+            validatePhone(e.target.value);
+          }}
+          required
+          fullWidth
+          variant="outlined"
+          error={!!phoneError}
+          helperText={phoneError}
+        />
+
+        <TextField
+          label="Email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          fullWidth
+          variant="outlined"
+        />
+
+        <TextField
+          label="Password"
+          type="password"
+          value={password}
+          onChange={(e) => {
+            setPassword(e.target.value);
+            validatePassword(e.target.value);
+          }}
+          required
+          fullWidth
+          variant="outlined"
+          error={!!passwordError}
+          helperText={passwordError}
+        />
+
+        {/* Use your existing MUI Password Requirements Component */}
+        <PasswordRequirementsBubble password={password} />
+
+        <TextField
+          label="Confirm Password"
+          type="password"
+          value={confirmPassword}
+          onChange={(e) => {
+            setConfirmPassword(e.target.value);
+            validateConfirmPassword(e.target.value);
+          }}
+          required
+          fullWidth
+          variant="outlined"
+          error={!!confirmPasswordError}
+          helperText={confirmPasswordError}
+        />
+
+        <TextField
+          label="Years of Experience"
+          type="number"
+          value={yearsOfExperience}
+          onChange={(e) => setYearsOfExperience(e.target.value)}
+          required
+          fullWidth
+          variant="outlined"
+          placeholder="Enter years of experience"
+        />
+
+        <TextField
+          label="Technologies & Programming Languages"
+          value={technologies}
+          onChange={(e) => setTechnologies(e.target.value)}
+          required
+          fullWidth
+          variant="outlined"
+          placeholder="e.g., React, Node.js, Python, JavaScript"
+          helperText="Separate multiple technologies with commas"
+        />
+
+        <TextField
+          label="LinkedIn Profile URL"
+          value={linkedin}
+          onChange={(e) => setLinkedin(e.target.value)}
+          fullWidth
+          variant="outlined"
+          placeholder="https://linkedin.com/in/yourprofile"
+        />
+
+        <TextField
+          label="Description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          multiline
+          rows={4}
+          fullWidth
+          variant="outlined"
+          placeholder="Tell us about your experience and expertise"
+        />
+
+        <Box sx={{ mb: 2 }}>
+          <Typography variant="subtitle2" sx={{ mb: 1, color: '#475569', fontWeight: 600 }}>
+            Profile Photo *
+          </Typography>
+          <Input
+            type="file"
+            onChange={handleImage}
+            inputProps={{ accept: "image/*" }}
+            fullWidth
           />
+          {image && (
+            <Typography variant="caption" sx={{ color: '#16a34a', mt: 1, display: 'block' }}>
+              ✓ {image.name} selected
+            </Typography>
+          )}
+        </Box>
 
-          <label htmlFor="lastName" className="label">Last Name</label>
-          <input
-            id="lastName"
-            type="text"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            className="input"
-            placeholder="Enter your last name"
-          />
-
-          <label htmlFor="phone" className="label">Phone</label>
-          <input
-            id="phone"
-            type="tel"
-            value={phone}
-            onChange={(e) => { setPhone(e.target.value); validatePhone(e.target.value); }}
-            className="input"
-            placeholder="Enter your phone number"
-          />
-          {phoneError && <p className="error">{phoneError}</p>}
-
-          <label htmlFor="email" className="label">Email</label>
-          <input
-            id="email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="input"
-            placeholder="Enter your email"
-          />
-
-          <label htmlFor="password" className="label">Password</label>
-          <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="input"
-            placeholder="Choose password"
-          />
-
-          <label htmlFor="description" className="label">Description</label>
-          <textarea
-            id="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            rows={5}
-            className="textarea"
-            placeholder="Tell us something about yourself"
-          />
-
-          <label htmlFor="yearsOfExperience" className="label">Years of Experience</label>
-          <input
-            id="yearsOfExperience"
-            type="number"
-            min="0"
-            value={yearsOfExperience}
-            onChange={(e) => setYearsOfExperience(e.target.value)}
-            className="input"
-            placeholder="Enter years of experience"
-          />
-
-          <label id="progLangs-label" className="label">Programming Languages</label>
-          <Autocomplete
-            multiple
-            freeSolo
-            options={programmingLanguageSuggestions}
-            value={programmingLanguages}
-            onChange={(e, newValue) => setProgrammingLanguages(newValue)}
-            renderTags={(value) =>
-              value.map((option, index) => (
-                <Chip
-                  label={option}
-                  key={`${option}-${index}`}
-                  onDelete={() => {
-                    const updated = [...programmingLanguages];
-                    updated.splice(index, 1);
-                    setProgrammingLanguages(updated);
-                  }}
-                />
-              ))
+        <Button
+          onClick={handleForm}
+          disabled={!isFormValid}
+          fullWidth
+          variant="contained"
+          size="large"
+          sx={{
+            mt: 2,
+            py: 1.5,
+            background: 'linear-gradient(45deg, #667eea, #764ba2)',
+            '&:hover': {
+              background: 'linear-gradient(45deg, #5a6fd8, #6a4190)',
+            },
+            '&:disabled': {
+              background: '#e0e0e0',
+              color: '#9e9e9e'
             }
-            renderInput={(params) => (
-              <div ref={params.InputProps.ref} className="autocomplete">
-                {params.InputProps.startAdornment}
-                <input
-                  {...params.inputProps}
-                  type="text"
-                  className="autocomplete-input"
-                  placeholder="Type and press Enter"
-                  aria-labelledby="progLangs-label"
-                />
-              </div>
-            )}
-          />
-
-          <label id="technologies-label" className="label">Technologies</label>
-          <Autocomplete
-            multiple
-            freeSolo
-            options={technologySuggestions}
-            value={technologies}
-            onChange={(e, newValue) => setTechnologies(newValue)}
-            renderTags={(value) =>
-              value.map((option, index) => (
-                <Chip
-                  label={option}
-                  key={`${option}-${index}`}
-                  onDelete={() => {
-                    const updated = [...technologies];
-                    updated.splice(index, 1);
-                    setTechnologies(updated);
-                  }}
-                />
-              ))
-            }
-            renderInput={(params) => (
-              <div ref={params.InputProps.ref} className="autocomplete">
-                {params.InputProps.startAdornment}
-                <input
-                  {...params.inputProps}
-                  type="text"
-                  className="autocomplete-input"
-                  placeholder="e.g. React, Node.js, Docker"
-                  aria-labelledby="technologies-label"
-                />
-              </div>
-            )}
-          />
-
-          <label id="domains-label" className="label">Domains</label>
-          <Autocomplete
-            multiple
-            freeSolo
-            options={domainSuggestions}
-            value={domains}
-            onChange={(e, newValue) => setDomains(newValue)}
-            renderTags={(value) =>
-              value.map((option, index) => (
-                <Chip
-                  label={option}
-                  key={`${option}-${index}`}
-                  onDelete={() => {
-                    const updated = [...domains];
-                    updated.splice(index, 1);
-                    setDomains(updated);
-                  }}
-                />
-              ))
-            }
-            renderInput={(params) => (
-              <div ref={params.InputProps.ref} className="autocomplete">
-                {params.InputProps.startAdornment}
-                <input
-                  {...params.inputProps}
-                  type="text"
-                  className="autocomplete-input"
-                  placeholder="e.g. Web, ML, DevOps"
-                  aria-labelledby="domains-label"
-                />
-              </div>
-            )}
-          />
-
-          <label htmlFor="linkedin" className="label">LinkedIn</label>
-          <input
-            id="linkedin"
-            type="url"
-            value={linkedin}
-            onChange={(e) => setLinkedin(e.target.value)}
-            className="input"
-            placeholder="https://www.linkedin.com/in/username"
-          />
-
-          <label htmlFor="image" className="label">Image</label>
-          <input 
-            id="image" 
-            type="file" 
-            onChange={handleImage} 
-            accept="image/*" 
-          />
-
-          <button type="button" className="button" onClick={handleForm}>
-            Confirm
-          </button>
-        </form>
-      </div>
-    </div>
+          }}
+        >
+          Create Mentor Account
+        </Button>
+      </Box>
+    </Paper>
   );
 }

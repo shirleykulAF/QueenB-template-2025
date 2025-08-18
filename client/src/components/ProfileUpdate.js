@@ -26,10 +26,8 @@ import {
   LinkedIn,
   Code,
   Work,
-  Business,
   CalendarToday,
   Description,
-  Close,
 } from "@mui/icons-material";
 
 import Footer from "./Footer";

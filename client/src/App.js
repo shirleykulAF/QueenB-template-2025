@@ -2,11 +2,11 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
 import ProfileUpdate from "./components/ProfileUpdate";
-import LoginPage from "./components/LoginPage"; // Add this import
 import RegistrationPage from "./components/RegistrationPage";
 import MentorsListPage from "./pages/MentorsListPage";
 import MentorSignUp from "./components/mentorSignUp";
 import Home from "./components/Home";
+import AdminUsersView from './components/AdminUsersView';
 
 const theme = createTheme({
   direction: "rtl",
@@ -47,6 +47,7 @@ function App() {
           <Route path="/profile/edit" element={<ProfileUpdate />} />
           <Route path="/register" element={<RegistrationPage />} />
           <Route path="/mentors" element={<MentorsListPage />} />
+          <Route path="/admin/users" element={<AdminUsersView />} />
         </Routes>
       </Router>
     </ThemeProvider>

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   Box,
   Container,
-  Paper,
   Typography,
   TextField,
   Button,
@@ -50,11 +49,13 @@ const LoginPage = () => {
           text: `Welcome back! Logged in as ${data.user.userType}`,
         });
 
-        // Redirect based on user type
-        if (data.user.userType === 'mentor') {
-          setTimeout(() => navigate('/profile/edit'), 1500);
-        } else if(data.user?.userType === "mentee") {
-          navigate("/mentors"); 
+        if (data.user.userType === "mentor") {
+          setTimeout(() => navigate("/profile/edit"), 1500);
+        } else if (data.user.userType === "mentee") {
+          setTimeout(() => navigate("/mentors"), 1500);
+        }
+        else if (data.user.userType === "admin") {
+          setTimeout(() => navigate("/admin/users"), 1500);
         }
       } else {
         setMessage({ type: "error", text: data.error || "Login failed" });
