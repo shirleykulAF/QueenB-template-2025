@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import './SignupForm.css';
 import { useFormState } from '../../hooks/useFormState';
 import { useFormValidation } from '../../hooks/useFormValidation';
 import FormField from './FormField';
 import { mentorFields } from './config/formFields';
+import { useNavigate } from "react-router-dom";
 
-const MentorSignupForm = ( {onSuccess} ) => {
+const baseURL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
+const MentorSignupForm = ({ onSuccess, isEditMode = false, initialData = null }) => {
+    const navigate = useNavigate();
+    
     const {
         formData,
         loading,
@@ -15,31 +20,52 @@ const MentorSignupForm = ( {onSuccess} ) => {
         setLoading,
         setError,
         setSuccess,
-        resetForm
+        resetForm,
+        setFormData
     } = useFormState({
         firstName: '',
         lastName: '',
         email: '',
-        passworsd: '',
+        password: '',  
         imageUrl: '',
         technologies: '',
         yearsOfExperience: '',
-        linkedIn: '',
+        linkedin: '',
         phone: '',
         description: '',
         userType: 'mentor'
     });
 
+    // Pre-fill form data when in edit mode
+    useEffect(() => {
+        if (isEditMode && initialData) {
+            // Create a copy of the data to avoid reference issues
+            const dataToUse = { 
+                ...initialData,
+                technologies: Array.isArray(initialData.technologies) 
+                    ? initialData.technologies.join(', ') 
+                    : initialData.technologies,
+                password: '' // Don't prefill password
+            };
+            
+            // Update form data
+            setFormData(dataToUse);
+        }
+    }, [isEditMode, initialData]);
+
     const { validateRequired, validateEmail, validateImageUrl, validatePassword } = useFormValidation();
 
     const validateForm = () => {
-        const requiredFields = ['firstName', 'lastName', 'email', 'password', 'technologies', 'yearsOfExperience', 'linkedin', 'phone'];
+        const requiredFields = isEditMode 
+            ? ['firstName', 'lastName', 'technologies', 'yearsOfExperience', 'linkedin', 'phone'] 
+            : ['firstName', 'lastName', 'email', 'password', 'technologies', 'yearsOfExperience', 'linkedin', 'phone'];
+        
         const missingFields = validateRequired(requiredFields, formData);
         if (missingFields) {    
             setError(missingFields);
             return false;
         };
-    
+
         const emailError = validateEmail(formData.email);
         if (emailError) {
             setError(emailError);
@@ -52,11 +78,14 @@ const MentorSignupForm = ( {onSuccess} ) => {
             return false;
         };
 
-        const passwordError = validatePassword(formData.password);
-        if (passwordError) {    
-            setError(passwordError);
-            return false;
-        };
+        // Only validate password if not in edit mode or if a new password is provided and not empty
+        if (!isEditMode || (formData.password && formData.password.trim() !== '')) {
+            const passwordError = validatePassword(formData.password);
+            if (passwordError) {    
+                setError(passwordError);
+                return false;
+            };
+        }
 
         return true;
     };
@@ -71,29 +100,46 @@ const MentorSignupForm = ( {onSuccess} ) => {
         setLoading(true);
         setError('');
 
-         try {
-            const response = await fetch('http://localhost:5000/api/users/register', {
-                method: 'POST',
+        try {
+            const url = isEditMode 
+                ? `${baseURL}/api/mentors/update/${formData._id}`
+                : `${baseURL}/api/users/register`;
+                
+            const method = isEditMode ? 'PUT' : 'POST';
+            
+            const dataToSend = { ...formData };
+            
+            if (isEditMode && (!dataToSend.password || dataToSend.password.trim() === '')) {
+                delete dataToSend.password;
+            }
+            
+            const response = await fetch(url, {
+                method: method,
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${sessionStorage.getItem('authToken')}`
                 },
-                body: JSON.stringify({
-                    ...formData,
-                    image: formData.imageUrl ? formData.imageUrl : undefined
-                })
+                body: JSON.stringify(dataToSend)
             });
 
             const data = await response.json();
 
             if (data.success) {
                 setSuccess(data.message);
-                sessionStorage.setItem('authToken', data.token);
-                sessionStorage.setItem('user', JSON.stringify(data.user));
                 
-                resetForm();
-                if (onSuccess) onSuccess(data.user); // Call the onSuccess callback with the user data
+                if (!isEditMode) {
+                    sessionStorage.setItem('authToken', data.token);
+                    sessionStorage.setItem('user', JSON.stringify(data.user));
+                    resetForm();
+                } else {
+                    // Update the user in session storage with the updated info
+                    sessionStorage.setItem('user', JSON.stringify(data.user));
+                }
+                
+                if (onSuccess) onSuccess(data.user);
+                navigate('/');
             } else {
-                setError(data.message || 'Registration failed');
+                setError(data.message || (isEditMode ? 'Update failed' : 'Registration failed'));
             }
         } catch (error) {
             setError('Server error, please try again later');
@@ -102,20 +148,30 @@ const MentorSignupForm = ( {onSuccess} ) => {
         }
     };
 
+    
+
     return (
         <div className="mentee-signup-container">
             <form onSubmit={handleSubmit} className="mentee-signup-form">
-                <h2>Mentor Registration</h2>
+                <h2>{isEditMode ? 'Edit Profile' : 'Mentor Registration'}</h2>
 
-                {mentorFields.map(field => (
-                    <FormField
-                        key={field.name}
-                        {...field}
-                        value={formData[field.name]}
-                        onChange={handleChange}
-                        disabled={loading}
-                    />
-                ))}
+                {mentorFields.map(field => {
+                    // Determine if this field should be required
+                    const isRequired = isEditMode && field.name === 'password' 
+                        ? false  // Not required in edit mode
+                        : field.required;
+                    
+                    return (
+                        <FormField
+                            key={field.name}
+                            {...field}
+                            required={isRequired}  // Override the required property
+                            value={formData[field.name]}
+                            onChange={handleChange}
+                            disabled={loading || (isEditMode && field.name === 'email')}
+                        />
+                    );
+                })}
 
                 {error && <div className="error-message">{error}</div>}
                 {success && <div className="success-message">{success}</div>}
@@ -125,10 +181,10 @@ const MentorSignupForm = ( {onSuccess} ) => {
                     disabled={loading}
                     className="submit-button"
                 >
-                    {loading ? 'Registering...' : 'Register'}
+                    {loading ? (isEditMode ? 'Updating...' : 'Registering...') : 
+                              (isEditMode ? 'Update Profile' : 'Register')}
                 </button>
-            </form> 
-           
+            </form>
         </div>
     );
 };
