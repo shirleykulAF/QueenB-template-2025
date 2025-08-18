@@ -1,24 +1,27 @@
 import { useState } from 'react';
 
-export const useFormState = (initialValues) => {
-  const [formData, setFormData] = useState(initialValues);
+export const useFormState = (initialState) => {
+  const [formData, setFormData] = useState(initialState);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-    if (error) setError('');
-    if (success) setSuccess('');
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
   };
 
   const resetForm = () => {
-    setFormData(initialValues);
+    setFormData(initialState);
     setError('');
     setSuccess('');
+  };
+
+  const updateFormData = (newData) => {
+    setFormData(newData);
   };
 
   return {
@@ -30,6 +33,7 @@ export const useFormState = (initialValues) => {
     setLoading,
     setError,
     setSuccess,
-    resetForm
+    resetForm,
+    setFormData: updateFormData 
   };
 };

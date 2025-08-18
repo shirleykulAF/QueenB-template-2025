@@ -1,0 +1,18 @@
+.mentor-edit-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.mentor-edit-container h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-size: 1.5rem;
+}
