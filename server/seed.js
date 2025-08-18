@@ -3,11 +3,18 @@
 
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const bcrypt = require('bcryptjs');
 const Mentor = require('./models/Mentor');
 const Mentee = require('./models/Mentee');
 
 // Load environment variables
 dotenv.config();
+
+// Helper function to hash passwords
+const hashPassword = async (password) => {
+  const saltRounds = 10;
+  return await bcrypt.hash(password, saltRounds);
+};
 
 // Mock data for mentors
 const mentorsData = [
@@ -15,6 +22,7 @@ const mentorsData = [
     firstName: 'Sarah',
     lastName: 'Cohen',
     email: 'sarah.cohen@example.com',
+    password: 'password123', // Will be hashed
     phone: '050-1234567',
     technologies: ['JavaScript', 'React', 'Node.js', 'MongoDB'],
     yearsOfExperience: 5,
@@ -26,6 +34,7 @@ const mentorsData = [
     firstName: 'David',
     lastName: 'Levy',
     email: 'david.levy@example.com',
+    password: 'password123',
     phone: '052-2345678',
     technologies: ['Python', 'Django', 'PostgreSQL', 'Docker'],
     yearsOfExperience: 7,
@@ -37,6 +46,7 @@ const mentorsData = [
     firstName: 'Rachel',
     lastName: 'Ben-David',
     email: 'rachel.bendavid@example.com',
+    password: 'password123',
     phone: '053-3456789',
     technologies: ['React', 'Vue.js', 'TypeScript', 'CSS', 'Figma'],
     yearsOfExperience: 4,
@@ -48,6 +58,7 @@ const mentorsData = [
     firstName: 'Michael',
     lastName: 'Goldberg',
     email: 'michael.goldberg@example.com',
+    password: 'password123',
     phone: '054-4567890',
     technologies: ['Java', 'Spring Boot', 'Microservices', 'AWS', 'Kubernetes'],
     yearsOfExperience: 10,
@@ -59,6 +70,7 @@ const mentorsData = [
     firstName: 'Yael',
     lastName: 'Shapira',
     email: 'yael.shapira@example.com',
+    password: 'password123',
     phone: '055-5678901',
     technologies: ['Angular', 'RxJS', 'NestJS', 'GraphQL'],
     yearsOfExperience: 6,
@@ -70,6 +82,7 @@ const mentorsData = [
     firstName: 'Amit',
     lastName: 'Peretz',
     email: 'amit.peretz@example.com',
+    password: 'password123',
     phone: '058-6789012',
     technologies: ['React Native', 'Flutter', 'iOS', 'Android', 'Firebase'],
     yearsOfExperience: 5,
@@ -81,6 +94,7 @@ const mentorsData = [
     firstName: 'Tamar',
     lastName: 'Weiss',
     email: 'tamar.weiss@example.com',
+    password: 'password123',
     phone: '050-7890123',
     technologies: ['Machine Learning', 'Python', 'TensorFlow', 'Data Science', 'AI'],
     yearsOfExperience: 8,
@@ -92,6 +106,7 @@ const mentorsData = [
     firstName: 'Ron',
     lastName: 'Mizrahi',
     email: 'ron.mizrahi@example.com',
+    password: 'password123',
     phone: '052-8901234',
     technologies: ['DevOps', 'CI/CD', 'Jenkins', 'GitLab', 'Terraform', 'Ansible'],
     yearsOfExperience: 9,
@@ -107,6 +122,7 @@ const menteesData = [
     firstName: 'Noa',
     lastName: 'Katz',
     email: 'noa.katz@example.com',
+    password: 'password123',
     phone: '050-1111111',
     description: 'Computer Science student looking to improve my React skills',
     lookingFor: ['React', 'JavaScript', 'Frontend']
@@ -115,6 +131,7 @@ const menteesData = [
     firstName: 'Or',
     lastName: 'Solomon',
     email: 'or.solomon@example.com',
+    password: 'password123',
     phone: '052-2222222',
     description: 'Junior developer wanting to learn backend development',
     lookingFor: ['Node.js', 'MongoDB', 'Backend']
@@ -123,6 +140,7 @@ const menteesData = [
     firstName: 'Maya',
     lastName: 'Friedman',
     email: 'maya.friedman@example.com',
+    password: 'password123',
     phone: '053-3333333',
     description: 'Career changer interested in mobile development',
     lookingFor: ['React Native', 'Mobile', 'Flutter']
@@ -131,6 +149,7 @@ const menteesData = [
     firstName: 'Itai',
     lastName: 'Rosenberg',
     email: 'itai.rosenberg@example.com',
+    password: 'password123',
     phone: '054-4444444',
     description: 'Looking for guidance in machine learning and AI',
     lookingFor: ['Machine Learning', 'Python', 'AI']
@@ -139,6 +158,7 @@ const menteesData = [
     firstName: 'Shira',
     lastName: 'Levi',
     email: 'shira.levi@example.com',
+    password: 'password123',
     phone: '055-5555555',
     description: 'Want to learn DevOps and cloud technologies',
     lookingFor: ['DevOps', 'AWS', 'Docker']
@@ -147,6 +167,7 @@ const menteesData = [
     firstName: 'Guy',
     lastName: 'Cohen',
     email: 'guy.cohen@example.com',
+    password: 'password123',
     phone: '058-6666666',
     description: 'Bootcamp graduate seeking full-stack mentorship',
     lookingFor: ['Full-stack', 'JavaScript', 'React', 'Node.js']
@@ -168,14 +189,26 @@ async function seedDatabase() {
     await Mentor.deleteMany({});
     await Mentee.deleteMany({});
     
-    // Insert mentors
+    // Hash passwords and insert mentors
     console.log('👨‍🏫 Adding mentors...');
-    const mentors = await Mentor.insertMany(mentorsData);
+    const mentorsWithHashedPasswords = await Promise.all(
+      mentorsData.map(async (mentor) => ({
+        ...mentor,
+        password: await hashPassword(mentor.password)
+      }))
+    );
+    const mentors = await Mentor.insertMany(mentorsWithHashedPasswords);
     console.log(`✅ Added ${mentors.length} mentors`);
     
-    // Insert mentees
+    // Hash passwords and insert mentees
     console.log('👩‍🎓 Adding mentees...');
-    const mentees = await Mentee.insertMany(menteesData);
+    const menteesWithHashedPasswords = await Promise.all(
+      menteesData.map(async (mentee) => ({
+        ...mentee,
+        password: await hashPassword(mentee.password)
+      }))
+    );
+    const mentees = await Mentee.insertMany(menteesWithHashedPasswords);
     console.log(`✅ Added ${mentees.length} mentees`);
     
     // Create some matches (optional)
