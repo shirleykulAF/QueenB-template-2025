@@ -95,7 +95,7 @@ function ChatBot() {
 						padding: '10px 14px',
 						borderRadius: 8,
 						border: 'none',
-						background: isSending ? '#ccc' : '#0057D9',
+						background: isSending ? '#ccc' : '#1E3328', /* Changed to the exact dark green from image */
 						color: '#fff',
 						cursor: isSending ? 'not-allowed' : 'pointer'
 					}}

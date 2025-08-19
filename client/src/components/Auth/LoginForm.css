@@ -2,19 +2,21 @@
 
 /* CSS Variables for consistent theming */
 :root {
-  --primary-purple: #86007C;
-  --light-purple: #EFA1E2;
-  --cream-bg: #FBF4D7;
-  --dark-purple: #4D3A4D;
+  --light-green: #EAF5E0;
+  --peach: #FCDAC7;
+  --coral: #1E3328; /* Changed from #F58A75 to Dark Forest */
+  --plum: #713062;
+  --dark-forest: #1E3328;
+  --sage: #B7C8B5;
   --white: #ffffff;
-  --text-dark: #2c2c2c;
-  --text-light: #666666;
+  --text-dark: #1E3328;
+  --text-light: #B7C8B5;
   --error-red: #EF4444;
-  --border-light: #e5e5e5;
-  --shadow-light: 0 2px 8px rgba(134, 0, 124, 0.1);
-  --shadow-medium: 0 4px 16px rgba(134, 0, 124, 0.15);
-  --border-radius: 12px;
-  --border-radius-small: 8px;
+  --border-light: #B7C8B5;
+  --shadow-light: 0 2px 8px rgba(30, 51, 40, 0.1);
+  --shadow-medium: 0 4px 16px rgba(30, 51, 40, 0.15);
+  --border-radius: 16px;
+  --border-radius-small: 12px;
   --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -26,10 +28,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  background: linear-gradient(135deg, var(--cream-bg) 0%, var(--light-purple) 100%);
+  min-height: 50vh;
+  background: var(--light-green);
   padding: 20px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Rubik', 'Assistant', sans-serif;
 }
 
 .login-form {
@@ -39,22 +41,11 @@
   box-shadow: var(--shadow-medium);
   width: 100%;
   max-width: 400px;
-  border: 1px solid rgba(239, 161, 226, 0.2);
+  border: 1px solid var(--sage);
   position: relative;
   overflow: hidden;
 }
 
-/* Purple accent line at top */
-.login-form::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--primary-purple), var(--light-purple));
-  border-radius: var(--border-radius) var(--border-radius) 0 0;
-}
 
 /* ===========================================
    HEADER STYLING
@@ -63,13 +54,10 @@
 .login-form h2 {
   text-align: center;
   margin-bottom: 2rem;
-  color: var(--dark-purple);
-  font-weight: 600;
-  font-size: 1.75rem;
-  background: linear-gradient(45deg, var(--primary-purple), var(--light-purple));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--dark-forest);
+  font-weight: 700;
+  font-size: 26px;
+  font-family: 'Rubik', 'Assistant', sans-serif;
   letter-spacing: -0.025em;
 }
 
@@ -86,22 +74,23 @@
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 500;
-  color: var(--dark-purple);
-  font-size: 0.9rem;
+  color: var(--dark-forest);
+  font-size: 16px;
   letter-spacing: 0.025em;
+  font-family: 'Rubik', 'Assistant', sans-serif;
 }
 
 .form-group input {
   width: 100%;
   padding: 0.875rem 1rem;
-  border: 2px solid var(--border-light);
+  border: 2px solid var(--sage);
   border-radius: var(--border-radius-small);
-  font-size: 1rem;
+  font-size: 16px;
   color: var(--text-dark);
-  background: rgba(251, 244, 215, 0.1);
+  background: var(--white);
   transition: var(--transition-smooth);
   box-sizing: border-box;
-  font-family: inherit;
+  font-family: 'Rubik', 'Assistant', sans-serif;
   outline: none;
 }
 
@@ -112,14 +101,14 @@
 
 .form-group input:focus {
   outline: none;
-  border-color: var(--primary-purple);
-  box-shadow: 0 0 0 3px rgba(134, 0, 124, 0.1);
+  border-color: var(--plum);
+  box-shadow: 0 0 0 3px rgba(113, 48, 98, 0.1);
   background: var(--white);
   transform: translateY(-1px);
 }
 
 .form-group input:disabled {
-  background-color: rgba(251, 244, 215, 0.5);
+  background-color: rgba(89, 37, 87, 0.1);
   cursor: not-allowed;
   opacity: 0.6;
 }
@@ -146,21 +135,22 @@
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 1.1rem;
-  color: var(--dark-purple);
+  font-size: 14px;
+  color: var(--dark-forest);
   padding: 0.5rem;
-  border-radius: 4px;
+  border-radius: 8px;
   transition: var(--transition-smooth);
   display: flex;
   align-items: center;
   justify-content: center;
   min-width: 2rem;
   min-height: 2rem;
+  font-family: 'Rubik', 'Assistant', sans-serif;
 }
 
 .password-toggle:hover:not(:disabled) {
-  background-color: rgba(134, 0, 124, 0.1);
-  color: var(--primary-purple);
+  background-color: rgba(113, 48, 98, 0.1);
+  color: var(--plum);
   transform: translateY(-50%) scale(1.1);
 }
 
@@ -170,7 +160,7 @@
 }
 
 .password-toggle:focus {
-  outline: 2px solid rgba(134, 0, 124, 0.3);
+  outline: 2px solid rgba(113, 48, 98, 0.3);
   outline-offset: 2px;
 }
 
@@ -186,9 +176,10 @@
   margin-bottom: 1rem;
   text-align: center;
   border: 1px solid #fecaca;
-  font-size: 0.9rem;
+  font-size: 14px;
   font-weight: 500;
   animation: shake 0.5s ease-in-out;
+  font-family: 'Rubik', 'Assistant', sans-serif;
 }
 
 /* ===========================================
@@ -198,29 +189,30 @@
 .submit-button {
   width: 100%;
   padding: 0.875rem 1.5rem;
-  background: linear-gradient(135deg, var(--primary-purple) 0%, var(--light-purple) 100%);
+  background: var(--plum);
   color: var(--white);
   border: none;
   border-radius: var(--border-radius-small);
-  font-size: 1rem;
+  font-size: 16px;
   font-weight: 500;
   cursor: pointer;
   transition: var(--transition-smooth);
-  box-shadow: 0 4px 15px rgba(134, 0, 124, 0.3);
+  box-shadow: 0 4px 15px rgba(113, 48, 98, 0.3);
   letter-spacing: 0.025em;
+  font-family: 'Rubik', 'Assistant', sans-serif;
 }
 
 .submit-button:hover:not(:disabled) {
-  background: linear-gradient(135deg, var(--dark-purple) 0%, var(--primary-purple) 100%);
+  background: var(--dark-forest); /* Changed from coral to dark forest */
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(134, 0, 124, 0.4);
+  box-shadow: 0 6px 20px rgba(113, 48, 98, 0.4);
 }
 
 .submit-button:disabled {
-  background: linear-gradient(135deg, var(--dark-purple) 0%, rgba(77, 58, 77, 0.5) 100%);
+  background: var(--sage);
   cursor: not-allowed;
   transform: none;
-  box-shadow: 0 2px 8px rgba(134, 0, 124, 0.2);
+  box-shadow: 0 2px 8px rgba(30, 51, 40, 0.2);
   opacity: 0.7;
 }
 

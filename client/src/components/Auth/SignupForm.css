@@ -30,7 +30,7 @@
 .mentee-signup-container,
 .mentor-signup-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, var(--cream-bg) 0%, var(--white) 70%);
+  background: var(--white);
   padding: 2rem 1rem;
   display: flex;
   align-items: center;
@@ -110,7 +110,7 @@
 .form-group label {
   display: block;
   font-weight: 500;
-  color: var(--dark-purple);
+  color: #713062;
   margin-bottom: 0.5rem;
   font-size: 0.9rem;
   letter-spacing: 0.025em;
@@ -124,7 +124,7 @@
   border: 2px solid var(--border-light);
   border-radius: var(--border-radius-small);
   font-size: 1rem;
-  color: var(--text-dark);
+  color: #713062;
   background-color: var(--white);
   transition: var(--transition-smooth);
   font-family: inherit;
@@ -143,7 +143,7 @@
 .form-group textarea:focus,
 .form-group select:focus {
   border-color: var(--primary-purple);
-  box-shadow: 0 0 0 3px rgba(134, 0, 124, 0.1);
+  box-shadow: 0 0 0 3px rgba(106, 102, 105, 0.1);
   transform: translateY(-1px);
 }
 
@@ -252,7 +252,7 @@
   right: 1rem;
   top: 50%;
   transform: translateY(-50%);
-  color: var(--primary-purple);
+  color: #713062;
   font-weight: 600;
   font-size: 0.9rem;
   pointer-events: none;
@@ -285,8 +285,8 @@
 .form-section-title {
   font-size: 1.1rem;
   font-weight: 600;
-  color: var(--dark-purple);
-  margin-bottom: 1.5rem;
+  color: #713062;
+  margin-bottom: 1.1rem;
   text-align: center;
   position: relative;
 }
@@ -305,7 +305,7 @@
 
 /* Professional summary styling */
 .professional-summary {
-  background: linear-gradient(135deg, var(--cream-bg) 0%, rgba(134, 0, 124, 0.05) 100%);
+  background: linear-gradient(135deg, var(--cream-bg) 0%, rgba(192, 184, 191, 0.05) 100%);
   padding: 1.5rem;
   border-radius: var(--border-radius-small);
   margin: 1rem 0;
@@ -313,7 +313,7 @@
 
 .professional-summary textarea {
   background: transparent;
-  border: 1px solid rgba(134, 0, 124, 0.2);
+  border: 1px solid rgba(240, 231, 240, 0.2);
 }
 
 /* ===========================================
@@ -382,8 +382,8 @@
 
 .submit-button {
   width: 100%;
-  background: linear-gradient(135deg, var(--primary-purple) 0%, var(--light-purple) 100%);
-  color: var(--white);
+  background: #713062; /* Plum background */
+  color: #ffffff; /* White text for good contrast */
   border: none;
   padding: 1rem 2rem;
   border-radius: var(--border-radius);
@@ -406,7 +406,8 @@
 .submit-button:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: var(--shadow-medium);
-  background: linear-gradient(135deg, var(--dark-purple) 0%, var(--primary-purple) 100%);
+  background: #FCDAC7; /* Peach background on hover */
+  color: #713062; /* Plum text on hover */
 }
 
 .submit-button:active {
@@ -415,7 +416,8 @@
 }
 
 .submit-button:disabled {
-  background: var(--text-light);
+  background: #B7C8B5; /* Sage background when disabled */
+  color: #1E3328; /* Dark Forest text when disabled */
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
@@ -584,7 +586,7 @@
   .mentee-signup-form,
   .mentor-signup-form {
     box-shadow: none;
-    border: 2px solid #000;
+    border: 2px solid #B7C8B5;
   }
   
   .submit-button {

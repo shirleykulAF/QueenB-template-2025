@@ -26,8 +26,8 @@
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #e5e5e5;
-  transition: border-color 0.3s ease;
+  border: 2px solid #B7C8B5; /* Sage */
+  transition: border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Placeholder לתמונה */
@@ -35,14 +35,15 @@
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+  background: linear-gradient(135deg, #EAF5E0 0%, #ecb290 100%); /* Light Green to Peach */
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
   font-size: 1.5rem;
-  color: #6b7280;
-  border: 2px solid #e5e5e5;
+  color: #7c5573; /* Plum */
+  border: 2px solid #B7C8B5; /* Sage */
+  font-family: 'Rubik', 'Assistant', sans-serif;
 }
 
 /* ========================================
@@ -51,42 +52,44 @@
 
 .user-header__name {
   margin: 8px 0 0;
-  font-size: 1.1rem;
+  font-size: 18px;
   font-weight: 600;
-  color: var(--text-dark, #2c2c2c);
+  color: #713062; /* Plum */
   line-height: 1.3;
+  font-family: 'Rubik', 'Assistant', sans-serif;
 }
 
 .user-header__subtitle {
   margin: 4px 0 0;
-  font-size: 0.9rem;
-  color: var(--text-light, #666666);
+  font-size: 16px;
+  color: #1E3328; /* Dark Forest */
   line-height: 1.4;
   word-break: break-word; /* למייל ארוך */
+  font-family: 'Rubik', 'Assistant', sans-serif;
 }
 
 /* ========================================
    USER TYPE SPECIFIC STYLES
    ======================================== */
 
-/* Mentor - תמונה גדולה יותר בהקשרים שאינם כרטיס */
+/* Mentor - Plum accent */
 .user-header--mentor .user-header__avatar,
 .user-header--mentor .user-header__avatar-placeholder {
-  border-color: var(--primary-purple, #86007C);
+  border-color: #713062; /* Plum */
 }
 
 .user-header--mentor:hover .user-header__avatar {
-  border-color: var(--dark-purple, #4D3A4D);
+  border-color: #F58A75; /* Coral */
 }
 
-/* Mentee - גוון ירוק */
+/* Mentee - Coral accent */
 .user-header--mentee .user-header__avatar,
 .user-header--mentee .user-header__avatar-placeholder {
-  border-color: var(--success-green, #10B981);
+  border-color: #F58A75; /* Coral */
 }
 
 .user-header--mentee:hover .user-header__avatar {
-  border-color: #059669;
+  border-color: #713062; /* Plum */
 }
 
 /* ========================================
@@ -99,11 +102,11 @@
 }
 
 .user-modal .user-header__name {
-  font-size: 1.5rem;
+  font-size: 24px;
 }
 
 .user-modal .user-header__subtitle {
-  font-size: 1rem;
+  font-size: 18px;
 }
 
 /* ========================================
@@ -117,11 +120,11 @@
   }
   
   .user-header__name {
-    font-size: 1rem;
+    font-size: 16px;
   }
   
   .user-header__subtitle {
-    font-size: 0.85rem;
+    font-size: 14px;
   }
   
   .user-header__avatar-placeholder {

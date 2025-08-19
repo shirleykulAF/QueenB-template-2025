@@ -4,6 +4,15 @@
 }
 
 .mentor-contact p {
-  margin: 4px 0;
-  word-break: break-word; /* long emails/links won’t overflow */
+  margin: 8px 0;
+  word-break: break-word; /* long emails/links won't overflow */
+  color: #1E3328; /* Dark Forest */
+  font-size: 16px;
+  line-height: 1.6;
+  font-family: 'Rubik', 'Assistant', sans-serif;
+}
+
+.mentor-contact strong {
+  color: #7c5573; /* Plum */
+  font-weight: 600;
 }
