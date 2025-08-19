@@ -5,6 +5,7 @@ import MenteeHome from "../../pages/MenteeHome/MenteeHome";
 import MentorHome from "../../pages/MentorHome/MentorHome";
 import MentorEdit from '../../pages/MentorEdit/MentorEdit';
 import MenteeIndex from "../../pages/MenteeIndex/MenteesIndex";
+import TipsPage from "../../pages/TipsPage/TipsPage";
 
 const ProtectedRoutes = ({ user }) => {
   return (
@@ -16,6 +17,7 @@ const ProtectedRoutes = ({ user }) => {
       } />
       <Route path="/mentor/edit" element={<MentorEdit />} />
       
+      <Route path="/tips" element={<TipsPage user={user} />} />
       
       <Route path="/mentee-index" element={
         user.userType === 'mentor' 

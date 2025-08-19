@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import MentorCard from '../../components/Mentor/MentorCard/MentorCard';
 import MentorModal from '../../components/Mentor/MentorModal/MentorModal';
-import Tips from '../../components/Tips/Tips';
 import useMentorsList from '../../hooks/useMentorsList';
 import useFavorites from '../../hooks/useFavorites';
 import useRandomTip from '../../hooks/useRandomTip';
@@ -90,9 +89,6 @@ const MenteeHome = ( {user} ) => {
 
       {/* Modal to display mentor details */}
       <MentorModal mentor={selectedMentor} onClose={() => setSelectedMentor(null)} />
-      
-      {/* Tips Section */}
-      <Tips user={user} />
 
       {/* ChatBot - floating side window */}
       <div className="chatbot-floating">

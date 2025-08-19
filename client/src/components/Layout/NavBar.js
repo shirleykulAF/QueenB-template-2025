@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import {
   AppBar,
@@ -11,6 +11,7 @@ import {
 
 const NavBar = ({ user, onLogout }) => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleHome = () => {
     navigate('/');
@@ -18,6 +19,10 @@ const NavBar = ({ user, onLogout }) => {
 
   const handleMenteeIndex = () => {
     navigate('/mentee-index');
+  }
+
+  const handleTips = () => {
+    navigate('/tips');
   }
    
   return (
@@ -40,11 +45,33 @@ const NavBar = ({ user, onLogout }) => {
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
 
           <Button 
-            color="inherit" onClick={handleHome}>
+            color="inherit" 
+            onClick={handleHome}
+            sx={{ 
+              backgroundColor: location.pathname === '/' ? 'rgba(255,255,255,0.1)' : 'transparent',
+              borderRadius: 1
+            }}
+          >
             Home
           </Button>
+          <Button 
+            color="inherit" 
+            onClick={handleTips}
+            sx={{ 
+              backgroundColor: location.pathname === '/tips' ? 'rgba(255,255,255,0.1)' : 'transparent',
+              borderRadius: 1
+            }}
+          >
+            Tips
+          </Button>
           { user?.userType === 'mentor' &&  (
-            <Button color='inherit' onClick={handleMenteeIndex}
+            <Button 
+              color='inherit' 
+              onClick={handleMenteeIndex}
+              sx={{ 
+                backgroundColor: location.pathname === '/mentee-index' ? 'rgba(255,255,255,0.1)' : 'transparent',
+                borderRadius: 1
+              }}
             >  
               Mentees Index
             </Button>
