@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Typography } from "@mui/material";
 
 import SearchBar from "./SearchBar";
@@ -7,6 +7,7 @@ import AllMentorsCards from "./AllMentorsCards";
 function HomePage() {
   //use state to get all mentors from the api
   const [mentorList, setMentorList] = useState([]);
+  const [fillteredMentorsList, setfillteredMentorsList] = useState([]);
 
   //fetch all mentors into allMentors list
   //it couse only one call by using useEffect with deppendance -[]
@@ -18,7 +19,8 @@ function HomePage() {
 
         if (data.success) {
           setMentorList(data.data);
-          console.log('Mentors users count = ',data.count)
+          setfillteredMentorsList(data.data);
+          console.log("Mentors users count = ", data.count);
         } else {
           console.error("Failed to load mentors:", data.error);
         }
@@ -26,17 +28,35 @@ function HomePage() {
         console.error("Error fetching mentors:", error);
       }
     };
-
     fetchMentors();
-
   }, []);
 
-  const handelSearchClick = (searchData) =>{
-    if(!mentorList){
+  const handelSearchClick = (searchData) => {
+    if (!mentorList || mentorList.length === 0) return;
+    if (searchData.category === "" && searchData.text === "") {
+      setfillteredMentorsList(mentorList);
       return;
     }
+    const searchValue = searchData.text.trim().toLowerCase();
 
-  }
+    const filltered = mentorList.filter((mentor) => {
+      if (searchData.category === "technologies") {
+        return mentor.technologies.some((tech) =>
+          tech.toLowerCase().includes(searchValue)
+        );
+        
+      } else if (searchData.category === "fullName") {
+        const fullName = `${mentor.firstName} ${mentor.lastName}`.toLowerCase();
+        return fullName.includes(searchValue);
+
+      } else if (searchData.category === "yearsOfExperience") {
+        return String(mentor.yearsOfExperience) === searchValue;
+      }
+      return;
+    });
+
+    setfillteredMentorsList(filltered);
+  };
   return (
     <Box
       sx={{
@@ -49,10 +69,9 @@ function HomePage() {
     >
       <Typography variant="h2">Find Your Mentor</Typography>
 
-      <SearchBar handelSearchClick={handelSearchClick}  />
+      <SearchBar handelSearchClick={handelSearchClick} />
 
-      <AllMentorsCards allMentors={mentorList}/>
-      
+      <AllMentorsCards allMentors={fillteredMentorsList} />
     </Box>
   );
 }

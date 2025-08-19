@@ -8,7 +8,7 @@ import {
   InputLabel,
 } from "@mui/material";
 
-function SearchBar({handelSearchClick}) {
+function SearchBar({ handelSearchClick}) {
   const [searchData, setSearchData] = useState({
     category: "",
     text: "",
@@ -43,10 +43,19 @@ function SearchBar({handelSearchClick}) {
         return;
       }
     } else if (searchData.category === "yearsOfExperience") {
+      if(isNaN(searchData.text)){
+      alert("Please enter a number for years of experience")
       return;
+      }
     }
-      handelSearchClick(searchData)
+    handelSearchClick(searchData);
   };
+
+  const handleReset = () => {
+    const resetData = {category: "", text: ""}
+    setSearchData(resetData);
+    handelSearchClick(resetData);
+  }
 
   return (
     <Box>
@@ -61,8 +70,8 @@ function SearchBar({handelSearchClick}) {
         <MenuItem value="" disabled>
           Search By
         </MenuItem>
-        <MenuItem value="technologies">Technologies</MenuItem>
-        <MenuItem value="fullName">Full Name</MenuItem>
+        <MenuItem value="fullName">Name</MenuItem>
+        <MenuItem value="technologies">Technology</MenuItem>
         <MenuItem value="yearsOfExperience">Years of experience</MenuItem>
       </Select>
 
@@ -75,9 +84,14 @@ function SearchBar({handelSearchClick}) {
         value={searchData.text}
         onChange={handleChange}
       />
-      <Button sx={{ backgroundColor: "white" }} onClick={handleSearch}>
-        Search
-      </Button>
+
+        <Button sx={{ backgroundColor: "white" }} onClick={handleSearch}>
+          Search
+        </Button>
+        <Button sx={{ backgroundColor: "white" }} onClick={handleReset}>
+          Reset All Mentors
+        </Button>
+      
     </Box>
   );
 }
