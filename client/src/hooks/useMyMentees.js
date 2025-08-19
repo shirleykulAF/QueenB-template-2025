@@ -19,7 +19,7 @@ const useMyMentees = (userId) => {
     const addMentee = async (menteeId) => {        try {
             const response = await axios.post(`/api/myMentees/${userId}/${menteeId}`);
             setMyMentee(response.data.myMentees);
-            console.log('Mentee added successfully:', response.data.myMentees);
+            console.log('Mentee added successfully:', response.data.myMentees); 
         } catch (error) {
             console.error('Failed to add mentee:', error);
             throw error;
