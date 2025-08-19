@@ -55,6 +55,12 @@ function HomePage() {
       return;
     });
 
+    if(filltered.length === 0){
+      alert("No mentors found for your search")
+      setfillteredMentorsList(mentorList);
+      return;
+    }
+
     setfillteredMentorsList(filltered);
   };
   return (

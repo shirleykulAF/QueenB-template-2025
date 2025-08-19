@@ -41,7 +41,7 @@ function SearchBar({ handelSearchClick }) {
     ) {
       console.log("category = ", searchData.category);
       if (!isNaN(searchData.text)) {
-        alert("Please enter valid text - without numbers");
+        alert("This category accepts text only. Please remove any numbers");
         return;
       }
     } else if (searchData.category === "yearsOfExperience") {
