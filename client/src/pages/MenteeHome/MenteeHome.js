@@ -5,6 +5,8 @@ import Tips from '../../components/Tips/Tips';
 import useMentorsList from '../../hooks/useMentorsList';
 import useFavorites from '../../hooks/useFavorites';
 import useRandomTip from '../../hooks/useRandomTip';
+import AssignedPopup from '../../components/AssignedPopup/AssignedPopup';
+import useMentorNotification from '../../hooks/useMentorNotification';
 import './MenteeHome.css';
 
 const baseURL = process.env.REACT_APP_API_URL;
@@ -15,9 +17,24 @@ const MenteeHome = ( {user} ) => {
   const [query, setQuery] = useState(''); //stores what the user types in the search bar
   const { addFavorite, removeFavorite, isFavorite } = useFavorites(user?._id);
   const { randomTip, showTip, closeTip, tipTextRef, isTruncated, isExpanded, handleDetailsToggle } = useRandomTip(user);
+  
+  const { 
+    showMentorPopup, 
+    assignedMentor, 
+    closeMentorPopup 
+  } = useMentorNotification(user?._id);
+
+  const handleViewMentorProfile = () => {
+    if (assignedMentor) {
+      setSelectedMentor(assignedMentor);
+      closeMentorPopup();
+    }
+  };
 
   if (loading) return <div className="mentor-list"><p>Loading mentors...</p></div>;
   if (error) return <div className="mentor-list"><p>Error: {error}</p></div>;
+  
+  // Add mentor notification hook
 
   const filteredMentors = mentors.filter((m) => { // gili update: filter
     const q = query.trim().toLowerCase();
@@ -39,6 +56,7 @@ const MenteeHome = ( {user} ) => {
         return aFav - bFav;
     });
 
+
   return (
     <div className="mentor-list">
       <h1>Mentors</h1>
@@ -51,6 +69,7 @@ const MenteeHome = ( {user} ) => {
           {!isExpanded && (
             <div ref={tipTextRef} className="random-tip-text">{randomTip.text}</div>
           )}
+
 
           {randomTip.content && isTruncated && (
             <details className="random-tip-details" onToggle={handleDetailsToggle}>
@@ -67,6 +86,15 @@ const MenteeHome = ( {user} ) => {
           </div>
         </div>
       )}
+
+      {showMentorPopup && assignedMentor && (
+        <AssignedPopup
+          mentor={assignedMentor}
+          onClose={closeMentorPopup}
+          onViewMentor={handleViewMentorProfile}
+        />
+      )}
+
       <input
         type="text"
         value={query}
