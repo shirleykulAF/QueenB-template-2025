@@ -19,7 +19,7 @@ function HomePage() {
 
         if (data.success) {
           setMentorList(data.data);
-          setfillteredMentorsList(mentorList);
+          setfillteredMentorsList(data.data);
           console.log("Mentors users count = ", data.count);
         } else {
           console.error("Failed to load mentors:", data.error);
