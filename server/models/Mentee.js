@@ -63,23 +63,6 @@ const menteeSchema = new mongoose.Schema({
     default: []
   },
   
-  // Track mentorship connections (for future feature)
-  matchedMentors: [{
-    mentorId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Mentor' // Reference to Mentor model
-    },
-    matchedAt: {
-      type: Date,
-      default: Date.now
-    },
-    status: {
-      type: String,
-      enum: ['pending', 'accepted', 'completed', 'cancelled'],
-      default: 'pending'
-    }
-  }],
-  
   // Profile completion status
   profileCompleted: {
     type: Boolean,
@@ -118,25 +101,7 @@ menteeSchema.methods.checkProfileCompletion = function() {
   return Promise.resolve(this);
 };
 
-// Method to add a mentor match
-menteeSchema.methods.addMentorMatch = async function(mentorId) {
-  // Check if already matched
-  const existingMatch = this.matchedMentors.find(
-    match => match.mentorId.toString() === mentorId.toString()
-  );
-  
-  if (existingMatch) {
-    throw new Error('Already matched with this mentor');
-  }
-  
-  this.matchedMentors.push({
-    mentorId: mentorId,
-    matchedAt: new Date(),
-    status: 'pending'
-  });
-  
-  return this.save();
-};
+
 
 // Static method to find active mentees
 menteeSchema.statics.findActive = function() {
