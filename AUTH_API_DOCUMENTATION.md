@@ -20,17 +20,17 @@ http://localhost:5000/api/auth
 ```json
 {
   "userType": "mentor", // or "mentee"
-  "firstName": "John",
-  "lastName": "Doe",
-  "email": "john.doe@example.com",
-  "password": "securepassword123",
+  "firstName": "Sarah",
+  "lastName": "Cohen",
+  "email": "sarah.cohen@example.com",
+  "password": "MySecurePassword123!", // Minimum 6 characters, will be hashed
   "phone": "050-1234567",
   
   // Mentor-specific fields (only if userType is "mentor")
   "technologies": ["JavaScript", "React", "Node.js"],
   "yearsOfExperience": 5,
   "description": "Full-stack developer with 5 years of experience",
-  "linkedinUrl": "https://linkedin.com/in/johndoe",
+  "linkedinUrl": "https://linkedin.com/in/sarahcohen",
   
   // Mentee-specific fields (only if userType is "mentee")
   "description": "Looking to learn React and JavaScript",
@@ -64,14 +64,14 @@ http://localhost:5000/api/auth
   "data": {
     "user": {
       "_id": "60f7b3b3b3b3b3b3b3b3b3b3",
-      "firstName": "John",
-      "lastName": "Doe",
-      "email": "john.doe@example.com",
+      "firstName": "Sarah",
+      "lastName": "Cohen",
+      "email": "sarah.cohen@example.com",
       "phone": "050-1234567",
       "technologies": ["JavaScript", "React", "Node.js"],
       "yearsOfExperience": 5,
       "description": "Full-stack developer with 5 years of experience",
-      "linkedinUrl": "https://linkedin.com/in/johndoe",
+      "linkedinUrl": "https://linkedin.com/in/sarahcohen",
       "availability": "available",
       "createdAt": "2024-01-15T10:30:00.000Z",
       "updatedAt": "2024-01-15T10:30:00.000Z"
@@ -95,8 +95,8 @@ http://localhost:5000/api/auth
 **Request Body:**
 ```json
 {
-  "email": "john.doe@example.com",
-  "password": "securepassword123",
+  "email": "sarah.cohen@example.com",
+  "password": "MySecurePassword123!",
   "userType": "mentor" // Optional - if not provided, searches both collections
 }
 ```
@@ -109,14 +109,14 @@ http://localhost:5000/api/auth
   "data": {
     "user": {
       "_id": "60f7b3b3b3b3b3b3b3b3b3b3",
-      "firstName": "John",
-      "lastName": "Doe",
-      "email": "john.doe@example.com",
+      "firstName": "Sarah",
+      "lastName": "Cohen",
+      "email": "sarah.cohen@example.com",
       "phone": "050-1234567",
       "technologies": ["JavaScript", "React", "Node.js"],
       "yearsOfExperience": 5,
       "description": "Full-stack developer with 5 years of experience",
-      "linkedinUrl": "https://linkedin.com/in/johndoe",
+      "linkedinUrl": "https://linkedin.com/in/sarahcohen",
       "availability": "available",
       "createdAt": "2024-01-15T10:30:00.000Z",
       "updatedAt": "2024-01-15T10:30:00.000Z"
@@ -150,14 +150,14 @@ Authorization: Bearer <token>
   "data": {
     "user": {
       "_id": "60f7b3b3b3b3b3b3b3b3b3b3",
-      "firstName": "John",
-      "lastName": "Doe",
-      "email": "john.doe@example.com",
+      "firstName": "Sarah",
+      "lastName": "Cohen",
+      "email": "sarah.cohen@example.com",
       "phone": "050-1234567",
       "technologies": ["JavaScript", "React", "Node.js"],
       "yearsOfExperience": 5,
       "description": "Full-stack developer with 5 years of experience",
-      "linkedinUrl": "https://linkedin.com/in/johndoe",
+      "linkedinUrl": "https://linkedin.com/in/sarahcohen",
       "availability": "available",
       "createdAt": "2024-01-15T10:30:00.000Z",
       "updatedAt": "2024-01-15T10:30:00.000Z"
@@ -197,7 +197,7 @@ curl -X POST http://localhost:5000/api/auth/signup \
     "firstName": "Sarah",
     "lastName": "Cohen",
     "email": "sarah.cohen@example.com",
-    "password": "password123",
+    "password": "MySecurePassword123!",
     "phone": "050-1234567",
     "technologies": ["JavaScript", "React", "Node.js"],
     "yearsOfExperience": 5,
@@ -215,7 +215,7 @@ curl -X POST http://localhost:5000/api/auth/signup \
     "firstName": "Noa",
     "lastName": "Katz",
     "email": "noa.katz@example.com",
-    "password": "password123",
+    "password": "MySecurePassword123!",
     "phone": "050-1111111",
     "description": "Computer Science student looking to improve my React skills",
     "lookingFor": ["React", "JavaScript", "Frontend"]
@@ -228,18 +228,33 @@ curl -X POST http://localhost:5000/api/auth/login \
   -H "Content-Type: application/json" \
   -d '{
     "email": "sarah.cohen@example.com",
-    "password": "password123",
+    "password": "MySecurePassword123!",
     "userType": "mentor"
   }'
 ```
 
-## Security Notes
+## Password Security
 
-- Passwords are hashed using bcrypt with salt rounds of 10
-- JWT tokens expire after 24 hours
-- Email addresses are stored in lowercase
-- All user inputs are validated and sanitized
-- Tokens should be stored securely on the client side
+### How Passwords Work:
+1. **Client sends password** in the request body (plain text over HTTPS)
+2. **Server receives password** and immediately hashes it using bcrypt
+3. **Hashed password is stored** in the database (never plain text)
+4. **Original password is discarded** from memory
+5. **Login verification** compares the hashed input with stored hash
+
+### Password Requirements:
+- **Minimum length**: 6 characters
+- **Recommended**: Include uppercase, lowercase, numbers, and symbols
+- **Example**: `MySecurePassword123!`
+
+### Security Features:
+- **bcrypt hashing** with salt rounds of 10
+- **HTTPS required** for all authentication requests
+- **Passwords never logged** or stored in plain text
+- **JWT tokens expire** after 24 hours
+- **Email addresses stored** in lowercase
+- **All inputs validated** and sanitized
+- **Tokens should be stored** securely on the client side
 
 ## Environment Variables
 
@@ -252,7 +267,9 @@ MONGODB_URI=mongodb://localhost:27017/queenb_db
 
 ## Testing with Seed Data
 
-The seed data includes test users with the password `password123`:
+**⚠️ Note**: The seed data includes test users with a simple password `password123` for development/testing purposes only. In production, users should create strong, unique passwords.
+
+**Test users with password `password123`:**
 
 **Mentors:**
 - sarah.cohen@example.com
