@@ -1,7 +1,7 @@
 import React from 'react';
 import './UserCard.css';
 import UserHeader from '../UserHeader/UserHeader';
-import { FaStar, FaRegStar, FaPlusCircle, FaPlus, FaCheck, FaCheckCircle } from 'react-icons/fa';
+import { FaStar, FaRegStar, FaCheckCircle } from 'react-icons/fa';
 
 const UserCard = ({ 
   user,           // general user object

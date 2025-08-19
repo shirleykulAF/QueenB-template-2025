@@ -9,6 +9,7 @@ const tipsRouter = require('./routes/tips');
 const menteesRoutes = require('./routes/mentees');
 const usersRoutes = require('./routes/users');
 const myMenteesRouter = require('./routes/myMentees');
+const myMentorRouter = require('./routes/myMentor');
 require("dotenv").config();
 
 const app = express();
@@ -29,6 +30,7 @@ app.use("/api/users", usersRoutes);
 app.use('/api/favorites', favoritesRouter);
 app.use('/api/myMentees', myMenteesRouter);
 app.use('/api/tips', tipsRouter);
+app.use('/api/myMentor', myMentorRouter);
 
 
 // MongoDB connection

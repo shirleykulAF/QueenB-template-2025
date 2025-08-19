@@ -5,19 +5,19 @@ import UserHeader from "../UserHeader/UserHeader";
 import UserInfo from "../UserInfo/UserInfo";
 
 const UserModal = ({ user, userType = 'mentee', onClose }) => {
-    // טיפול באירועי מקלדת
+    // Handle Escape key to close modal
     const handleKeyDown = React.useCallback((e) => {
         if (e.key === 'Escape') {
             onClose();
         }
     }, [onClose]);
 
-    // Effect לניהול מקלדת וscroll - MUST be before early return
+    // listen for keydown events when the modal is open
     React.useEffect(() => {
         if (!user) return;
         
         document.addEventListener('keydown', handleKeyDown);
-        document.body.style.overflow = 'hidden'; // מנע scroll ברקע
+        document.body.style.overflow = 'hidden'; // stop scrolling when modal is open
         
         return () => {
             document.removeEventListener('keydown', handleKeyDown);
@@ -25,10 +25,10 @@ const UserModal = ({ user, userType = 'mentee', onClose }) => {
         };
     }, [user, handleKeyDown]);
 
-    // Early return אחרי כל ה-Hooks
+    // Early return if no user
     if (!user) return null;
 
-    // פונקציה לעיצוב מספר WhatsApp (למנטורים)
+    // Format phone number for WhatsApp
     const formatPhoneForWhatsApp = (phone) => {
         if (!phone) return '';
         const digits = phone.replace(/\D/g, '');
@@ -41,8 +41,8 @@ const UserModal = ({ user, userType = 'mentee', onClose }) => {
     const email = user.email || '';
     const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}`;
 
-    // פונקציה שמחזירה רשימת אפשרויות קשר לפי סוג המשתמש
-    const getContactOptions = () => {
+    // construct contact options based on user type 
+        const getContactOptions = () => {
         const options = [
             {
                 icon: <FaEnvelope size={24} color="#D44638" />,
@@ -52,7 +52,7 @@ const UserModal = ({ user, userType = 'mentee', onClose }) => {
             }
         ];
 
-        // למנטורים - הוסף LinkedIn ו-WhatsApp
+        // additional options for mentors
         if (userType === 'mentor') {
             if (user.linkedin) {
                 options.push({
@@ -76,7 +76,7 @@ const UserModal = ({ user, userType = 'mentee', onClose }) => {
         return options.filter(option => option.show);
     };
 
-    // טיפול בלחיצה על הbackground לסגירת המודל
+    //close modal on overlay click
     const handleOverlayClick = (e) => {
         if (e.target === e.currentTarget) {
             onClose();
@@ -91,7 +91,7 @@ const UserModal = ({ user, userType = 'mentee', onClose }) => {
                 className={`user-modal__content user-modal__content--${userType}`}
                 onClick={(e) => e.stopPropagation()}
             >
-                {/* כפתור סגירה */}
+                {/* Close button */}
                 <button 
                     onClick={onClose} 
                     className="user-modal__close"
@@ -100,13 +100,12 @@ const UserModal = ({ user, userType = 'mentee', onClose }) => {
                     &times;
                 </button>
                 
-                {/* Header עם תמונה ושם */}
+                {/* User Header */}
                 <UserHeader user={user} userType={userType} />
                 
-                {/* מידע נוסף על המשתמש */}
                 <UserInfo user={user} userType={userType} />
                 
-                {/* אפשרויות קשר */}
+                {/*contact options */}
                 {contactOptions.length > 0 && (
                     <div className="user-modal__contact">
                         <h3 className="user-modal__contact-title">Contact</h3>
@@ -125,14 +124,8 @@ const UserModal = ({ user, userType = 'mentee', onClose }) => {
                             ))}
                         </div>
 
-                        {/* כפתורי פעולה */}
+                        {/*close button */}
                         <div className="user-modal__actions">
-                            <button 
-                                className="user-modal__action-btn user-modal__action-btn--primary"
-                                onClick={() => window.location.href = `mailto:${email}`}
-                            >
-                                📧 Send Email
-                            </button>
                             <button 
                                 className="user-modal__action-btn user-modal__action-btn--secondary"
                                 onClick={onClose}
