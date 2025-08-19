@@ -2,7 +2,6 @@ import React from 'react';
 import './UserCard.css';
 import UserHeader from '../UserHeader/UserHeader';
 import { FaStar, FaRegStar, FaPlusCircle, FaPlus, FaCheck, FaCheckCircle } from 'react-icons/fa';
-import  useMyMentees  from '../../../hooks/useMyMentees';; // Adjust the import based on your project structure
 
 const UserCard = ({ 
   user,           // general user object
@@ -11,10 +10,11 @@ const UserCard = ({
   isFavorite, 
   addFavorite, 
   removeFavorite,
-  userId          // Add userId prop
+  addMentee,
+  removeMentee,
+  isMyMentee
+            
 }) => {
-  const { myMentees, loading, addMentee, removeMentee, isMyMentee } = useMyMentees(userId);
-
   const handleFavorite = (e) => {
     e.stopPropagation(); 
     if (isFavorite(user._id)) {

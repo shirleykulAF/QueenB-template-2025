@@ -4,12 +4,10 @@ import { useFormState } from '../../hooks/useFormState';
 import { useFormValidation } from '../../hooks/useFormValidation';
 import FormField from './FormField';
 import { mentorFields } from './config/formFields';
-import { useNavigate } from "react-router-dom";
 
 const baseURL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 const MentorSignupForm = ({ onSuccess, isEditMode = false, initialData = null }) => {
-    const navigate = useNavigate();
     
     const {
         formData,
@@ -137,7 +135,6 @@ const MentorSignupForm = ({ onSuccess, isEditMode = false, initialData = null })
                 }
                 
                 if (onSuccess) onSuccess(data.user);
-                navigate('/');
             } else {
                 setError(data.message || (isEditMode ? 'Update failed' : 'Registration failed'));
             }
@@ -190,5 +187,4 @@ const MentorSignupForm = ({ onSuccess, isEditMode = false, initialData = null })
 };
 
 export default MentorSignupForm;
-
 

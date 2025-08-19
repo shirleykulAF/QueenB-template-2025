@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const useMyMentees = (userId) => {
-    const [myMentees, setMyMentee] = useState([]);
+    const [myMentees, setMyMentees] = useState([]);
     const [loading, setLoading] = useState(false);
 
     // Fetch myMentees on mount or when userId changes
@@ -10,26 +10,22 @@ const useMyMentees = (userId) => {
         if (!userId) return;
         setLoading(true);
         axios.get(`/api/myMentees/${userId}`)
-            .then(res => setMyMentee(res.data.myMentees || []))
-            .catch(() => setMyMentee([]))
+            .then(res => setMyMentees(res.data.myMentees || []))
+            .catch(() => setMyMentees([]))
             .finally(() => setLoading(false));
     }, [userId]);
 
     // Add mentee to myMentees
-    const addMentee = async (menteeId) => {        try {
-            const response = await axios.post(`/api/myMentees/${userId}/${menteeId}`);
-            setMyMentee(response.data.myMentees);
-            console.log('Mentee added successfully:', response.data.myMentees); 
-        } catch (error) {
-            console.error('Failed to add mentee:', error);
-            throw error;
-        }
-        };
+    const addMentee = async (menteeId) => {
+        const res = await axios.post(`/api/myMentees/${userId}/${menteeId}`);
+        setMyMentees(res.data.myMentees); // Use the server's response directly
+        console.log('Mentee added successfully:', res.data.myMentees);
+    };
 
     // Remove mentee from Mentees
     const removeMentee = async (menteeId) => {
         const response = await axios.delete(`/api/myMentees/${userId}/${menteeId}`);
-        setMyMentee(response.data.myMentees);
+        setMyMentees(response.data.myMentees);
     };
 
     // Check if mentee is in myMentees
