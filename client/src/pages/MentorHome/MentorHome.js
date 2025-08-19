@@ -24,7 +24,7 @@ const MentorHome = ( {user} ) => {
   return (
     <div className="mentor-home-container">
       <div className="mentor-info">
-        <h1>Welcome, {mentor.name}!</h1>
+        <h1>Welcome {mentor.firstName} {mentor.lastName}!</h1>
         <MentorHeader mentor={mentor} />
         <MentorInfo mentor={mentor} />
         <MentorContact mentor={mentor} />
