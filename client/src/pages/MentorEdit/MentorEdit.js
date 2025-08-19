@@ -14,17 +14,12 @@ const MentorEdit = () => {
     const mentorData = location.state?.mentorData || currentUser;
     
     useEffect(() => {
-        console.log("Mentor data from location:", location.state?.mentorData);
-        console.log("Current user in MentorEdit:", currentUser);
-        
         if (!mentorData) {
-            console.log("No mentor data available, redirecting");
             navigate('/');
             return;
         }
         
         if (mentorData.userType !== 'mentor') {
-            console.log("User is not a mentor, redirecting");
             navigate('/');
             return;
         }
@@ -33,7 +28,7 @@ const MentorEdit = () => {
     }, [mentorData, navigate, currentUser, location]);
     
     const handleEditSuccess = () => {
-        navigate('/mentor');
+        navigate('/');
     };
     
     if (!mentorData || loading) {

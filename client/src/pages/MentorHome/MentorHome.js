@@ -8,18 +8,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import "./MentorHome.css";
 
 const MentorHome = ( {user} ) => {
-  
   const mentorId = user._id;
 
   const { mentor, loading, error } = useMentorData(mentorId);
   const navigate = useNavigate();
-
-  // Debug logging
-  useEffect(() => {
-    if (mentor) {
-      console.log("Mentor data available in component:", mentor);
-    }
-  }, [mentor]);
   
   if (loading) return <div className="mentor-home-container loading">Loading...</div>;
   if (error) return <div className="mentor-home-container error">Error: {error.message}</div>;
