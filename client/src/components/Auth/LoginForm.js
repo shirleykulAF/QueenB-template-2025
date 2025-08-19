@@ -46,6 +46,9 @@ const LoginForm = ({ onSuccess }) => {
       if (data.success) {
         sessionStorage.setItem('authToken', data.token);
         sessionStorage.setItem('user', JSON.stringify(data.user)); 
+        if (data.user && data.user.userType === 'mentee') {
+          sessionStorage.setItem('showRandomTip', '1');
+        }
 
         if (onSuccess) onSuccess(data.user);
       } else {

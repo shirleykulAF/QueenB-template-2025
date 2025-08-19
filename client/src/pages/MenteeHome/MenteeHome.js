@@ -4,6 +4,7 @@ import MentorModal from '../../components/Mentor/MentorModal/MentorModal';
 import Tips from '../../components/Tips/Tips';
 import useMentorsList from '../../hooks/useMentorsList';
 import useFavorites from '../../hooks/useFavorites';
+import useRandomTip from '../../hooks/useRandomTip';
 import './MenteeHome.css';
 
 const baseURL = process.env.REACT_APP_API_URL;
@@ -13,6 +14,7 @@ const MenteeHome = ( {user} ) => {
   const [selectedMentor, setSelectedMentor] = useState(null);
   const [query, setQuery] = useState(''); //stores what the user types in the search bar
   const { addFavorite, removeFavorite, isFavorite } = useFavorites(user?._id);
+  const { randomTip, showTip, closeTip, tipTextRef, isTruncated, isExpanded, handleDetailsToggle } = useRandomTip(user);
 
   if (loading) return <div className="mentor-list"><p>Loading mentors...</p></div>;
   if (error) return <div className="mentor-list"><p>Error: {error}</p></div>;
@@ -40,6 +42,31 @@ const MenteeHome = ( {user} ) => {
   return (
     <div className="mentor-list">
       <h1>Mentors</h1>
+      {showTip && randomTip && (
+        <div className="random-tip-popup show" role="dialog" aria-live="polite">
+          <div className="random-tip-header">
+            <div className="random-tip-badge">Quick Tip</div>
+            <div className="random-tip-title">{randomTip.title || 'Tip'}</div>
+          </div>
+          {!isExpanded && (
+            <div ref={tipTextRef} className="random-tip-text">{randomTip.text}</div>
+          )}
+
+          {randomTip.content && isTruncated && (
+            <details className="random-tip-details" onToggle={handleDetailsToggle}>
+              <summary>
+                <span className="random-tip-link-icon" aria-hidden>➜</span>
+                <span>{isExpanded ? 'Show less' : 'Read full tip'}</span>
+              </summary>
+              <div className="random-tip-full">{randomTip.content}</div>
+            </details>
+          )}
+
+          <div className="random-tip-actions">
+            <button className="random-tip-gotit" onClick={closeTip} aria-label="Dismiss tip">Got it!</button>
+          </div>
+        </div>
+      )}
       <input
         type="text"
         value={query}

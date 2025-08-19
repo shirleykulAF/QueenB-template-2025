@@ -1,0 +1,181 @@
+---
+alwaysApply: false
+---
+# Rule: Brief to Task Instructions
+
+This rule outlines the process for transforming a brief task description, JIRA ticket, or Product Requirements Document (PRD) into a comprehensive `task_instructions.md` file. The goal is to create a detailed and actionable specification that can be used for development.
+
+## Transformation Process:
+
+When provided with a brief task description, JIRA ticket, or PRD, you should structure the output `task_instructions.md` file using the following sections as a template. Adapt and expand these sections based on the information available in the input document.
+
+### 1. **High-Level Overview**
+    *   **`## Task Title`**: A clear, concise title for the task.
+    *   **`## Background and Context`**:
+        *   Briefly explain the problem this task aims to solve.
+        *   Describe the current state or system, if relevant.
+        *   Mention the overall goal or business objective.
+    *   **`## Scope`**:
+        *   Clearly define what is included in this task.
+        *   Explicitly state what is out of scope for this task.
+
+### 2. **Data and Input/Output**
+    *   **`## Data Description`**:
+        *   Describe any data sources involved (e.g., files, databases, APIs).
+        *   Specify data formats (e.g., JSON, CSV, XML), schemas, and structures.
+        *   Provide concrete examples of input data.
+        *   Describe expected output data, including format and examples.
+    *   **`## File Locations and Naming Conventions`**:
+        *   Specify where input files are located and where output files should be stored.
+        *   Define any relevant file naming conventions.
+
+### 3. **Detailed Task Specification**
+    *   **`## Functional Requirements`**:
+        *   List the specific functionalities to be implemented.
+        *   Use clear, unambiguous language. Number or bullet point each requirement.
+        *   Describe user interactions, if applicable (e.g., "User clicks button X, then Y happens").
+    *   **`## Non-Functional Requirements`** (if applicable):
+        *   Performance criteria (e.g., response time).
+        *   Security considerations.
+        *   Scalability requirements.
+    *   **`## Error Handling and Edge Cases`**:
+        *   Describe how errors should be handled.
+        *   List any known edge cases or special conditions to consider.
+
+### 4. **Technical Implementation Guidance**
+    *   **`## Proposed Solution/Approach`** (if specified in input or can be inferred):
+        *   Outline the suggested technical approach or algorithm.
+    *   **`## UI/UX Specifications`** (if a UI is involved):
+        *   Include mockups, wireframes, or detailed descriptions of UI elements.
+        *   Specify styling guidelines or references to existing UI components.
+        *   Provide code snippets for UI components if available (e.g., React, HTML/CSS).
+    *   **`## Frameworks, Libraries, and Tools`**:
+        *   List any specific technologies, frameworks, libraries, or tools that must be used.
+    *   **`## Integration Points`**:
+        *   Describe how this task/module will interact with other parts of the system.
+        *   Reference specific APIs, functions, or modules to integrate with.
+    *   **`## Database Design`** (if applicable):
+        *   Describe any new database tables, schemas, or modifications needed.
+
+### 5. **Acceptance Criteria / Definition of Done**
+    *   **`## Success Metrics`**:
+        *   How will the successful completion of this task be measured?
+        *   Provide quantifiable metrics where possible.
+    *   **`## Test Cases`** (optional, but helpful):
+        *   Suggest specific test scenarios to verify functionality.
+
+### 6. **Assumptions and Dependencies**
+    *   **`## Assumptions`**:
+        *   List any assumptions made during the task definition.
+    *   **`## Dependencies`**:
+        *   Identify any other tasks, modules, or external factors this task depends on.
+
+## Clarification and Information Gathering:
+
+Before creating the detailed `task_instructions.md` file, you MUST first ask the 3-4 most important clarifying questions needed to correctly create the task description. Your questions should be focused on filling the most critical gaps in the information provided.
+
+**After you receive answers to your initial questions, you will then proceed to create the full `task_instructions.md` file.**
+
+If, after this initial round of questions, you still identify missing information crucial for fully characterizing the task or problem, you MUST explicitly ask more clarifying questions.
+
+Focus your questions on filling the gaps in the sections outlined above. For example:
+
+*   "Could you provide an example of the input data format for X?"
+*   "What are the specific error handling requirements for Y?"
+*   "Is there a preferred UI mockup or styling guide for Z?"
+*   "What are the performance expectations for this feature?"
+*   "Are there any existing functions or APIs I should be aware of for integrating this?"
+
+Your goal is to elicit the necessary details to create a complete and unambiguous `task_instructions.md` file.
+
+
+Your goal is to elicit the necessary details to create a complete and unambiguous `task_instructions.md` file.
+# Rule: Brief to Task Instructions
+
+This rule outlines the process for transforming a brief task description, JIRA ticket, or Product Requirements Document (PRD) into a comprehensive `task_instructions.md` file. The goal is to create a detailed and actionable specification that can be used for development.
+
+## Transformation Process:
+
+When provided with a brief task description, JIRA ticket, or PRD, you should structure the output `task_instructions.md` file using the following sections as a template. Adapt and expand these sections based on the information available in the input document.
+
+### 1. **High-Level Overview**
+    *   **`## Task Title`**: A clear, concise title for the task.
+    *   **`## Background and Context`**:
+        *   Briefly explain the problem this task aims to solve.
+        *   Describe the current state or system, if relevant.
+        *   Mention the overall goal or business objective.
+    *   **`## Scope`**:
+        *   Clearly define what is included in this task.
+        *   Explicitly state what is out of scope for this task.
+
+### 2. **Data and Input/Output**
+    *   **`## Data Description`**:
+        *   Describe any data sources involved (e.g., files, databases, APIs).
+        *   Specify data formats (e.g., JSON, CSV, XML), schemas, and structures.
+        *   Provide concrete examples of input data.
+        *   Describe expected output data, including format and examples.
+    *   **`## File Locations and Naming Conventions`**:
+        *   Specify where input files are located and where output files should be stored.
+        *   Define any relevant file naming conventions.
+
+### 3. **Detailed Task Specification**
+    *   **`## Functional Requirements`**:
+        *   List the specific functionalities to be implemented.
+        *   Use clear, unambiguous language. Number or bullet point each requirement.
+        *   Describe user interactions, if applicable (e.g., "User clicks button X, then Y happens").
+    *   **`## Non-Functional Requirements`** (if applicable):
+        *   Performance criteria (e.g., response time).
+        *   Security considerations.
+        *   Scalability requirements.
+    *   **`## Error Handling and Edge Cases`**:
+        *   Describe how errors should be handled.
+        *   List any known edge cases or special conditions to consider.
+
+### 4. **Technical Implementation Guidance**
+    *   **`## Proposed Solution/Approach`** (if specified in input or can be inferred):
+        *   Outline the suggested technical approach or algorithm.
+    *   **`## UI/UX Specifications`** (if a UI is involved):
+        *   Include mockups, wireframes, or detailed descriptions of UI elements.
+        *   Specify styling guidelines or references to existing UI components.
+        *   Provide code snippets for UI components if available (e.g., React, HTML/CSS).
+    *   **`## Frameworks, Libraries, and Tools`**:
+        *   List any specific technologies, frameworks, libraries, or tools that must be used.
+    *   **`## Integration Points`**:
+        *   Describe how this task/module will interact with other parts of the system.
+        *   Reference specific APIs, functions, or modules to integrate with.
+    *   **`## Database Design`** (if applicable):
+        *   Describe any new database tables, schemas, or modifications needed.
+
+### 5. **Acceptance Criteria / Definition of Done**
+    *   **`## Success Metrics`**:
+        *   How will the successful completion of this task be measured?
+        *   Provide quantifiable metrics where possible.
+    *   **`## Test Cases`** (optional, but helpful):
+        *   Suggest specific test scenarios to verify functionality.
+
+### 6. **Assumptions and Dependencies**
+    *   **`## Assumptions`**:
+        *   List any assumptions made during the task definition.
+    *   **`## Dependencies`**:
+        *   Identify any other tasks, modules, or external factors this task depends on.
+
+## Clarification and Information Gathering:
+
+Before creating the detailed `task_instructions.md` file, you MUST first ask the 3-4 most important clarifying questions needed to correctly create the task description. Your questions should be focused on filling the most critical gaps in the information provided.
+
+**After you receive answers to your initial questions, you will then proceed to create the full `task_instructions.md` file.**
+
+If, after this initial round of questions, you still identify missing information crucial for fully characterizing the task or problem, you MUST explicitly ask more clarifying questions.
+
+Focus your questions on filling the gaps in the sections outlined above. For example:
+
+*   "Could you provide an example of the input data format for X?"
+*   "What are the specific error handling requirements for Y?"
+*   "Is there a preferred UI mockup or styling guide for Z?"
+*   "What are the performance expectations for this feature?"
+*   "Are there any existing functions or APIs I should be aware of for integrating this?"
+
+Your goal is to elicit the necessary details to create a complete and unambiguous `task_instructions.md` file.
+
+
+Your goal is to elicit the necessary details to create a complete and unambiguous `task_instructions.md` file.
