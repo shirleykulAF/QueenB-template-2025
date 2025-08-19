@@ -89,7 +89,7 @@ function SearchBar({ handelSearchClick}) {
           Search
         </Button>
         <Button sx={{ backgroundColor: "white" }} onClick={handleReset}>
-          Reset
+          Reset All Mentors
         </Button>
       
     </Box>
