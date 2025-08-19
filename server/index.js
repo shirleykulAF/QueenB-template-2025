@@ -10,6 +10,7 @@ const menteesRoutes = require('./routes/mentees');
 const usersRoutes = require('./routes/users');
 const myMenteesRouter = require('./routes/myMentees');
 const myMentorRouter = require('./routes/myMentor');
+const chatRoutes = require('./routes/chatbot');
 require("dotenv").config();
 
 const app = express();
@@ -31,6 +32,7 @@ app.use('/api/favorites', favoritesRouter);
 app.use('/api/myMentees', myMenteesRouter);
 app.use('/api/tips', tipsRouter);
 app.use('/api/myMentor', myMentorRouter);
+app.use('/api/chat', chatRoutes);
 
 
 // MongoDB connection
