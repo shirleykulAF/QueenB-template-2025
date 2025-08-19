@@ -14,7 +14,6 @@ router.get('/', async (req, res) => {
     console.log('📋 Fetching all mentees...');
     
     const mentees = await Mentee.find()
-      .populate('matchedMentors.mentorId', 'firstName lastName email') // Populate mentor details
       .sort({ createdAt: -1 });
     
     res.json({
@@ -36,8 +35,7 @@ router.get('/', async (req, res) => {
 // ==========================================
 router.get('/:id', async (req, res) => {
   try {
-    const mentee = await Mentee.findById(req.params.id)
-      .populate('matchedMentors.mentorId');
+    const mentee = await Mentee.findById(req.params.id);
     
     if (!mentee) {
       return res.status(404).json({
@@ -105,46 +103,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-// ==========================================
-// POST /api/mentees/:id/match - Match with mentor
-// ==========================================
-router.post('/:id/match', async (req, res) => {
-  try {
-    const { mentorId } = req.body;
-    
-    // Verify mentor exists
-    const mentor = await Mentor.findById(mentorId);
-    if (!mentor) {
-      return res.status(404).json({
-        success: false,
-        error: 'Mentor not found'
-      });
-    }
-    
-    // Find mentee and add match
-    const mentee = await Mentee.findById(req.params.id);
-    if (!mentee) {
-      return res.status(404).json({
-        success: false,
-        error: 'Mentee not found'
-      });
-    }
-    
-    await mentee.addMentorMatch(mentorId);
-    
-    res.json({
-      success: true,
-      message: `Successfully matched with ${mentor.fullName}`,
-      data: mentee
-    });
-  } catch (error) {
-    console.error('Error matching:', error);
-    res.status(400).json({
-      success: false,
-      error: error.message
-    });
-  }
-});
+
 
 // ==========================================
 // PUT /api/mentees/:id - Update mentee

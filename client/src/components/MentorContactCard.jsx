@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Button,
   Card,
   CardActionArea,
   CardContent,
@@ -9,6 +8,7 @@ import {
 } from "@mui/material";
 import MentorFullName from "./mentor/MentorFullName";
 import MentorTechnologies from "./mentor/MentorTechnologies";
+import ContactButtonsWrapper from "./ContactButtonsWrapper";
 
 
 function MentorContactCard({ mentor }) {
@@ -42,10 +42,7 @@ function MentorContactCard({ mentor }) {
       </CardContent>
 
       <CardActionArea sx={{ display: "flex", alignItems: "center" }}>
-        <Button>Whatsapp</Button>
-        <Button>Email</Button>
-        <Button>Linkdin</Button>
-        <Button>Phone</Button>
+        <ContactButtonsWrapper mentor={mentor} />
       </CardActionArea>
     </Card>
   );

@@ -34,6 +34,12 @@ const mentorSchema = new mongoose.Schema({
     ]
   },
   
+  password: {
+    type: String,
+    required: [true, 'Password is required'],
+    minlength: [6, 'Password must be at least 6 characters long']
+  },
+  
   phone: {
     type: String,
     required: [true, 'Phone number is required'],
@@ -81,7 +87,7 @@ const mentorSchema = new mongoose.Schema({
   // Optional fields for future features
   profileImage: {
     type: String,
-    default: 'default-avatar.png' // You'll store image URL/path here
+    default: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&h=150&fit=crop&crop=face' // Default profile image
   },
   
   availability: {

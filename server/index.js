@@ -32,6 +32,7 @@ app.use((req, res, next) => {
 // Import route files
 const mentorRoutes = require('./routes/mentorRoutes');
 const menteeRoutes = require('./routes/menteeRoutes');
+const authRoutes = require('./routes/authRoutes');
 
 // Health check route - BEFORE other routes
 app.get('/api/health', (req, res) => {
@@ -41,6 +42,7 @@ app.get('/api/health', (req, res) => {
     timestamp: new Date().toISOString(),
     database: 'MongoDB Connected',
     routes: {
+      auth: '/api/auth',
       mentors: '/api/mentors',
       mentees: '/api/mentees'
     }
@@ -66,7 +68,6 @@ app.get('/api', (req, res) => {
         getAll: 'GET /api/mentees',
         getOne: 'GET /api/mentees/:id',
         create: 'POST /api/mentees',
-        match: 'POST /api/mentees/:id/match',
         update: 'PUT /api/mentees/:id',
         delete: 'DELETE /api/mentees/:id'
       }
@@ -75,6 +76,7 @@ app.get('/api', (req, res) => {
 });
 
 // API Routes - REGISTER YOUR ROUTES HERE!
+app.use('/api/auth', authRoutes);
 app.use('/api/mentors', mentorRoutes);
 app.use('/api/mentees', menteeRoutes);
 
@@ -84,6 +86,7 @@ app.get('/', (req, res) => {
     message: 'Welcome to QueenB API',
     endpoints: {
       health: '/api/health',
+      auth: '/api/auth',
       mentors: '/api/mentors',
       mentees: '/api/mentees'
     }
