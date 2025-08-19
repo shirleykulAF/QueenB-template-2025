@@ -8,7 +8,7 @@ import {
   InputLabel,
 } from "@mui/material";
 
-function SearchBar({handelSearchClick}) {
+function SearchBar({ handelSearchClick}) {
   const [searchData, setSearchData] = useState({
     category: "",
     text: "",
@@ -45,8 +45,14 @@ function SearchBar({handelSearchClick}) {
     } else if (searchData.category === "yearsOfExperience") {
       return;
     }
-      handelSearchClick(searchData)
+    handelSearchClick(searchData);
   };
+
+  const handleReset = () => {
+    const resetData = {category: "", text: ""}
+    setSearchData(resetData);
+    handelSearchClick(resetData);
+  }
 
   return (
     <Box>
@@ -75,9 +81,14 @@ function SearchBar({handelSearchClick}) {
         value={searchData.text}
         onChange={handleChange}
       />
-      <Button sx={{ backgroundColor: "white" }} onClick={handleSearch}>
-        Search
-      </Button>
+
+        <Button sx={{ backgroundColor: "white" }} onClick={handleSearch}>
+          Search
+        </Button>
+        <Button sx={{ backgroundColor: "white" }} onClick={handleReset}>
+          Reset
+        </Button>
+      
     </Box>
   );
 }

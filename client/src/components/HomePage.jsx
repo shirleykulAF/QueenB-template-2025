@@ -19,6 +19,8 @@ function HomePage() {
 
         if (data.success) {
           setMentorList(data.data);
+          setfillteredMentorsList(mentorList);
+
           console.log("Mentors users count = ", data.count);
         } else {
           console.error("Failed to load mentors:", data.error);
@@ -27,26 +29,25 @@ function HomePage() {
         console.error("Error fetching mentors:", error);
       }
     };
-    setfillteredMentorsList(mentorList);
     fetchMentors();
   }, []);
 
   const handelSearchClick = (searchData) => {
     if (!mentorList || mentorList.length === 0) return;
-
+    if (searchData.category === "" && searchData.text === "") {
+      setfillteredMentorsList(mentorList);
+      return;
+    }
     const searchValue = searchData.text.trim().toLowerCase();
 
     const filltered = mentorList.filter((mentor) => {
-
       if (searchData.category === "technologies") {
         return mentor.technologies.some((tech) =>
           tech.toLowerCase().includes(searchValue)
         );
-
       } else if (searchData.category === "fullName") {
         const fullName = `${mentor.firstName} ${mentor.lastName}`.toLowerCase();
         return fullName.includes(searchValue);
-
       } else if (searchData.category === "yearsOfExperience") {
         return String(mentor.yearsOfExperience) === searchValue;
       }
