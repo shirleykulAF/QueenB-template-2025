@@ -87,7 +87,7 @@ const mentorSchema = new mongoose.Schema({
   // Optional fields for future features
   profileImage: {
     type: String,
-    default: 'default-avatar.png' // You'll store image URL/path here
+    default: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&h=150&fit=crop&crop=face' // Default profile image
   },
   
   availability: {

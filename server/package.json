@@ -3,14 +3,15 @@
   "version": "1.0.0",
   "description": "Node.js backend server",
   "main": "index.js",
-"scripts": {
-  "start": "node index.js",
-  "server": "nodemon index.js",
-  "dev": "nodemon index.js",
-  "seed": "node seed.js",
-  "test-auth": "node test-auth.js"
-},
+  "scripts": {
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "dev": "nodemon index.js",
+    "seed": "node seed.js",
+    "test-auth": "node test-auth.js"
+  },
   "dependencies": {
+    "axios": "^1.11.0",
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",

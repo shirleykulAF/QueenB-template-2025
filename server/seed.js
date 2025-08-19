@@ -28,6 +28,7 @@ const mentorsData = [
     yearsOfExperience: 5,
     description: 'Full-stack developer with 5 years of experience. Passionate about mentoring junior developers.',
     linkedinUrl: 'https://linkedin.com/in/sarahcohen',
+    profileImage: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face',
     availability: 'available'
   },
   {
@@ -40,6 +41,7 @@ const mentorsData = [
     yearsOfExperience: 7,
     description: 'Backend specialist with focus on scalable systems and DevOps practices.',
     linkedinUrl: 'https://linkedin.com/in/danalevy',
+    profileImage: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face',
     availability: 'available'
   },
   {
@@ -52,6 +54,7 @@ const mentorsData = [
     yearsOfExperience: 4,
     description: 'Frontend developer and UI/UX enthusiast. Love creating beautiful, accessible web applications.',
     linkedinUrl: 'https://linkedin.com/in/rachelbendavid',
+    profileImage: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=face',
     availability: 'available'
   },
   {
@@ -64,6 +67,7 @@ const mentorsData = [
     yearsOfExperience: 10,
     description: 'Enterprise architect with expertise in cloud-native applications and microservices.',
     linkedinUrl: 'https://linkedin.com/in/michalgoldberg',
+    profileImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
     availability: 'busy'
   },
   {
@@ -76,6 +80,7 @@ const mentorsData = [
     yearsOfExperience: 6,
     description: 'Full-stack developer specializing in Angular and modern web technologies.',
     linkedinUrl: 'https://linkedin.com/in/yaelshapira',
+    profileImage: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=150&h=150&fit=crop&crop=face',
     availability: 'available'
   },
   {
@@ -88,6 +93,7 @@ const mentorsData = [
     yearsOfExperience: 5,
     description: 'Mobile development expert with experience in both native and cross-platform solutions.',
     linkedinUrl: 'https://linkedin.com/in/amitperetz',
+    profileImage: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
     availability: 'available'
   },
   {
@@ -100,6 +106,7 @@ const mentorsData = [
     yearsOfExperience: 8,
     description: 'Data scientist with focus on machine learning and AI applications.',
     linkedinUrl: 'https://linkedin.com/in/tamarweiss',
+    profileImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face',
     availability: 'available'
   },
   {
@@ -112,6 +119,7 @@ const mentorsData = [
     yearsOfExperience: 9,
     description: 'DevOps engineer passionate about automation and infrastructure as code.',
     linkedinUrl: 'https://linkedin.com/in/ronimizrahi',
+    profileImage: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face',
     availability: 'available'
   }
 ];
