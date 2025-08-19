@@ -12,6 +12,8 @@ import {
   Autocomplete,
   Chip
 } from '@mui/material';
+import { useFormValidation } from '../../hook/useFormValidation';
+import SuccessBanner from '../ui/SuccessBanner';
 
 const MenteeSignupPage = () => {
   const navigate = useNavigate();
@@ -29,8 +31,24 @@ const MenteeSignupPage = () => {
   
   // UI state
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const [showSuccessBanner, setShowSuccessBanner] = useState(false);
+  
+  // NEW: Use the reusable validation hook
+  const {
+    fieldErrors,
+    generalError,
+    success,
+    clearErrors,
+    clearFieldError,
+    setFieldError,
+    setError,
+    setSuccessMessage,
+    validateEmailField,
+    validatePasswordField,
+    validateRequiredField,
+    validatePhoneField,
+    hasErrors
+  } = useFormValidation();
 
   // Available technologies for autocomplete (you can expand this list)
   const availableTechnologies = [
@@ -48,9 +66,26 @@ const MenteeSignupPage = () => {
       ...prev,
       [name]: value
     }));
-    // Clear any previous errors/success messages
-    if (error) setError('');
-    if (success) setSuccess('');
+    
+    // Clear field-specific errors when user types
+    if (fieldErrors[name]) {
+      clearFieldError(name);
+    }
+    
+    // Clear any previous general errors/success messages
+    if (generalError) setError('');
+    if (success) setSuccessMessage('');
+    
+    // Real-time validation for specific fields
+    if (name === 'email' && value) {
+      validateEmailField(value);
+    }
+    if (name === 'password' && value) {
+      validatePasswordField(value);
+    }
+    if (name === 'phone' && value) {
+      validatePhoneField(value);
+    }
   };
 
   // Handle technology selection (autocomplete)
@@ -59,25 +94,37 @@ const MenteeSignupPage = () => {
       ...prev,
       lookingFor: newValue
     }));
-    if (error) setError('');
-    if (success) setSuccess('');
+    if (generalError) setError('');
+    if (success) setSuccessMessage('');
+  };
+
+  // Validate entire form before submission
+  const validateForm = () => {
+    let isValid = true;
+    
+    // Validate all required fields
+    if (!validateRequiredField(formData.firstName, 'firstName')) isValid = false;
+    if (!validateRequiredField(formData.lastName, 'lastName')) isValid = false;
+    if (!validateEmailField(formData.email)) isValid = false;
+    if (!validatePasswordField(formData.password)) isValid = false;
+    if (!validatePhoneField(formData.phone)) isValid = false;
+    
+    return isValid;
   };
 
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Validate form before submission
+    if (!validateForm()) {
+      return;
+    }
+    
     setIsLoading(true);
-    setError('');
-    setSuccess('');
+    clearErrors();
 
     try {
-      // Validate required fields
-      if (!formData.firstName || !formData.lastName || !formData.email || 
-          !formData.password || !formData.phone) {
-        setError('Please fill in all required fields');
-        return;
-      }
-
       // Create mentee data (following your database schema)
       const menteeData = {
         firstName: formData.firstName,
@@ -103,13 +150,22 @@ const MenteeSignupPage = () => {
       const data = await response.json();
 
       if (response.ok && data.success) {
-        setSuccess('Mentee account created successfully!');
-        // Redirect to mentors page after a short delay
+        // NEW: Show success banner instead of simple message
+        setShowSuccessBanner(true);
+        
+        // Redirect to mentors page after a longer delay to show the banner
         setTimeout(() => {
-          navigate('/mentors');
-        }, 1500);
+          navigate('/mentors?signupSuccess=1');
+        }, 3000); // Increased to 3 seconds to show the banner
       } else {
-        setError(data.error || 'Failed to create mentee account');
+        // Handle field-specific errors from server
+        if (data.fieldErrors) {
+          Object.keys(data.fieldErrors).forEach(field => {
+            setFieldError(field, data.fieldErrors[field]);
+          });
+        } else {
+          setError(data.error || 'Failed to create mentee account');
+        }
       }
     } catch (error) {
       console.error('Signup error:', error);
@@ -119,9 +175,28 @@ const MenteeSignupPage = () => {
     }
   };
 
-  // Check if form is valid
-  const isFormValid = formData.firstName && formData.lastName && 
-                     formData.email && formData.password && formData.phone;
+  // Check if form is valid for submit button
+  const isFormValid = () => {
+    return formData.firstName.trim() && 
+           formData.lastName.trim() && 
+           formData.email.trim() && 
+           !fieldErrors.email &&
+           formData.password.length >= 6 && 
+           !fieldErrors.password &&
+           formData.phone.trim() && 
+           !fieldErrors.phone &&
+           !hasErrors();
+  };
+
+  // NEW: Handle success banner close
+  const handleSuccessBannerClose = () => {
+    setShowSuccessBanner(false);
+  };
+
+  // NEW: Handle immediate navigation to mentors
+  const handleExploreMentors = () => {
+    navigate('/mentors?signupSuccess=1');
+  };
 
   return (
     <Container maxWidth="md">
@@ -171,17 +246,22 @@ const MenteeSignupPage = () => {
             </Typography>
           </Box>
 
-          {/* Success Message */}
-          {success && (
-            <Alert severity="success" sx={{ mb: 3 }}>
-              {success}
-            </Alert>
+          {/* NEW: Success Banner */}
+          {showSuccessBanner && (
+            <SuccessBanner
+              title="Account Created Successfully"
+              subtitle="You're all set! Ready to find your perfect mentor and start your learning journey."
+              ctaLabel="Explore Mentors"
+              onCtaClick={handleExploreMentors}
+              onClose={handleSuccessBannerClose}
+              variant="clean"
+            />
           )}
 
           {/* Error Message */}
-          {error && (
+          {generalError && (
             <Alert severity="error" sx={{ mb: 3 }}>
-              {error}
+              {generalError}
             </Alert>
           )}
 
@@ -192,61 +272,80 @@ const MenteeSignupPage = () => {
               <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
                 <TextField
                   fullWidth
-                  label="First Name *"
+                  label="First Name "
                   name="firstName"
                   value={formData.firstName}
                   onChange={handleInputChange}
                   required
                   sx={{ flex: 1 }}
+                  error={!!fieldErrors.firstName}
+                  helperText={fieldErrors.firstName}
                 />
                 
                 <TextField
                   fullWidth
-                  label="Last Name *"
+                  label="Last Name "
                   name="lastName"
                   value={formData.lastName}
                   onChange={handleInputChange}
                   required
                   sx={{ flex: 1 }}
+                  error={!!fieldErrors.lastName}
+                  helperText={fieldErrors.lastName}
                 />
               </Box>
 
               {/* Email */}
               <TextField
                 fullWidth
-                label="Email *"
+                label="Email "
                 name="email"
                 type="email"
                 value={formData.email}
                 onChange={handleInputChange}
+                onBlur={(e) => {
+                  // Additional validation on blur
+                  validateEmailField(e.target.value);
+                }}
                 required
                 sx={{ mb: 2 }}
-                helperText="We'll use this for your login"
+                error={!!fieldErrors.email}
+                helperText={fieldErrors.email || "We'll use this for your login"}
               />
 
               {/* Password */}
               <TextField
                 fullWidth
-                label="Password *"
+                label="Password "
                 name="password"
                 type="password"
                 value={formData.password}
                 onChange={handleInputChange}
+                onBlur={(e) => {
+                  // Additional validation on blur
+                  validatePasswordField(e.target.value);
+                }}
                 required
                 sx={{ mb: 2 }}
-                helperText="Minimum 6 characters"
+                error={!!fieldErrors.password}
+                helperText={fieldErrors.password || "Minimum 6 characters"}
               />
 
               {/* Phone */}
               <TextField
                 fullWidth
-                label="Phone Number *"
+                label="Phone Number "
                 name="phone"
                 value={formData.phone}
                 onChange={handleInputChange}
+                onBlur={(e) => {
+                  // Additional validation on blur
+                  validatePhoneField(e.target.value);
+                }}
                 required
                 sx={{ mb: 2 }}
-                helperText="Format: 050-1234567"
+                error={!!fieldErrors.phone}
+                helperText={fieldErrors.phone || "Format: 050-1234567"}
               />
 
               {/* Description */}
@@ -277,19 +376,23 @@ const MenteeSignupPage = () => {
                   />
                 )}
                 renderTags={(value, getTagProps) =>
-                  value.map((option, index) => (
-                    <Chip
-                      label={option}
-                      {...getTagProps({ index })}
-                      sx={{
-                        backgroundColor: 'primary.light',
-                        color: 'white',
-                        '& .MuiChip-deleteIcon': {
+                  value.map((option, index) => {
+                    const { key, ...chipProps } = getTagProps({ index });
+                    return (
+                      <Chip
+                        key={key}
+                        label={option}
+                        {...chipProps}
+                        sx={{
+                          backgroundColor: 'primary.light',
                           color: 'white',
-                        }
-                      }}
-                    />
-                  ))
+                          '& .MuiChip-deleteIcon': {
+                            color: 'white',
+                          }
+                        }}
+                      />
+                    );
+                  })
                 }
                 sx={{ mb: 3 }}
               />
@@ -301,7 +404,7 @@ const MenteeSignupPage = () => {
               fullWidth
               variant="contained"
               size="large"
-              disabled={!isFormValid || isLoading}
+              disabled={!isFormValid() || isLoading}
               sx={{
                 py: 1.5,
                 fontSize: '1.1rem',

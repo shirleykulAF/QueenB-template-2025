@@ -84,6 +84,33 @@ const mentorSchema = new mongoose.Schema({
     ]
   },
   
+  githubUrl: {
+    type: String,
+    required: false,
+    match: [
+      /^https?:\/\/(www\.)?github\.com\/[\w-]+\/?$/,
+      'Please provide a valid GitHub URL'
+    ]
+  },
+  
+  websiteUrl: {
+    type: String,
+    required: false,
+    match: [
+      /^https?:\/\/.+/,
+      'Please provide a valid website URL starting with http:// or https://'
+    ]
+  },
+  
+  twitterUrl: {
+    type: String,
+    required: false,
+    match: [
+      /^https?:\/\/(www\.)?(twitter\.com|x\.com)\/[\w-]+\/?$/,
+      'Please provide a valid Twitter/X URL'
+    ]
+  },
+  
   // Optional fields for future features
   profileImage: {
     type: String,
