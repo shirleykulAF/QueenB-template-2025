@@ -187,6 +187,12 @@ export const useTheme = () => {
               boxShadow: '0 6px 20px rgba(44, 24, 16, 0.2)',
             },
           },
+          outlined: {
+            borderWidth: 2,
+            '&:hover': {
+              borderWidth: 2,
+            },
+          },
         },
       },
       MuiTextField: {

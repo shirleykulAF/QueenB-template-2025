@@ -47,9 +47,9 @@ const WelcomePage = () => {
             p: 6,
             width: '100%',
             textAlign: 'center',
-            background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(252, 232, 214, 0.9) 100%)',
-            backdropFilter: 'blur(10px)',
-            border: '1px solid rgba(255, 255, 255, 0.2)'
+            bgcolor: 'background.paper',
+            border: 1,
+            borderColor: 'divider'
           }}
         >
           {/* Main Title */}
@@ -116,13 +116,7 @@ const WelcomePage = () => {
                     px: 3,
                     fontSize: '1.1rem',
                     fontWeight: 600,
-                    borderRadius: 2,
-                    background: 'linear-gradient(135deg, #FF99AA 0%, #FFC0CB 100%)',
-                    '&:hover': {
-                      background: 'linear-gradient(135deg, #FFC0CB 0%, #FF99AA 100%)',
-                      transform: 'translateY(-2px)',
-                      boxShadow: '0 8px 24px rgba(139, 107, 123, 0.3)',
-                    }
+                    borderRadius: 2
                   }}
                 >
                   Create Mentor Account
@@ -138,15 +132,7 @@ const WelcomePage = () => {
                     px: 3,
                     fontSize: '1rem',
                     fontWeight: 500,
-                    borderRadius: 2,
-                    borderColor: 'primary.main',
-                    borderWidth: '2px',
-                    color: 'primary.main',
-                    '&:hover': {
-                      backgroundColor: 'rgba(255, 153, 170, 0.08)',
-                      borderColor: 'primary.dark',
-                      transform: 'translateY(-1px)',
-                    }
+                    borderRadius: 2
                   }}
                 >
                   Already a Mentor? Login
@@ -197,13 +183,7 @@ const WelcomePage = () => {
                     px: 3,
                     fontSize: '1.1rem',
                     fontWeight: 600,
-                    borderRadius: 2,
-                    background: 'linear-gradient(135deg, #8B6B7B 0%, #A67B8B 100%)',
-                    '&:hover': {
-                      background: 'linear-gradient(135deg, #A67B8B 0%, #8B6B7B 100%)',
-                      transform: 'translateY(-2px)',
-                      boxShadow: '0 8px 24px rgba(139, 107, 123, 0.3)',
-                    }
+                    borderRadius: 2
                   }}
                 >
                   Create Mentee Account
@@ -219,15 +199,7 @@ const WelcomePage = () => {
                     px: 3,
                     fontSize: '1rem',
                     fontWeight: 500,
-                    borderRadius: 2,
-                    borderColor: 'primary.main',
-                    borderWidth: '2px',
-                    color: 'primary.main',
-                    '&:hover': {
-                      backgroundColor: 'rgba(139, 107, 123, 0.08)',
-                      borderColor: 'primary.dark',
-                      transform: 'translateY(-1px)',
-                    }
+                    borderRadius: 2
                   }}
                 >
                   Already a Mentee? Login
