@@ -68,7 +68,6 @@ app.get('/api', (req, res) => {
         getAll: 'GET /api/mentees',
         getOne: 'GET /api/mentees/:id',
         create: 'POST /api/mentees',
-        match: 'POST /api/mentees/:id/match',
         update: 'PUT /api/mentees/:id',
         delete: 'DELETE /api/mentees/:id'
       }

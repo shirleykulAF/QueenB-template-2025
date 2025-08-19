@@ -211,39 +211,13 @@ async function seedDatabase() {
     const mentees = await Mentee.insertMany(menteesWithHashedPasswords);
     console.log(`✅ Added ${mentees.length} mentees`);
     
-    // Create some matches (optional)
-    console.log('🤝 Creating some mentor-mentee matches...');
-    
-    // Match Noa with Sarah (React mentor)
-    const noa = await Mentee.findOne({ email: 'noa.katz@example.com' });
-    const sarah = await Mentor.findOne({ email: 'sarah.cohen@example.com' });
-    if (noa && sarah) {
-      await noa.addMentorMatch(sarah._id);
-      console.log('  ✅ Matched Noa with Sarah');
-    }
-    
-    // Match Or with Dana (Backend mentor)
-    const or = await Mentee.findOne({ email: 'or.solomon@example.com' });
-    const dana = await Mentor.findOne({ email: 'dana.levy@example.com' });
-    if (or && dana) {
-      await or.addMentorMatch(dana._id);
-      console.log('  ✅ Matched Or with Dana');
-    }
-    
-    // Match Maya with Amit (Mobile mentor)
-    const maya = await Mentee.findOne({ email: 'maya.friedman@example.com' });
-    const amit = await Mentor.findOne({ email: 'amit.peretz@example.com' });
-    if (maya && amit) {
-      await maya.addMentorMatch(amit._id);
-      console.log('  ✅ Matched Maya with Amit');
-    }
+
     
     // Display summary
     console.log('\n📊 Database seeded successfully!');
     console.log('================================');
     console.log(`Total Mentors: ${mentors.length}`);
     console.log(`Total Mentees: ${mentees.length}`);
-    console.log(`Matches created: 3`);
     console.log('================================');
     
     console.log('\n🎉 Seed completed! Your database now has mock data.');
