@@ -43,7 +43,10 @@ function SearchBar({ handelSearchClick}) {
         return;
       }
     } else if (searchData.category === "yearsOfExperience") {
+      if(isNaN(searchData.text)){
+      alert("Please enter a number for years of experience")
       return;
+      }
     }
     handelSearchClick(searchData);
   };
@@ -67,8 +70,8 @@ function SearchBar({ handelSearchClick}) {
         <MenuItem value="" disabled>
           Search By
         </MenuItem>
-        <MenuItem value="technologies">Technologies</MenuItem>
-        <MenuItem value="fullName">Full Name</MenuItem>
+        <MenuItem value="fullName">Name</MenuItem>
+        <MenuItem value="technologies">Technology</MenuItem>
         <MenuItem value="yearsOfExperience">Years of experience</MenuItem>
       </Select>
 

@@ -20,7 +20,6 @@ function HomePage() {
         if (data.success) {
           setMentorList(data.data);
           setfillteredMentorsList(mentorList);
-
           console.log("Mentors users count = ", data.count);
         } else {
           console.error("Failed to load mentors:", data.error);
@@ -45,9 +44,11 @@ function HomePage() {
         return mentor.technologies.some((tech) =>
           tech.toLowerCase().includes(searchValue)
         );
+        
       } else if (searchData.category === "fullName") {
         const fullName = `${mentor.firstName} ${mentor.lastName}`.toLowerCase();
         return fullName.includes(searchValue);
+
       } else if (searchData.category === "yearsOfExperience") {
         return String(mentor.yearsOfExperience) === searchValue;
       }
