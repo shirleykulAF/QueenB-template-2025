@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import MenteeCard from '../../components/Mentee/MenteeCard/MenteeCard';
 import MenteeModal from '../../components/Mentee/MenteeModal/MenteeModal';
 import useMenteesList from '../../hooks/useMenteesList';
@@ -9,10 +10,11 @@ import './MenteesIndex.css';
 const baseURL = process.env.REACT_APP_API_URL;
 
 const MenteesIndex = ({ user }) => {
+  const navigate = useNavigate();
+
   const { mentees, loading, error } = useMenteesList();
   const [selectedMentee, setSelectedMentee] = useState(null);
   const [query, setQuery] = useState(''); // stores what the user types in the search bar
-  const { addFavorite, removeFavorite, isFavorite } = useFavorites(user?._id);
   const { addMentee, removeMentee, isMyMentee } = useMyMentees(user?._id);
 
   if (loading) return <div className="mentee-list"><p>Loading mentees...</p></div>;
@@ -42,13 +44,7 @@ const MenteesIndex = ({ user }) => {
       return aMyMentee - bMyMentee;
     } 
     
-    // First sort by favorites
-    const aFav = isFavorite(a._id) ? -1 : 1;
-    const bFav = isFavorite(b._id) ? -1 : 1;
-    
-    if (aFav !== bFav) {
-      return aFav - bFav;
-    }
+
     
     // Then sort alphabetically by name
     const aName = `${a.firstName || ''} ${a.lastName || ''}`.trim().toLowerCase();
@@ -63,6 +59,13 @@ const MenteesIndex = ({ user }) => {
         <p className="mentee-list-subtitle">
           Connect with mentees looking for guidance and support
         </p>
+
+        <button 
+            onClick={() => navigate('my-mentees')}
+            className="my-mentees-nav-btn"
+          >
+          My Mentees
+        </button>  
       </div>
 
       <div className="mentee-list-controls">
@@ -98,9 +101,6 @@ const MenteesIndex = ({ user }) => {
               key={mentee._id}
               mentee={mentee}
               onClick={setSelectedMentee}
-              isFavorite={isFavorite}
-              addFavorite={addFavorite}
-              removeFavorite={removeFavorite}
               isMyMentee={isMyMentee}
               addMentee={addMentee}
               removeMentee={removeMentee}

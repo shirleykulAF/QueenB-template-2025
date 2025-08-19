@@ -17,7 +17,10 @@ const NavBar = ({ user, onLogout }) => {
   }
 
   const handleMenteeIndex = () => {
-    navigate('/mentee-index');
+    navigate('/mentees-index');
+  }
+  const handleMyMentees = () => {
+    navigate('/my-mentees');
   }
    
   return (
