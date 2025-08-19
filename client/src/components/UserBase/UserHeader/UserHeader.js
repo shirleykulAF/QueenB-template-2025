@@ -16,7 +16,6 @@ const UserHeader = ({ user, userType }) => {
 
     return (
         <div className={`user-header user-header--${userType}`}>
-
             <div className="user-header__image-container">
                 {image ? (
                     <img 
@@ -24,11 +23,14 @@ const UserHeader = ({ user, userType }) => {
                         src={image} 
                         alt={fullName}
                         onError={(e) => {
-
-                          e.target.style.display = 'none';
+                            console.log("Image loading error:", e.target.src);
+                            e.target.style.display = 'none';
                             if (e.target.nextSibling) {
                                 e.target.nextSibling.style.display = 'flex';
                             }
+                        }}
+                        onLoad={() => {
+                            console.log("Image loaded successfully:", image);
                         }}
                     />
                 ) : null}
@@ -48,6 +50,8 @@ const UserHeader = ({ user, userType }) => {
             <p className="user-header__subtitle">
                 {getSubtitle()}
             </p>
+
+            
         </div>
     );
 };

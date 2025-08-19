@@ -90,63 +90,67 @@ const MentorSignupForm = ({ onSuccess, isEditMode = false, initialData = null })
 
 
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
 
-        if (!validateForm()) return;
+const handleSubmit = async (e) => {
+    e.preventDefault();
 
-        setLoading(true);
-        setError('');
+    if (!validateForm()) return;
 
-        try {
-            const url = isEditMode 
-                ? `${baseURL}/api/mentors/update/${formData._id}`
-                : `${baseURL}/api/users/register`;
-                
-            const method = isEditMode ? 'PUT' : 'POST';
+    setLoading(true);
+    setError('');
+
+    try {
+        const url = isEditMode 
+            ? `${baseURL}/api/mentors/update/${formData._id}`
+            : `${baseURL}/api/users/register`;
             
-            const dataToSend = { ...formData };
-            
-            if (isEditMode && (!dataToSend.password || dataToSend.password.trim() === '')) {
-                delete dataToSend.password;
-            }
-            
-            const response = await fetch(url, {
-                method: method,
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${sessionStorage.getItem('authToken')}`
-                },
-                body: JSON.stringify(dataToSend)
-            });
-
-            const data = await response.json();
-
-            if (data.success) {
-                setSuccess(data.message);
-                
-                if (!isEditMode) {
-                    sessionStorage.setItem('authToken', data.token);
-                    sessionStorage.setItem('user', JSON.stringify(data.user));
-                    resetForm();
-                } else {
-                    // Update the user in session storage with the updated info
-                    sessionStorage.setItem('user', JSON.stringify(data.user));
-                }
-                
-                if (onSuccess) onSuccess(data.user);
-            } else {
-                setError(data.message || (isEditMode ? 'Update failed' : 'Registration failed'));
-            }
-        } catch (error) {
-            setError('Server error, please try again later');
-        } finally {
-            setLoading(false);
+        const method = isEditMode ? 'PUT' : 'POST';
+        
+        const dataToSend = { ...formData };
+        
+        if (formData.imageUrl) {
+            dataToSend.image = formData.imageUrl;
         }
+        delete dataToSend.imageUrl;
+        
+        if (isEditMode && (!dataToSend.password || dataToSend.password.trim() === '')) {
+            delete dataToSend.password;
+        }
+        
+        
+        const response = await fetch(url, {
+            method: method,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${sessionStorage.getItem('authToken')}`
+            },
+            body: JSON.stringify(dataToSend)
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            setSuccess(data.message);
+            
+            if (!isEditMode) {
+                sessionStorage.setItem('authToken', data.token);
+                sessionStorage.setItem('user', JSON.stringify(data.user));
+                resetForm();
+            } else {
+                // Update the user in session storage with the updated info
+                sessionStorage.setItem('user', JSON.stringify(data.user));
+            }
+            
+            if (onSuccess) onSuccess(data.user);
+        } else {
+            setError(data.message || (isEditMode ? 'Update failed' : 'Registration failed'));
+        }
+    } catch (error) {
+        setError('Server error, please try again later');
+    } finally {
+        setLoading(false);
+    }
     };
-
-    
-
     return (
         <div className="mentee-signup-container">
             <form onSubmit={handleSubmit} className="mentee-signup-form">
