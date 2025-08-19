@@ -11,11 +11,13 @@ import {
 } from "@mui/material";
 
 function SearchBar({ handelSearchClick }) {
+
   const [searchData, setSearchData] = useState({
     category: "",
     text: "",
   });
 
+  //if search category or text field change by user
   const handleChange = (event) => {
     const fieldName = event.target.name;
     const fieldValue = event.target.value;
@@ -26,9 +28,12 @@ function SearchBar({ handelSearchClick }) {
         [fieldName]: fieldValue,
       };
     });
+
     console.log("Changed field name:", fieldName, ", New value:", fieldValue);
   };
 
+   // Triggered when the search button is clicked
+  // Validates the inputs and sends the search data back to the parent component
   const handleSearch = () => {
     if (!searchData.category || !searchData.text) {
       alert("Please fill in both - Search Category and Search Text");
@@ -53,11 +58,15 @@ function SearchBar({ handelSearchClick }) {
     handelSearchClick(searchData);
   };
 
+   // Triggered when the reset button is clicked
+  // Clears the search fields and resets the mentor list 
   const handleReset = () => {
     const resetData = { category: "", text: "" };
     setSearchData(resetData);
     handelSearchClick(resetData);
   };
+
+  
 
   return (
     <Box>
@@ -88,6 +97,7 @@ function SearchBar({ handelSearchClick }) {
         value={searchData.text}
         onChange={handleChange}
       />
+
       <ButtonGroup>
         <Button
           sx={{ backgroundColor: "white", width: 100, height: 55 }}
@@ -102,6 +112,7 @@ function SearchBar({ handelSearchClick }) {
           Reset All Mentors
         </Button>
       </ButtonGroup>
+
     </Box>
   );
 }
