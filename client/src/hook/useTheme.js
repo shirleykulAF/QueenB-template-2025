@@ -10,9 +10,9 @@ export const useTheme = () => {
         contrastText: '#2C1810', // Dark brown for contrast
       },
       secondary: {
-        main: '#F7E7CE', // Warm cream
-        light: '#FDF4E3', // Very light cream
-        dark: '#E6D1A3', // Deeper cream
+        main: '#B8D4E3', // Soft blue-gray instead of dark purple
+        light: '#D4E6F1', // Light blue-gray
+        dark: '#9BC2D4', // Medium blue-gray
         contrastText: '#2C1810',
       },
       text: {
@@ -46,7 +46,7 @@ export const useTheme = () => {
     },
     typography: {
       fontFamily: [
-        '"Inter"',
+        '"Nunito"',
         '"Segoe UI"',
         '"Roboto"',
         '"Helvetica Neue"',
@@ -54,7 +54,7 @@ export const useTheme = () => {
         'sans-serif'
       ].join(','),
       h1: {
-        fontFamily: '"Inter", sans-serif',
+        fontFamily: '"Nunito", sans-serif',
         fontWeight: 600,
         fontSize: '2.5rem',
         lineHeight: 1.2,
@@ -62,7 +62,7 @@ export const useTheme = () => {
         color: '#2C1810',
       },
       h2: {
-        fontFamily: '"Inter", sans-serif',
+        fontFamily: '"Nunito", sans-serif',
         fontWeight: 600,
         fontSize: '2rem',
         lineHeight: 1.3,
@@ -70,7 +70,7 @@ export const useTheme = () => {
         color: '#2C1810',
       },
       h3: {
-        fontFamily: '"Inter", sans-serif',
+        fontFamily: '"Nunito", sans-serif',
         fontWeight: 600,
         fontSize: '1.75rem',
         lineHeight: 1.3,
@@ -78,42 +78,42 @@ export const useTheme = () => {
         color: '#2C1810',
       },
       h4: {
-        fontFamily: '"Inter", sans-serif',
+        fontFamily: '"Nunito", sans-serif',
         fontWeight: 500,
         fontSize: '1.5rem',
         lineHeight: 1.4,
         color: '#2C1810',
       },
       h5: {
-        fontFamily: '"Inter", sans-serif',
+        fontFamily: '"Nunito", sans-serif',
         fontWeight: 500,
         fontSize: '1.25rem',
         lineHeight: 1.4,
         color: '#2C1810',
       },
       h6: {
-        fontFamily: '"Inter", sans-serif',
+        fontFamily: '"Nunito", sans-serif',
         fontWeight: 500,
         fontSize: '1.125rem',
         lineHeight: 1.4,
         color: '#2C1810',
       },
       body1: {
-        fontFamily: '"Inter", sans-serif',
+        fontFamily: '"Nunito", sans-serif',
         fontWeight: 400,
         fontSize: '1rem',
         lineHeight: 1.6,
         color: '#2C1810',
       },
       body2: {
-        fontFamily: '"Inter", sans-serif',
+        fontFamily: '"Nunito", sans-serif',
         fontWeight: 400,
         fontSize: '0.875rem',
         lineHeight: 1.6,
         color: '#6B4F4F',
       },
       button: {
-        fontFamily: '"Inter", sans-serif',
+        fontFamily: '"Nunito", sans-serif',
         fontWeight: 500,
         fontSize: '0.875rem',
         lineHeight: 1.5,
@@ -121,14 +121,14 @@ export const useTheme = () => {
         letterSpacing: '0.01em',
       },
       caption: {
-        fontFamily: '"Inter", sans-serif',
+        fontFamily: '"Nunito", sans-serif',
         fontWeight: 400,
         fontSize: '0.75rem',
         lineHeight: 1.4,
         color: '#6B4F4F',
       },
       overline: {
-        fontFamily: '"Inter", sans-serif',
+        fontFamily: '"Nunito", sans-serif',
         fontWeight: 500,
         fontSize: '0.75rem',
         lineHeight: 1.4,

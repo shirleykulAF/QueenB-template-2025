@@ -54,11 +54,11 @@ const AvatarPicker = ({ selectedAvatar, onAvatarSelect, error, firstName = '', l
           <Avatar
             src={getCurrentAvatarUrl()}
             alt="Selected avatar"
-            sx={{
-              width: 80,
-              height: 80,
+            sx={{ 
+              width: 80, 
+              height: 80, 
               border: '3px solid',
-              borderColor: 'primary.light',
+              borderColor: (theme) => theme?.palette?.primary?.light || '#E8B4B8',
               boxShadow: 2
             }}
           />
@@ -68,9 +68,11 @@ const AvatarPicker = ({ selectedAvatar, onAvatarSelect, error, firstName = '', l
               position: 'absolute',
               bottom: -8,
               right: -8,
-              bgcolor: 'primary.main',
+              bgcolor: (theme) => theme?.palette?.primary?.main || '#E8B4B8',
               color: 'white',
-              '&:hover': { bgcolor: 'primary.dark' },
+              '&:hover': { 
+                bgcolor: (theme) => theme?.palette?.primary?.dark || '#C4848A'
+              },
               boxShadow: 2
             }}
             size="small"
@@ -78,19 +80,15 @@ const AvatarPicker = ({ selectedAvatar, onAvatarSelect, error, firstName = '', l
             <EditIcon fontSize="small" />
           </IconButton>
         </Box>
-
+        
         <Box>
-          <Button
-            onClick={() => setIsOpen(!isOpen)}
-            color="primary"
-            sx={{ textTransform: 'none', p: 0, minWidth: 'auto' }}
-          >
-            {isOpen ? 'Close Selection' : 'Choose Different Avatar'}
-          </Button>
+          <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500 }}>
+            Click the pen icon to change your avatar
+          </Typography>
           <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 0.5 }}>
-            {firstName && lastName
-              ? `Pick an avatar with your initials: ${firstName.charAt(0)}${lastName.charAt(0)}`
-              : 'Pick an avatar that represents you'
+            {firstName && lastName 
+              ? `Current avatar with initials: ${firstName.charAt(0)}${lastName.charAt(0)}`
+              : 'Choose an avatar that represents you'
             }
           </Typography>
         </Box>
@@ -98,7 +96,12 @@ const AvatarPicker = ({ selectedAvatar, onAvatarSelect, error, firstName = '', l
 
       {/* Avatar Selection Grid */}
       {isOpen && (
-        <Card sx={{ border: 1, borderColor: 'divider', boxShadow: 3 }}>
+        <Card sx={{ 
+          border: 1, 
+          borderColor: (theme) => theme?.palette?.divider || '#E0E0E0', 
+          boxShadow: 3,
+          bgcolor: (theme) => theme?.palette?.background?.paper || '#FFFFFF'
+        }}>
           <CardContent sx={{ p: 3 }}>
             <Typography variant="h6" sx={{ mb: 3, textAlign: 'center' }}>
               🎨 Choose Your Avatar
@@ -116,13 +119,17 @@ const AvatarPicker = ({ selectedAvatar, onAvatarSelect, error, firstName = '', l
                       p: 1.5,
                       borderRadius: 2,
                       border: 2,
-                      borderColor: selectedAvatar === avatar.url ? 'primary.main' : 'divider',
-                      bgcolor: selectedAvatar === avatar.url ? 'primary.50' : 'transparent',
+                      borderColor: selectedAvatar === avatar.url 
+                        ? (theme) => theme?.palette?.primary?.main || '#E8B4B8'
+                        : (theme) => theme?.palette?.divider || '#E0E0E0',
+                      bgcolor: selectedAvatar === avatar.url 
+                        ? (theme) => theme?.palette?.primary?.light || '#F4D1D4'
+                        : 'transparent',
                       '&:hover': {
                         transform: 'scale(1.05)',
                         boxShadow: 2,
-                        borderColor: 'primary.main',
-                        bgcolor: 'primary.50'
+                        borderColor: (theme) => theme?.palette?.primary?.main || '#E8B4B8',
+                        bgcolor: (theme) => theme?.palette?.primary?.light || '#F4D1D4'
                       },
                       transition: 'all 0.2s'
                     }}
@@ -142,19 +149,24 @@ const AvatarPicker = ({ selectedAvatar, onAvatarSelect, error, firstName = '', l
                 </Grid>
               ))}
             </Grid>
-
+            
             <Divider sx={{ my: 2 }} />
             <Box sx={{ textAlign: 'center' }}>
               <Button
                 onClick={() => {
-                  const defaultUrl = firstName && lastName
+                  const defaultUrl = firstName && lastName 
                     ? generateCustomAvatar(firstName, lastName)
                     : defaultAvatar;
                   onAvatarSelect(defaultUrl);
                   setIsOpen(false);
                 }}
-                color="text.secondary"
-                sx={{ textTransform: 'none' }}
+                sx={{
+                  color: (theme) => theme?.palette?.text?.secondary || '#6B4F4F',
+                  textTransform: 'none',
+                  '&:hover': {
+                    color: (theme) => theme?.palette?.text?.primary || '#2C1810'
+                  }
+                }}
               >
                 ↺ Use default avatar
               </Button>

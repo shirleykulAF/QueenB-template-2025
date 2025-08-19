@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import {
   Box,
   Container,
@@ -28,6 +28,7 @@ import LinkIcon from '@mui/icons-material/Link';
 
 const MentorSignupPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   
   // Form state
   const [formData, setFormData] = useState({
@@ -90,6 +91,24 @@ const MentorSignupPage = () => {
     { value: 'full-time', label: 'Full-time (dedicated mentor)' },
     { value: 'flexible', label: 'Flexible (as needed)' }
   ];
+
+  // Effect to handle navigation based on query parameters
+  useEffect(() => {
+    const signupSuccess = new URLSearchParams(location.search).get('signupSuccess');
+    if (signupSuccess === '1') {
+      setShowSuccessBanner(true);
+    }
+  }, [location.search]);
+
+  // Effect to clear success banner after a delay
+  useEffect(() => {
+    if (showSuccessBanner) {
+      const timer = setTimeout(() => {
+        setShowSuccessBanner(false);
+      }, 5000); // Hide after 5 seconds
+      return () => clearTimeout(timer);
+    }
+  }, [showSuccessBanner]);
 
   // Handle input changes for regular text fields
   const handleInputChange = (e) => {
@@ -215,11 +234,11 @@ const MentorSignupPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Validate form before submission
-    if (!validateForm()) {
+    if (!isFormValid()) {
+      setError('Please fix the errors above before submitting');
       return;
     }
-    
+
     setIsLoading(true);
     clearErrors();
 
@@ -244,7 +263,8 @@ const MentorSignupPage = () => {
         isActive: true
       };
 
-      // Send POST request to create mentor
+      console.log('Submitting mentor data:', mentorData);
+
       const response = await fetch('/api/mentors', {
         method: 'POST',
         headers: {
@@ -253,41 +273,107 @@ const MentorSignupPage = () => {
         body: JSON.stringify(mentorData),
       });
 
-      const data = await response.json();
+      const result = await response.json();
 
-      if (response.ok && data.success) {
-        // Show success banner
+      if (response.ok) {
+        setSuccessMessage(result.message || 'Mentor registered successfully!');
         setShowSuccessBanner(true);
         
-        // Redirect to mentors page after delay to show the banner
-        setTimeout(() => {
-          navigate('/mentors?signupSuccess=1');
-        }, 3000);
-      } else {
-        // Log the full server response for debugging
-        console.log('Server Error Response:', {
-          status: response.status,
-          statusText: response.statusText,
-          data: data,
-          formData: mentorData
+        // Clear form data
+        setFormData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          password: '',
+          phone: '',
+          yearsOfExperience: '',
+          expertise: [],
+          description: '',
+          availability: 'flexible',
+          avatar: defaultAvatar,
+          linkedinUrl: '',
+          githubUrl: '',
+          websiteUrl: '',
+          twitterUrl: ''
         });
         
-        // Handle field-specific errors from server
-        if (data.fieldErrors) {
-          Object.keys(data.fieldErrors).forEach(field => {
-            setFieldError(field, data.fieldErrors[field]);
-          });
-        } else {
-          setError(data.error || data.message || 'Failed to create mentor account');
-        }
+        // Clear all errors
+        clearErrors();
+        
+        // Redirect to success page or show success message
+        setTimeout(() => {
+          navigate('/?signupSuccess=1', { replace: true });
+        }, 2000);
+      } else {
+        setError(result.error || 'Failed to register mentor');
       }
     } catch (error) {
-      console.error('Signup error:', error);
-      setError('Signup failed. Please try again.');
+      console.error('Error submitting form:', error);
+      setError('Network error. Please try again.');
     } finally {
       setIsLoading(false);
     }
   };
+
+  // Handle browser back button
+  const handleBackNavigation = () => {
+    // Save form state to sessionStorage before navigating
+    sessionStorage.setItem('mentorSignupForm', JSON.stringify(formData));
+    navigate(-1);
+  };
+
+  // Restore form state from sessionStorage on component mount
+  useEffect(() => {
+    const savedFormData = sessionStorage.getItem('mentorSignupForm');
+    if (savedFormData) {
+      try {
+        const parsed = JSON.parse(savedFormData);
+        setFormData(parsed);
+        // Clear saved data after restoring
+        sessionStorage.removeItem('mentorSignupForm');
+      } catch (error) {
+        console.error('Error restoring form data:', error);
+      }
+    }
+  }, []);
+
+  // Save form state to sessionStorage when form data changes
+  useEffect(() => {
+    const hasData = formData.firstName || formData.lastName || formData.email || 
+                   formData.password || formData.phone || formData.yearsOfExperience || 
+                   formData.expertise.length > 0 || formData.description || 
+                   formData.linkedinUrl || formData.githubUrl || formData.websiteUrl || 
+                   formData.twitterUrl;
+    
+    if (hasData) {
+      sessionStorage.setItem('mentorSignupForm', JSON.stringify(formData));
+    }
+  }, [formData]);
+
+  // Warn user before leaving page with unsaved changes
+  useEffect(() => {
+    const hasUnsavedChanges = formData.firstName || formData.lastName || formData.email || 
+                             formData.password || formData.phone || formData.yearsOfExperience || 
+                             formData.expertise.length > 0 || formData.description || 
+                             formData.linkedinUrl || formData.githubUrl || formData.websiteUrl || 
+                             formData.twitterUrl;
+
+    const handleBeforeUnload = (e) => {
+      if (hasUnsavedChanges) {
+        e.preventDefault();
+        e.returnValue = 'You have unsaved changes. Are you sure you want to leave?';
+        return 'You have unsaved changes. Are you sure you want to leave?';
+      }
+    };
+
+    if (hasUnsavedChanges) {
+      window.addEventListener('beforeunload', handleBeforeUnload);
+    }
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [formData]);
 
   // Check if form is valid for submit button
   const isFormValid = () => {
@@ -377,16 +463,29 @@ const MentorSignupPage = () => {
         >
           {/* Header */}
           <Box sx={{ textAlign: 'center', mb: 4 }}>
-            <Typography 
-              variant="h3" 
-              component="h1" 
-              sx={{ 
-                color: 'primary.main',
-                fontWeight: 600,
-                mb: 1
-              }}
-            >
-              Become a Mentor
+            {/* Back Button */}
+            <Box sx={{ textAlign: 'left', mb: 2 }}>
+              <Button
+                onClick={handleBackNavigation}
+                sx={{ 
+                  textTransform: 'none',
+                  color: (theme) => theme?.palette?.text?.secondary || '#6B4F4F',
+                  '&:hover': {
+                    color: (theme) => theme?.palette?.text?.primary || '#2C1810'
+                  }
+                }}
+                startIcon={<span>←</span>}
+              >
+                Back
+              </Button>
+            </Box>
+            
+            <Typography variant="h4" component="h1" gutterBottom sx={{ 
+              textAlign: 'center', 
+              color: (theme) => theme?.palette?.primary?.main || '#E8B4B8',
+              fontWeight: 600 
+            }}>
+              Join as a Mentor
             </Typography>
             
             <Typography 
@@ -607,7 +706,7 @@ const MentorSignupPage = () => {
             {/* Contact Links Section */}
             <Box sx={{ bgcolor: 'background.paper', p: 3, borderRadius: 2, border: 1, borderColor: 'divider', mb: 3 }}>
               <Typography variant="h6" sx={{ mb: 3, display: 'flex', alignItems: 'center' }}>
-                <LinkIcon sx={{ color: 'primary.main', mr: 1 }} />
+                <LinkIcon sx={{ color: (theme) => theme?.palette?.primary?.main || '#E8B4B8', mr: 1 }} />
                 Contact Links (Optional)
               </Typography>
               
@@ -694,7 +793,7 @@ const MentorSignupPage = () => {
             <Box sx={{ mt: 3, textAlign: 'center' }}>
               <Button
                 color="primary"
-                onClick={() => navigate('/login/mentor')}
+                onClick={handleBackNavigation}
                 sx={{ 
                   textTransform: 'none',
                   fontWeight: 600,
