@@ -1,15 +1,16 @@
 import React from 'react';
 import UserCard from '../../UserBase/UserCard/UserCard';
 
-const MenteeCard = ({ mentee, onClick, isFavorite, addFavorite, removeFavorite }) => {
+const MenteeCard = ({ mentee, onClick, isMyMentee, addMentee, removeMentee }) => {
   return (
     <UserCard 
       user={mentee}           
       userType="mentee"       
       onClick={onClick}
-      isFavorite={isFavorite}
-      addFavorite={addFavorite}
-      removeFavorite={removeFavorite}
+      isMyMentee={isMyMentee}
+      addMentee={addMentee}
+      removeMentee={removeMentee}
+      userId={mentee._id}   
     />
   );
 };

@@ -92,26 +92,26 @@ const MentorHome = ({ user }) => {
         <Grid item xs={12} md={4}>
           <Paper elevation={2} sx={{ p: 3, height: 'fit-content' }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
-                             {/* Profile Photo */}
-               <Avatar
-                 src={profileImage}
-                 sx={{ width: 160, height: 160, fontSize: '4rem' }}
-               >
-                 {fullName.split(' ').map(name => name[0]).join('').toUpperCase() || '?'}
-               </Avatar>
-               
-               {/* Upload Button - Only show in edit mode */}
-               {isEditMode && (
-                 <Button
-                   variant="outlined"
-                   component="label"
-                   startIcon={<PhotoCamera />}
-                   sx={{ mt: 1 }}
-                 >
-                   Upload Photo
-                   <input hidden accept="image/*" type="file" />
-                 </Button>
-               )}
+              {/* Profile Photo */}
+              <Avatar
+                src={profileImage}
+                sx={{ width: 160, height: 160, fontSize: '4rem' }}
+              >
+                {fullName.split(' ').map(name => name[0]).join('').toUpperCase() || '?'}
+              </Avatar>
+              
+              {/* Upload Button - Only show in edit mode */}
+              {isEditMode && (
+                <Button
+                  variant="outlined"
+                  component="label"
+                  startIcon={<PhotoCamera />}
+                  sx={{ mt: 1 }}
+                >
+                  Upload Photo
+                  <input hidden accept="image/*" type="file" />
+                </Button>
+              )}
 
               {/* Change Password Section - Only show in edit mode */}
               {isEditMode && (

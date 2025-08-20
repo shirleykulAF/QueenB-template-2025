@@ -32,7 +32,12 @@ const useFavorites = (userId) => {
         return favorites.some(fav => (fav._id || fav) === mentorId);
     };
 
-    return { favorites, loading, addFavorite, removeFavorite, isFavorite };
+    return { 
+        favorites, 
+        loading, 
+        addFavorite, 
+        removeFavorite, 
+        isFavorite };
 };
 
 export default useFavorites;

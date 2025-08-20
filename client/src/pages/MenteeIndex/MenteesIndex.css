@@ -225,3 +225,52 @@
     padding: 1.5rem 1rem;
   }
 }
+
+/* ===========================================
+   MY MENTEES NAVIGATION BUTTON
+   =========================================== */
+
+.my-mentees-nav-btn {
+  background: var(--hl-purple);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 16px;
+  box-shadow: 0 2px 8px rgba(134, 0, 124, 0.2);
+}
+
+.my-mentees-nav-btn:hover {
+  background: var(--hl-plum);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(134, 0, 124, 0.3);
+}
+
+.my-mentees-nav-btn:active {
+  transform: translateY(0px);
+  box-shadow: 0 2px 8px rgba(134, 0, 124, 0.2);
+}
+
+/* ===========================================
+   RESPONSIVE ADJUSTMENTS FOR NAVIGATION BUTTON
+   =========================================== */
+
+@media (max-width: 768px) {
+  .my-mentees-nav-btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    margin-top: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .my-mentees-nav-btn {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    margin-top: 12px;
+  }
+}

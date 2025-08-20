@@ -44,7 +44,14 @@ const userSchema = new mongoose.Schema({
     favoriteMentors: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User' 
-    }]
+    }],
+    myMentees: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
+    myMentor: {
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'User'}
 }, { timestamps: true });
 
 userSchema.pre('save', async function(next) {

@@ -32,7 +32,7 @@ const NavBar = ({ user, onLogout }) => {
   }
 
   const handleMenteeIndex = () => {
-    navigate('/mentee-index');
+    navigate('/mentees-index');
   }
 
   const handleTips = () => {
