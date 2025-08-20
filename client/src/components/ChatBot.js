@@ -5,6 +5,7 @@ function ChatBot() {
 	const [messages, setMessages] = useState([]);
 	const [input, setInput] = useState('');
 	const [isSending, setIsSending] = useState(false);
+	const [isMinimized, setIsMinimized] = useState(false);
 
 	async function handleSend(e) {
 		e && e.preventDefault();
@@ -27,6 +28,48 @@ function ChatBot() {
 		}
 	}
 
+	const toggleMinimize = () => {
+		setIsMinimized(!isMinimized);
+	};
+
+	// Minimized floating icon
+	if (isMinimized) {
+		return (
+			<div 
+				onClick={toggleMinimize}
+				style={{
+					position: 'fixed',
+					bottom: '16px',
+					right: '16px',
+					width: '60px',
+					height: '60px',
+					borderRadius: '50%',
+					background: '#713062',
+					color: 'white',
+					display: 'flex',
+					alignItems: 'center',
+					justifyContent: 'center',
+					cursor: 'pointer',
+					boxShadow: '0 4px 16px rgba(30, 51, 40, 0.15)',
+					zIndex: 1000,
+					fontSize: '24px',
+					fontWeight: 'bold',
+					transition: 'all 0.3s ease'
+				}}
+				onMouseEnter={(e) => {
+					e.target.style.transform = 'scale(1.1)';
+					e.target.style.background = '#1E3328';
+				}}
+				onMouseLeave={(e) => {
+					e.target.style.transform = 'scale(1)';
+					e.target.style.background = '#713062';
+				}}
+			>
+				💬
+			</div>
+		);
+	}
+
 	return (
 		<div style={{
 			maxWidth: 480,
@@ -37,14 +80,45 @@ function ChatBot() {
 			display: 'flex',
 			flexDirection: 'column',
 			overflow: 'hidden',
-			background: '#fff'
+			background: '#fff',
+			boxShadow: '0 4px 16px rgba(30, 51, 40, 0.15)'
 		}}>
 			<div style={{
 				padding: 12,
 				borderBottom: '1px solid #eee',
-				fontWeight: 600
+				fontWeight: 600,
+				display: 'flex',
+				justifyContent: 'space-between',
+				alignItems: 'center'
 			}}>
-				QueenB ChatBot
+				<span>QueenB ChatBot</span>
+				<button
+					onClick={toggleMinimize}
+					style={{
+						background: 'none',
+						border: 'none',
+						fontSize: '18px',
+						cursor: 'pointer',
+						color: '#666',
+						padding: '4px',
+						borderRadius: '4px',
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'center',
+						width: '24px',
+						height: '24px'
+					}}
+					onMouseEnter={(e) => {
+						e.target.style.background = '#f0f0f0';
+						e.target.style.color = '#333';
+					}}
+					onMouseLeave={(e) => {
+						e.target.style.background = 'none';
+						e.target.style.color = '#666';
+					}}
+				>
+					–
+				</button>
 			</div>
 			<div style={{
 				flex: 1,
@@ -95,7 +169,7 @@ function ChatBot() {
 						padding: '10px 14px',
 						borderRadius: 8,
 						border: 'none',
-						background: isSending ? '#ccc' : '#1E3328', /* Changed to the exact dark green from image */
+						background: isSending ? '#ccc' : '#1E3328',
 						color: '#fff',
 						cursor: isSending ? 'not-allowed' : 'pointer'
 					}}

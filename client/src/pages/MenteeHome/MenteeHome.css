@@ -69,11 +69,20 @@
   }
 }
 
+/* Responsive styles for minimized chatbot icon */
+@media (max-width: 480px) {
+  .chatbot-floating {
+    bottom: 12px;
+    right: 12px;
+    left: auto;
+  }
+}
+
 /* Random Tip Popup */
 .random-tip-popup {
   position: fixed;
-  right: 16px;
-  bottom:500px;
+  bottom: 16px;
+  left: 16px;
   max-width: 360px;
   width: calc(100vw - 32px);
   background: #f0ccbcd2;
@@ -185,9 +194,9 @@
 
 @media (max-width: 480px) {
   .random-tip-popup {
-    right: 12px;
-    left: 12px;
     bottom: 12px;
+    left: 12px;
+    right: 12px;
     width: auto;
   }
 }
