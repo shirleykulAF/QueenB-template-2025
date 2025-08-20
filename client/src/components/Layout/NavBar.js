@@ -55,7 +55,7 @@ const NavBar = ({ user, onLogout }) => {
               fontSize: '20px'
             }}
           >
-            QueenB Mentorship Match
+            HerCodeMatch
           </Typography>
         </Box>
 

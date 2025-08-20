@@ -48,7 +48,7 @@ const AuthPage = ({ onAuthSuccess }) => {
           marginBottom: "16px",
           fontFamily: '"Rubik", "Assistant", sans-serif'
         }}>
-          QueenB Mentorship Match
+          HerCodeMatch
         </h1>
         <p style={{
           color: "#713062", // Plum

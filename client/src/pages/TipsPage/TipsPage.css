@@ -66,7 +66,7 @@
   font-size: 16px;
   color: #2c2c2c;
   background: #fff;
-  border: 2px solid var(--hl-pink);
+  border: 2px solid var(--hl-purple);
   border-radius: 12px;
   outline: none;
   transition: box-shadow 160ms ease, border-color 160ms ease;
@@ -91,7 +91,7 @@
   font-size: 16px;
   color: #2c2c2c;
   background: #fff;
-  border: 2px solid var(--hl-pink);
+  border: 2px solid var(--hl-purple);
   border-radius: 12px;
   outline: none;
   transition: box-shadow 160ms ease, border-color 160ms ease;
