@@ -11,6 +11,7 @@ import {
   Paper,
   Divider
 } from '@mui/material';
+import authService from '../../services/authService';
 
 const MentorLoginPage = () => {
   const navigate = useNavigate();
@@ -31,32 +32,21 @@ const MentorLoginPage = () => {
     if (error) setError('');
   };
 
-  const handleLogin = async (e) => {
+    const handleLogin = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     setError('');
 
     try {
-      // Simple authentication - check against mentor database
-      const response = await fetch('/api/mentors');
-      const data = await response.json();
+      // Use the authentication service
+      const result = await authService.login(formData.email, formData.password, 'mentor');
 
-      if (data.success) {
-        // Find mentor with matching email and password
-        const mentor = data.data.find(mentor => 
-          mentor.email === formData.email && 
-          mentor.password === formData.password
-        );
-
-        if (mentor) {
-          // Login successful - redirect to mentors page
-          console.log('Mentor login successful:', mentor.firstName);
-          navigate('/mentors');
-        } else {
-          setError('Invalid email or password');
-        }
+      if (result.success) {
+        // Login successful - redirect to mentors page
+        console.log('Mentor login successful:', result.user.firstName);
+        navigate('/mentors');
       } else {
-        setError('Failed to fetch mentor data');
+        setError(result.error || 'Invalid email or password');
       }
     } catch (error) {
       console.error('Login error:', error);

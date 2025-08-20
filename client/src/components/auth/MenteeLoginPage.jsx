@@ -11,6 +11,7 @@ import {
   Paper,
   Divider
 } from '@mui/material';
+import authService from '../../services/authService';
 
 const MenteeLoginPage = () => {
   const navigate = useNavigate();
@@ -37,26 +38,15 @@ const MenteeLoginPage = () => {
     setError('');
 
     try {
-      // Simple authentication - check against mentee database
-      const response = await fetch('/api/mentees');
-      const data = await response.json();
+      // Use the authentication service
+      const result = await authService.login(formData.email, formData.password, 'mentee');
 
-      if (data.success) {
-        // Find mentee with matching email and password
-        const mentee = data.data.find(mentee => 
-          mentee.email === formData.email && 
-          mentee.password === formData.password
-        );
-
-        if (mentee) {
-          // Login successful - redirect to mentors page
-          console.log('Mentee login successful:', mentee.firstName);
-          navigate('/mentors');
-        } else {
-          setError('Invalid email or password');
-        }
+      if (result.success) {
+        // Login successful - redirect to mentors page
+        console.log('Mentee login successful:', result.user.firstName);
+        navigate('/mentors');
       } else {
-        setError('Failed to fetch mentee data');
+        setError(result.error || 'Invalid email or password');
       }
     } catch (error) {
       console.error('Login error:', error);
