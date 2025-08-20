@@ -5,7 +5,7 @@ function ChatBot() {
 	const [messages, setMessages] = useState([]);
 	const [input, setInput] = useState('');
 	const [isSending, setIsSending] = useState(false);
-	const [isMinimized, setIsMinimized] = useState(false);
+	const [isMinimized, setIsMinimized] = useState(true);
 
 	async function handleSend(e) {
 		e && e.preventDefault();
