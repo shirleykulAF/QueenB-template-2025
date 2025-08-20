@@ -9,20 +9,6 @@ import {
   Box
 } from "@mui/material";
 
-// Custom Logo Component
-const CustomLogo = () => (
-  <svg width="32" height="32" viewBox="0 0 32 32" style={{ marginRight: '8px' }}>
-    {/* Creamy beige circle */}
-    <circle cx="16" cy="16" r="14" fill="#F5F1E8" stroke="#713062" strokeWidth="1"/>
-    {/* Peach accent */}
-    <path d="M8 16 Q16 8 24 16 Q16 24 8 16" fill="#FCDAC7"/>
-    {/* Plum center */}
-    <circle cx="16" cy="16" r="6" fill="#713062"/>
-    {/* Crown icon in center */}
-    <path d="M12 18 L16 14 L20 18 L18 20 L16 18 L14 20 Z" fill="#F5F1E8"/>
-  </svg>
-);
-
 const NavBar = ({ user, onLogout }) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -44,7 +30,11 @@ const NavBar = ({ user, onLogout }) => {
       <Toolbar>
         <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
           {/* Custom Logo */}
-          <CustomLogo />
+          <img
+            src="../logo.png"
+            alt="Butterfly Logo"
+            style={{ width: '50px', height: '50px', marginRight: '0' }}
+          />
           
           <Typography 
             variant="h6" 
