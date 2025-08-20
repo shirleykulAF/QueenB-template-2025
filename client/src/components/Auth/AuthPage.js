@@ -4,20 +4,6 @@ import MenteeSignupForm from './MenteeSignupForm';
 import MentorSignupForm from './MentorSignupForm';
 import AuthToggle from './AuthToggle';
 
-// Custom Logo Component
-const CustomLogo = () => (
-  <svg width="64" height="64" viewBox="0 0 32 32" style={{ marginBottom: '16px' }}>
-    {/* Creamy beige circle */}
-    <circle cx="16" cy="16" r="14" fill="#F5F1E8" stroke="#713062" strokeWidth="1"/>
-    {/* Peach accent */}
-    <path d="M8 16 Q16 8 24 16 Q16 24 8 16" fill="#FCDAC7"/>
-    {/* Plum center */}
-    <circle cx="16" cy="16" r="6" fill="#713062"/>
-    {/* Crown icon in center */}
-    <path d="M12 18 L16 14 L20 18 L18 20 L16 18 L14 20 Z" fill="#F5F1E8"/>
-  </svg>
-);
-
 const AuthPage = ({ onAuthSuccess }) => {
   const [isLogin, setIsLogin] = useState(true);
   const [userType, setUserType] = useState('mentee');
@@ -33,8 +19,13 @@ const AuthPage = ({ onAuthSuccess }) => {
       padding: "20px"
     }}>
       {/* Logo */}
-      <CustomLogo />
-      
+      <img
+        src="../logo.png"
+        alt="Butterfly Logo"
+        style={{ width: '120px', display: 'block', margin: '0 auto 24px auto' }}
+      />
+
+
       {/* Slogan */}
       <div style={{
         textAlign: "center",
