@@ -1,7 +1,5 @@
-/* ========================================
-   USER MODAL - GENERIC STYLES
-   מבוסס על MentorModal.css הקיים
-   ======================================== */
+/* USER MODAL - GENERIC STYLES
+   מבוסס על MentorModal.css הקיים */
 
 .user-modal__overlay {
     position: fixed;
@@ -32,9 +30,7 @@
     animation: slideUp 0.3s ease-out;
 }
 
-/* ========================================
-   CLOSE BUTTON
-   ======================================== */
+/* CLOSE BUTTON */
 
 .user-modal__close {
     position: absolute;
@@ -60,9 +56,7 @@
     transform: scale(1.1);
 }
 
-/* ========================================
-   CONTACT SECTION
-   ======================================== */
+/* CONTACT SECTION */
 
 .user-modal__contact {
     margin-top: 2rem;
@@ -102,9 +96,7 @@
     background: rgba(0, 0, 0, 0.1);
 }
 
-/* ========================================
-   ACTION BUTTONS
-   ======================================== */
+/* ACTION BUTTONS */
 
 .user-modal__actions {
     display: flex;
@@ -145,9 +137,7 @@
     transform: translateY(-1px);
 }
 
-/* ========================================
-   USER TYPE SPECIFIC STYLES
-   ======================================== */
+/* USER TYPE SPECIFIC STYLES */
 
 /* Mentor modal - גוון סגול */
 .user-modal__content--mentor {
@@ -175,9 +165,7 @@
     box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
 }
 
-/* ========================================
-   ANIMATIONS
-   ======================================== */
+/* ANIMATIONS */
 
 @keyframes fadeIn {
     from {
@@ -199,9 +187,7 @@
     }
 }
 
-/* ========================================
-   RESPONSIVE DESIGN
-   ======================================== */
+/* RESPONSIVE DESIGN */
 
 @media (max-width: 768px) {
     .user-modal__content {
@@ -234,9 +220,7 @@
     }
 }
 
-/* ========================================
-   ACCESSIBILITY
-   ======================================== */
+/* ACCESSIBILITY */
 
 .user-modal__close:focus-visible,
 .user-modal__contact-link:focus-visible,

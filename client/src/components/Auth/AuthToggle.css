@@ -1,7 +1,5 @@
-/* ===========================================
-   AUTH TOGGLE - CSS
-   Login/Signup + Mentee/Mentor Buttons
-   =========================================== */
+/* AUTH TOGGLE - CSS
+   Login/Signup + Mentee/Mentor Buttons */
 
 /* CSS Variables */
 :root {
@@ -18,9 +16,7 @@
   --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ===========================================
-   MAIN CONTAINER
-   =========================================== */
+/* MAIN CONTAINER */
 
 .auth-toggle-container {
   display: flex;
@@ -31,9 +27,7 @@
   font-family: 'Rubik', 'Assistant', sans-serif;
 }
 
-/* ===========================================
-   LOGIN/SIGNUP BUTTONS ROW
-   =========================================== */
+/* LOGIN/SIGNUP BUTTONS ROW */
 
 .auth-mode-buttons {
   display: flex;
@@ -85,9 +79,7 @@
   background: white;
 }
 
-/* ===========================================
-   USER TYPE SELECTION (MENTEE/MENTOR)
-   =========================================== */
+/* USER TYPE SELECTION (MENTEE/MENTOR) */
 
 .user-type-selection {
   display: flex;
@@ -167,9 +159,7 @@
   transform: scale(1.02);
 }
 
-/* ===========================================
-   STEP INDICATOR (OPTIONAL)
-   =========================================== */
+/* STEP INDICATOR (OPTIONAL) */
 
 .auth-steps {
   display: flex;
@@ -187,9 +177,7 @@
   background: var(--dark-purple);
 }
 
-/* ===========================================
-   ANIMATIONS
-   =========================================== */
+/* ANIMATIONS */
 
 @keyframes slideDown {
   from {
@@ -211,18 +199,14 @@
   }
 }
 
-/* ===========================================
-   HEBREW TEXT SUPPORT
-   =========================================== */
+/* HEBREW TEXT SUPPORT */
 
 .user-type-button[data-lang="he"] {
   direction: rtl;
   font-family: 'Rubik', 'Assistant', sans-serif;
 }
 
-/* ===========================================
-   RESPONSIVE DESIGN
-   =========================================== */
+/* RESPONSIVE DESIGN */
 
 /* Mobile devices */
 @media (max-width: 480px) {
@@ -289,9 +273,7 @@
   }
 }
 
-/* ===========================================
-   ACCESSIBILITY & REDUCED MOTION
-   =========================================== */
+/* ACCESSIBILITY & REDUCED MOTION */
 
 @media (prefers-reduced-motion: reduce) {
   .auth-mode-button,
@@ -323,9 +305,7 @@
   outline-offset: 2px;
 }
 
-/* ===========================================
-   ENHANCED VISUAL FEEDBACK
-   =========================================== */
+/* ENHANCED VISUAL FEEDBACK */
 
 /* Ripple effect on click */
 .auth-mode-button:active,
