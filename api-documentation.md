@@ -104,15 +104,6 @@ Content-Type: application/json
 }
 ```
 
-### Match Mentee with Mentor
-```
-POST /api/mentees/:menteeId/match
-Content-Type: application/json
-
-{
-  "mentorId": "65abc123..."
-}
-```
 
 ### Update Mentee
 ```
