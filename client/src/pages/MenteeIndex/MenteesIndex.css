@@ -10,10 +10,7 @@
   --hl-plum: #4D3A4D;
 }
 
-/* ===========================================
-   MAIN CONTAINER - matching mentor-list class
-   =========================================== */
-
+/* MAIN CONTAINER - matching mentor-list class */
 .mentee-list {
   padding: 32px 20px;
   max-width: 1200px;
@@ -23,10 +20,7 @@
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
 }
 
-/* ===========================================
-   HEADER SECTION - matching mentor-list h1
-   =========================================== */
-
+/* HEADER SECTION - matching mentor-list h1 */
 .mentee-list h1 {
   margin: 0 0 16px 0;
   text-align: center;
@@ -49,10 +43,7 @@
   line-height: 1.5;
 }
 
-/* ===========================================
-   CONTROLS SECTION - matching mentor-list input styling
-   =========================================== */
-
+/* CONTROLS SECTION - matching mentor-list input styling */
 .mentee-list-controls {
   display: flex;
   flex-direction: column;
@@ -95,10 +86,7 @@
   border: 1px solid rgba(239, 161, 226, 0.3);
 }
 
-/* ===========================================
-   CARDS GRID - matching mentor-list-cards
-   =========================================== */
-
+/* CARDS GRID - matching mentor-list-cards */
 .mentee-list-cards {
   display: flex;
   flex-wrap: wrap;
@@ -106,10 +94,7 @@
   justify-content: center;
 }
 
-/* ===========================================
-   NO MENTEES MESSAGE
-   =========================================== */
-
+/* NO MENTEES MESSAGE */
 .no-mentees-message {
   text-align: center;
   padding: 2rem 1rem;
@@ -142,10 +127,7 @@
   background: var(--hl-plum);
 }
 
-/* ===========================================
-   LOADING AND ERROR STATES
-   =========================================== */
-
+/* LOADING AND ERROR STATES */
 .mentee-list p {
   text-align: center;
   font-size: 1.1rem;
@@ -157,10 +139,7 @@
   border: 1px solid rgba(239, 161, 226, 0.2);
 }
 
-/* ===========================================
-   RESPONSIVE DESIGN
-   =========================================== */
-
+/* RESPONSIVE DESIGN */
 @media (min-width: 768px) {
   .mentee-list-controls {
     flex-direction: row;
@@ -226,10 +205,7 @@
   }
 }
 
-/* ===========================================
-   MY MENTEES NAVIGATION BUTTON
-   =========================================== */
-
+/* MY MENTEES NAVIGATION BUTTON */
 .my-mentees-nav-btn {
   background: var(--hl-purple);
   color: white;
@@ -255,10 +231,7 @@
   box-shadow: 0 2px 8px rgba(134, 0, 124, 0.2);
 }
 
-/* ===========================================
-   RESPONSIVE ADJUSTMENTS FOR NAVIGATION BUTTON
-   =========================================== */
-
+/* RESPONSIVE ADJUSTMENTS FOR NAVIGATION BUTTON */
 @media (max-width: 768px) {
   .my-mentees-nav-btn {
     padding: 10px 20px;

@@ -1,10 +1,51 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&family=Assistant:wght@300;400;500;600;700&display=swap');
+
+/* CSS Variables for the new design system */
+:root {
+  /* Color Palette */
+  --light-green: #EAF5E0;
+  --peach: #FCDAC7;
+  --coral: #1E3328; /* Changed from #F58A75 to Dark Forest */
+  --plum: #713062;
+  --dark-forest: #1E3328;
+  --sage: #B7C8B5;
+  
+  /* Typography */
+  --font-family: "Rubik", "Assistant", sans-serif;
+  --font-size-h1: 32px;
+  --font-size-h2: 26px;
+  --font-size-h3: 20px;
+  --font-size-body: 16px;
+  --font-size-secondary: 14px;
+  --line-height-body: 1.6;
+  
+  /* Spacing Scale */
+  --spacing-xs: 8px;
+  --spacing-sm: 16px;
+  --spacing-md: 24px;
+  --spacing-lg: 32px;
+  
+  /* Border Radius */
+  --border-radius-sm: 12px;
+  --border-radius-md: 16px;
+  
+  /* Shadows */
+  --shadow-soft: 0 2px 8px rgba(30, 51, 40, 0.1);
+  --shadow-medium: 0 4px 16px rgba(30, 51, 40, 0.15);
+  
+  /* Transitions */
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 body {
   margin: 0;
-  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: var(--font-family);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--light-green);
+  color: var(--dark-forest);
+  line-height: var(--line-height-body);
 }
 
 code {
@@ -14,4 +55,100 @@ code {
 
 * {
   box-sizing: border-box;
+}
+
+/* Global typography styles */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family);
+  color: var(--dark-forest);
+  margin: 0;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+  font-weight: 700;
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+  font-weight: 700;
+}
+
+h3 {
+  font-size: var(--font-size-h3);
+  font-weight: 700;
+}
+
+p {
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  color: var(--dark-forest);
+  margin: 0;
+}
+
+/* Global spacing utilities */
+.mt-1 { margin-top: var(--spacing-xs); }
+.mt-2 { margin-top: var(--spacing-sm); }
+.mt-3 { margin-top: var(--spacing-md); }
+.mt-4 { margin-top: var(--spacing-lg); }
+
+.mb-1 { margin-bottom: var(--spacing-xs); }
+.mb-2 { margin-bottom: var(--spacing-sm); }
+.mb-3 { margin-bottom: var(--spacing-md); }
+.mb-4 { margin-bottom: var(--spacing-lg); }
+
+.p-1 { padding: var(--spacing-xs); }
+.p-2 { padding: var(--spacing-sm); }
+.p-3 { padding: var(--spacing-md); }
+.p-4 { padding: var(--spacing-lg); }
+
+/* Global card styles */
+.card {
+  background: #FFFFFF;
+  border: 1px solid var(--sage);
+  border-radius: var(--border-radius-md);
+  padding: 20px;
+  box-shadow: var(--shadow-soft);
+}
+
+/* Global button styles */
+.btn {
+  border-radius: var(--border-radius-sm);
+  font-family: var(--font-family);
+  font-size: var(--font-size-body);
+  font-weight: 500;
+  text-transform: none;
+  transition: var(--transition-smooth);
+  cursor: pointer;
+  border: none;
+  padding: 12px 24px;
+}
+
+.btn-primary {
+  background-color: var(--plum);
+  color: #FFFFFF;
+}
+
+.btn-primary:hover {
+  background-color: var(--dark-forest); /* Changed from coral to dark forest */
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(113, 48, 98, 0.3);
+}
+
+.btn-secondary {
+  background-color: var(--dark-forest); /* Changed from coral to dark forest */
+  color: #FFFFFF;
+}
+
+.btn-secondary:hover {
+  background-color: var(--plum);
+  transform: translateY(-1px);
+}
+
+.btn:disabled {
+  background-color: var(--sage);
+  color: #FFFFFF;
+  cursor: not-allowed;
+  transform: none;
 }

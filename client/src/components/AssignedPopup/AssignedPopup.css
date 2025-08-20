@@ -30,7 +30,7 @@
   align-items: center;
   padding: 20px 24px 0 24px;
   border-bottom: 1px solid #f0f0f0;
-  background: linear-gradient(135deg, #86007C 0%, #EFA1E2 100%);
+  background: linear-gradient(135deg, #EFA1E2 0%, #e6b88d 100%);
   color: white;
 }
 
@@ -145,7 +145,7 @@
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #86007C 0%, #EFA1E2 100%);
+  background: linear-gradient(135deg, hsl(304, 23%, 43%) 0%, #EFA1E2 100%);
   color: white;
 }
 

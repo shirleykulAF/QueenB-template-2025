@@ -1,7 +1,5 @@
-/* ===========================================
-   SHARED SIGNUP FORMS CSS
-   For both Mentee & Mentor signup forms
-   =========================================== */
+/* SHARED SIGNUP FORMS CSS
+   For both Mentee & Mentor signup forms */
 
 /* CSS Variables for consistent theming */
 :root {
@@ -23,14 +21,12 @@
   --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ===========================================
-   CONTAINER & MAIN LAYOUT
-   =========================================== */
+/* CONTAINER & MAIN LAYOUT */
 
 .mentee-signup-container,
 .mentor-signup-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, var(--cream-bg) 0%, var(--white) 70%);
+  background: var(--white);
   padding: 2rem 1rem;
   display: flex;
   align-items: center;
@@ -74,9 +70,7 @@
   border-radius: var(--border-radius) var(--border-radius) 0 0;
 }
 
-/* ===========================================
-   HEADER STYLING
-   =========================================== */
+/* HEADER STYLING */
 
 .mentee-signup-form h2,
 .mentor-signup-form h2 {
@@ -93,9 +87,7 @@
   margin-bottom: 2.5rem;
 }
 
-/* ===========================================
-   FORM GROUP & INPUT STYLING
-   =========================================== */
+/* FORM GROUP & INPUT STYLING */
 
 .form-group {
   margin-bottom: 1.5rem;
@@ -110,7 +102,7 @@
 .form-group label {
   display: block;
   font-weight: 500;
-  color: var(--dark-purple);
+  color: #713062;
   margin-bottom: 0.5rem;
   font-size: 0.9rem;
   letter-spacing: 0.025em;
@@ -124,7 +116,7 @@
   border: 2px solid var(--border-light);
   border-radius: var(--border-radius-small);
   font-size: 1rem;
-  color: var(--text-dark);
+  color: #713062;
   background-color: var(--white);
   transition: var(--transition-smooth);
   font-family: inherit;
@@ -143,7 +135,7 @@
 .form-group textarea:focus,
 .form-group select:focus {
   border-color: var(--primary-purple);
-  box-shadow: 0 0 0 3px rgba(134, 0, 124, 0.1);
+  box-shadow: 0 0 0 3px rgba(106, 102, 105, 0.1);
   transform: translateY(-1px);
 }
 
@@ -168,9 +160,7 @@
   content: '';
 }
 
-/* ===========================================
-   SPECIAL INPUT TYPES
-   =========================================== */
+/* SPECIAL INPUT TYPES */
 
 /* Textarea for description */
 .form-group textarea {
@@ -208,9 +198,7 @@
   font-family: 'Courier New', monospace;
 }
 
-/* ===========================================
-   MENTOR-SPECIFIC FIELD STYLING
-   =========================================== */
+/* MENTOR-SPECIFIC FIELD STYLING */
 
 /* Technologies field with special styling */
 .technologies-container {
@@ -252,7 +240,7 @@
   right: 1rem;
   top: 50%;
   transform: translateY(-50%);
-  color: var(--primary-purple);
+  color: #713062;
   font-weight: 600;
   font-size: 0.9rem;
   pointer-events: none;
@@ -267,9 +255,7 @@
   gap: 1rem;
 }
 
-/* ===========================================
-   FORM SECTIONS (FOR MENTOR)
-   =========================================== */
+/* FORM SECTIONS (FOR MENTOR) */
 
 .form-section {
   margin-bottom: 2.5rem;
@@ -285,8 +271,8 @@
 .form-section-title {
   font-size: 1.1rem;
   font-weight: 600;
-  color: var(--dark-purple);
-  margin-bottom: 1.5rem;
+  color: #713062;
+  margin-bottom: 1.1rem;
   text-align: center;
   position: relative;
 }
@@ -305,7 +291,7 @@
 
 /* Professional summary styling */
 .professional-summary {
-  background: linear-gradient(135deg, var(--cream-bg) 0%, rgba(134, 0, 124, 0.05) 100%);
+  background: linear-gradient(135deg, var(--cream-bg) 0%, rgba(192, 184, 191, 0.05) 100%);
   padding: 1.5rem;
   border-radius: var(--border-radius-small);
   margin: 1rem 0;
@@ -313,12 +299,10 @@
 
 .professional-summary textarea {
   background: transparent;
-  border: 1px solid rgba(134, 0, 124, 0.2);
+  border: 1px solid rgba(240, 231, 240, 0.2);
 }
 
-/* ===========================================
-   HELP TEXT
-   =========================================== */
+/* HELP TEXT */
 
 .file-help {
   display: block;
@@ -328,9 +312,7 @@
   font-style: italic;
 }
 
-/* ===========================================
-   IMAGE PREVIEW
-   =========================================== */
+/* IMAGE PREVIEW */
 
 .image-preview,
 .image-preview-container {
@@ -376,14 +358,12 @@
   transform: translateY(-1px);
 }
 
-/* ===========================================
-   BUTTONS
-   =========================================== */
+/* BUTTONS */
 
 .submit-button {
   width: 100%;
-  background: linear-gradient(135deg, var(--primary-purple) 0%, var(--light-purple) 100%);
-  color: var(--white);
+  background: #713062; /* Plum background */
+  color: #ffffff; /* White text for good contrast */
   border: none;
   padding: 1rem 2rem;
   border-radius: var(--border-radius);
@@ -406,7 +386,8 @@
 .submit-button:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: var(--shadow-medium);
-  background: linear-gradient(135deg, var(--dark-purple) 0%, var(--primary-purple) 100%);
+  background: #FCDAC7; /* Peach background on hover */
+  color: #713062; /* Plum text on hover */
 }
 
 .submit-button:active {
@@ -415,16 +396,15 @@
 }
 
 .submit-button:disabled {
-  background: var(--text-light);
+  background: #B7C8B5; /* Sage background when disabled */
+  color: #1E3328; /* Dark Forest text when disabled */
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
   opacity: 0.7;
 }
 
-/* ===========================================
-   ERROR & SUCCESS MESSAGES
-   =========================================== */
+/* ERROR & SUCCESS MESSAGES */
 
 .error-message {
   background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
@@ -452,9 +432,7 @@
   animation: slideDown 0.5s ease-out;
 }
 
-/* ===========================================
-   ANIMATIONS
-   =========================================== */
+/* ANIMATIONS */
 
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
@@ -484,9 +462,7 @@
   }
 }
 
-/* ===========================================
-   DESKTOP DESIGN
-   =========================================== */
+/* DESKTOP DESIGN */
 
 /* Desktop devices */
 @media (min-width: 769px) {
@@ -512,9 +488,7 @@
   }
 }
 
-/* ===========================================
-   ACCESSIBILITY & REDUCED MOTION
-   =========================================== */
+/* ACCESSIBILITY & REDUCED MOTION */
 
 @media (prefers-contrast: high) {
   .form-group input,
@@ -540,9 +514,7 @@
   }
 }
 
-/* ===========================================
-   LOADING STATES
-   =========================================== */
+/* LOADING STATES */
 
 .form-loading {
   position: relative;
@@ -570,9 +542,7 @@
   100% { left: 100%; }
 }
 
-/* ===========================================
-   PRINT STYLES
-   =========================================== */
+/* PRINT STYLES */
 
 @media print {
   .mentee-signup-container,
@@ -584,7 +554,7 @@
   .mentee-signup-form,
   .mentor-signup-form {
     box-shadow: none;
-    border: 2px solid #000;
+    border: 2px solid #B7C8B5;
   }
   
   .submit-button {

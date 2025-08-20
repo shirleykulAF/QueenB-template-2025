@@ -1,7 +1,5 @@
-/* ========================================
-   USER INFO - GENERIC STYLES
-   מבוסס על MentorInfo.css הקיים
-   ======================================== */
+/* USER INFO - GENERIC STYLES
+   מבוסס על MentorInfo.css הקיים */
 
 .user-info {
   text-align: center;
@@ -17,9 +15,7 @@
   align-items: center;
 }
 
-/* ========================================
-   INFO ITEMS
-   ======================================== */
+/* INFO ITEMS */
 
 .user-info__item {
   display: flex;
@@ -55,9 +51,7 @@
   text-decoration: underline;
 }
 
-/* ========================================
-   BADGES
-   ======================================== */
+/* BADGES */
 
 .user-info__value--badge {
   display: inline-block;
@@ -84,9 +78,7 @@
   color: #065F46;
 }
 
-/* ========================================
-   TECHNOLOGIES SECTION (למנטורים)
-   ======================================== */
+/* TECHNOLOGIES SECTION (למנטורים) */
 
 .user-info__item--technologies {
   width: 100%;
@@ -122,9 +114,7 @@
   box-shadow: 0 2px 8px rgba(134, 0, 124, 0.2);
 }
 
-/* ========================================
-   USER TYPE SPECIFIC STYLES
-   ======================================== */
+/* USER TYPE SPECIFIC STYLES */
 
 /* Mentor info */
 .user-info--mentor .user-info__tech-item {

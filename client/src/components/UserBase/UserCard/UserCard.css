@@ -1,18 +1,19 @@
 .user-card {
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 16px;
+  border: 1px solid #B7C8B5; /* Sage */
+  border-radius: 16px;
+  padding: 20px;
   width: 250px;
   cursor: pointer;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(30, 51, 40, 0.1);
   text-align: center;
   position: relative;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: #FFFFFF;
 }
 
 .user-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 16px rgba(30, 51, 40, 0.15);
 }
 
 /* ========================================
@@ -32,32 +33,34 @@
   font-size: 1.5rem;
   padding: 0;
   transition: transform 0.2s ease;
+  color: #ca8c5a; /* Coral */
 }
 
 .favorite-btn:hover {
   transform: scale(1.1);
+  color: #edcd49; /* Plum */
 }
 
 /* ========================================
    USER TYPE SPECIFIC STYLES
    ======================================== */
 
-/* Mentor cards - גוון סגול */
+/* Mentor cards - Plum accent */
 .user-card--mentor {
-  border-left: 4px solid var(--primary-purple, #86007C);
+  border-left: 4px solid #7c5573; /* Plum */
 }
 
 .user-card--mentor:hover {
-  border-left-color: var(--dark-purple, #4D3A4D);
+  border-left-color: #ca8c5a; /* Coral */
 }
 
-/* Mentee cards - גוון ירוק */
+/* Mentee cards - Coral accent */
 .user-card--mentee {
-  border-left: 4px solid var(--success-green, #10B981);
+  border-left: 4px solid #f1b1a4; /* Coral */
 }
 
 .user-card--mentee:hover {
-  border-left-color: #059669;
+  border-left-color: #7c5573; /* Plum */
 }
 
 /* ========================================
@@ -77,11 +80,11 @@
    ======================================== */
 
 .user-card:focus-visible {
-  outline: 2px solid var(--primary-purple, #86007C);
+  outline: 2px solid #713062; /* Plum */
   outline-offset: 2px;
 }
 
 .favorite-btn:focus-visible {
-  outline: 2px solid var(--primary-purple, #86007C);
+  outline: 2px solid #713062; /* Plum */
   outline-offset: 2px;
 }

@@ -8,50 +8,97 @@
 
 .mentor-home-container {
   padding: 32px 20px;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   background: linear-gradient(180deg, var(--hl-cream) 0%, #ffffff 65%);
   border-radius: 16px;
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+  min-height: 100vh;
 }
 
-.mentor-info {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  max-width: 1100px;
-  margin: 1rem auto;
-  padding: 0 1.5rem;
+/* Material UI component overrides for consistent styling */
+.mentor-home-container .MuiPaper-root {
+  border-radius: 12px !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  transition: all 0.3s ease;
 }
 
-.mentor-home-container h1 {
-  margin: 0 0 16px 0;
-  text-align: center;
+.mentor-home-container .MuiPaper-root:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+}
+
+.mentor-home-container .MuiTextField-root {
+  margin-bottom: 16px;
+}
+
+.mentor-home-container .MuiTextField-root .MuiOutlinedInput-root {
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.mentor-home-container .MuiTextField-root .MuiOutlinedInput-root:hover {
+  border-color: var(--hl-purple);
+}
+
+.mentor-home-container .MuiTextField-root .MuiOutlinedInput-root.Mui-focused {
+  border-color: var(--hl-purple);
+}
+
+.mentor-home-container .MuiTextField-root .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: var(--hl-purple);
+}
+
+.mentor-home-container .MuiButton-root {
+  border-radius: 8px;
+  text-transform: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.mentor-home-container .MuiButton-contained {
+  background: linear-gradient(135deg, var(--hl-purple) 0%, var(--hl-pink) 100%);
+  box-shadow: 0 4px 16px rgba(134, 0, 124, 0.3);
+}
+
+.mentor-home-container .MuiButton-contained:hover {
+  background: linear-gradient(135deg, #7a006f 0%, #d88fc8 100%);
+  box-shadow: 0 6px 20px rgba(134, 0, 124, 0.4);
+  transform: translateY(-2px);
+}
+
+.mentor-home-container .MuiButton-outlined {
+  border-color: var(--hl-purple);
+  color: var(--hl-purple);
+}
+
+.mentor-home-container .MuiButton-outlined:hover {
+  background-color: rgba(134, 0, 124, 0.08);
+  border-color: var(--hl-purple);
+}
+
+.mentor-home-container .MuiAvatar-root {
+  border: 4px solid var(--hl-cream);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.mentor-home-container .MuiTypography-h4 {
   color: var(--hl-plum);
+  font-weight: 700;
   letter-spacing: 0.5px;
 }
 
-/* Add these styles to make the mentor name bigger */
-.mentor-home-container .mentor-header h2,
-.mentor-home-container .mentor-name {
-  font-size: 2.4rem;
-  margin-bottom: 0.5rem;
-  color: var(--hl-plum);
-  font-weight: 700;
-  text-align: center;
+.mentor-home-container .MuiTypography-h6 {
+  color: var(--hl-purple);
+  font-weight: 600;
+  margin-bottom: 16px;
 }
 
-.mentor-home-container .mentor-header h3,
-.mentor-home-container .mentor-title {
-  font-size: 1.3rem;
-  color: var(--hl-purple);
-  margin-top: 0.25rem;
-  font-weight: 500;
-  text-align: center;
+.mentor-home-container .MuiDivider-root {
+  background-color: rgba(134, 0, 124, 0.2);
 }
 
 /* Animation for elements loading in */
-.mentor-info > * {
+.mentor-home-container .MuiGrid-item {
   animation: fadeIn 0.5s ease-in-out;
 }
 
@@ -68,9 +115,28 @@
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .mentor-info {
-    gap: 1.5rem;
-    padding: 0 1rem;
+  .mentor-home-container {
+    padding: 20px 16px;
+  }
+  
+  .mentor-home-container .MuiGrid-container {
+    gap: 16px;
+  }
+  
+  .mentor-home-container .MuiPaper-root {
+    padding: 20px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .mentor-home-container .MuiTypography-h4 {
+    font-size: 1.75rem;
+  }
+  
+  .mentor-home-container .MuiAvatar-root {
+    width: 100px !important;
+    height: 100px !important;
+    font-size: 2.5rem !important;
   }
 }
 
@@ -92,4 +158,13 @@
   margin: 2rem 0;
   border-radius: 4px;
   color: var(--hl-plum);
+}
+
+/* Custom styling for action buttons container */
+.mentor-home-container .action-buttons {
+  background: rgba(251, 244, 215, 0.5);
+  border-radius: 12px;
+  padding: 24px;
+  margin-top: 32px;
+  border: 1px solid rgba(134, 0, 124, 0.1);
 }

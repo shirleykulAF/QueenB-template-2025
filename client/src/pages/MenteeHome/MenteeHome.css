@@ -8,9 +8,9 @@
   padding: 32px 20px;
   max-width: 1200px;
   margin: 0 auto;
-  background: linear-gradient(180deg, var(--hl-cream) 0%, #ffffff 65%);
+  background: linear-gradient(180deg, var(--hl-cream) 0%, #facdb1 65%);
   border-radius: 16px;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 6px 24px rgba(220, 214, 214, 0);
 }
 
 .mentor-list h1 {
@@ -29,7 +29,7 @@
   font-size: 16px;
   color: #2c2c2c;
   background: #fff;
-  border: 2px solid var(--hl-pink);
+  border: 2px solid #ca8c5a; /* Sage border instead of pink */
   border-radius: 12px;
   outline: none;
   transition: box-shadow 160ms ease, border-color 160ms ease;
@@ -69,22 +69,31 @@
   }
 }
 
+/* Responsive styles for minimized chatbot icon */
+@media (max-width: 480px) {
+  .chatbot-floating {
+    bottom: 12px;
+    right: 12px;
+    left: auto;
+  }
+}
+
 /* Random Tip Popup */
 .random-tip-popup {
   position: fixed;
-  right: 16px;
-  bottom:500px;
+  bottom: 16px;
+  left: 16px;
   max-width: 360px;
   width: calc(100vw - 32px);
-  background: #ffffff;
+  background: #f0ccbcd2;
   border-radius: 16px;
-  box-shadow: 0 18px 40px rgba(134, 0, 124, 0.18), 0 6px 16px rgba(0,0,0,0.08);
+  box-shadow: 0 18px 40px rgba(30, 51, 40, 0.18), 0 6px 16px rgba(0,0,0,0.08);
   padding: 18px 20px 16px 20px;
   z-index: 1100;
   opacity: 0;
   transform: translateY(12px);
-  border: 2px solid color-mix(in srgb, var(--hl-pink) 65%, #fff);
-  background-image: radial-gradient(1200px 200px at 120% 120%, rgba(239, 161, 226, 0.18), transparent 60%);
+  border: 2px solid #162819; /* Sage border */
+  background-image: radial-gradient(1200px 200px at 120% 120%, rgba(113, 48, 98, 0.08), transparent 60%); /* Plum with low opacity */
   transition: opacity 220ms ease, transform 220ms ease, box-shadow 220ms ease;
 }
 
@@ -105,7 +114,7 @@
   font-size: 12px;
   font-weight: 800;
   color: #fff;
-  background: linear-gradient(135deg, var(--hl-pink), var(--hl-purple));
+  background: #7c5573; /* Solid Plum instead of gradient */
   padding: 4px 8px;
   border-radius: 999px;
 }
@@ -113,7 +122,7 @@
 .random-tip-title {
   font-weight: 800;
   font-size: 17px;
-  color: var(--hl-plum);
+  color: #1E3328; /* Dark Forest instead of plum */
 }
 
 .random-tip-text {
@@ -123,6 +132,7 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  color: #1E3328; /* Dark Forest for better readability */
 }
 
 .random-tip-actions {
@@ -135,7 +145,7 @@
 
 .random-tip-details summary {
   cursor: pointer;
-  color: var(--hl-purple);
+  color: #7c5573; /* Plum instead of purple */
   font-weight: 700;
   display: inline-flex;
   align-items: center;
@@ -154,24 +164,27 @@
   margin-top: 8px;
   font-size: 14px;
   line-height: 1.6;
+  color: #1E3328; /* Dark Forest for better readability */
 }
 
 .random-tip-gotit {
   margin-left: auto;
+  background: #7c5573;
+  color: #ffffff;
   border: none;
-  background: linear-gradient(135deg, var(--hl-pink), var(--hl-purple));
-  color: #fff;
-  font-weight: 700;
-  padding: 8px 14px;
-  border-radius: 999px;
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 6px 16px rgba(134, 0, 124, 0.25);
-  transition: transform 120ms ease, box-shadow 120ms ease, filter 120ms ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: 'Rubik', 'Assistant', sans-serif;
 }
 
 .random-tip-gotit:hover {
+  background: linear-gradient(135deg, #1E3328 0%, #713062 100%); /* Dark Forest to Plum gradient on hover */
   transform: translateY(-1px);
-  box-shadow: 0 10px 22px rgba(134, 0, 124, 0.28);
+  box-shadow: 0 4px 12px rgba(113, 48, 98, 0.3);
 }
 
 .random-tip-gotit:active {
@@ -181,9 +194,9 @@
 
 @media (max-width: 480px) {
   .random-tip-popup {
-    right: 12px;
-    left: 12px;
     bottom: 12px;
+    left: 12px;
+    right: 12px;
     width: auto;
   }
 }

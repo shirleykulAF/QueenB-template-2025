@@ -10,32 +10,34 @@
   align-items: center;
   margin-bottom: 30px;
   padding-bottom: 20px;
-  border-bottom: 2px solid #e0e0e0;
+  border-bottom: 2px solid #B7C8B5; /* Sage */
 }
 
 .tips-header h2 {
   margin: 0;
-  color: #333;
-  font-size: 2rem;
-  font-weight: 600;
+  color: #713062; /* Plum */
+  font-size: 26px;
+  font-weight: 700;
+  font-family: 'Rubik', 'Assistant', sans-serif;
 }
 
 .add-tip-btn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #713062 0%, #F58A75 100%); /* Plum to Coral */
   color: white;
   border: none;
   padding: 12px 24px;
-  border-radius: 25px;
-  font-size: 1rem;
+  border-radius: 12px;
+  font-size: 16px;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(113, 48, 98, 0.3);
+  font-family: 'Rubik', 'Assistant', sans-serif;
 }
 
 .add-tip-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 6px 20px rgba(113, 48, 98, 0.4);
 }
 
 .tips-filters {
@@ -54,16 +56,17 @@
 .search-input {
   width: 100%;
   padding: 12px 16px;
-  border: 2px solid #e0e0e0;
-  border-radius: 25px;
-  font-size: 1rem;
-  transition: border-color 0.3s ease;
+  border: 2px solid #B7C8B5; /* Sage */
+  border-radius: 12px;
+  font-size: 16px;
+  transition: border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: 'Rubik', 'Assistant', sans-serif;
 }
 
 .search-input:focus {
   outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  border-color: #713062; /* Plum */
+  box-shadow: 0 0 0 3px rgba(113, 48, 98, 0.1);
 }
 
 .category-filter {
@@ -72,34 +75,36 @@
 
 .category-select {
   padding: 12px 16px;
-  border: 2px solid #e0e0e0;
-  border-radius: 25px;
-  font-size: 1rem;
+  border: 2px solid #B7C8B5; /* Sage */
+  border-radius: 12px;
+  font-size: 16px;
   background: white;
   cursor: pointer;
-  transition: border-color 0.3s ease;
+  transition: border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: 'Rubik', 'Assistant', sans-serif;
 }
 
 .category-select:focus {
   outline: none;
-  border-color: #667eea;
+  border-color: #713062; /* Plum */
 }
 
 .reset-filters-btn {
   padding: 12px 20px;
-  border: 2px solid #e0e0e0;
+  border: 2px solid #B7C8B5; /* Sage */
   background: white;
-  color: #666;
-  border-radius: 25px;
-  font-size: 1rem;
+  color: #1E3328; /* Dark Forest */
+  border-radius: 12px;
+  font-size: 16px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: 'Rubik', 'Assistant', sans-serif;
 }
 
 .reset-filters-btn:hover {
-  border-color: #999;
-  color: #333;
-  background: #f8f9fa;
+  border-color: #F58A75; /* Coral */
+  color: #F58A75; /* Coral */
+  background: rgba(245, 138, 117, 0.1);
 }
 
 .tips-grid {
@@ -112,28 +117,31 @@
 .loading {
   text-align: center;
   padding: 40px;
-  color: #666;
-  font-size: 1.1rem;
+  color: #B7C8B5; /* Sage */
+  font-size: 18px;
+  font-family: 'Rubik', 'Assistant', sans-serif;
 }
 
 .no-tips {
   text-align: center;
   padding: 60px 20px;
-  color: #666;
+  color: #B7C8B5; /* Sage */
 }
 
 .no-tips p {
-  font-size: 1.1rem;
+  font-size: 18px;
   margin: 0;
+  font-family: 'Rubik', 'Assistant', sans-serif;
 }
 
 .error-message {
   background: #fee;
   color: #c33;
   padding: 15px 20px;
-  border-radius: 8px;
+  border-radius: 12px;
   margin-bottom: 20px;
   border-left: 4px solid #c33;
+  font-family: 'Rubik', 'Assistant', sans-serif;
 }
 
 .load-more {
@@ -142,20 +150,21 @@
 }
 
 .load-more-btn {
-  background: #f8f9fa;
-  border: 2px solid #e0e0e0;
-  color: #666;
+  background: #EAF5E0; /* Light Green */
+  border: 2px solid #B7C8B5; /* Sage */
+  color: #1E3328; /* Dark Forest */
   padding: 12px 30px;
-  border-radius: 25px;
-  font-size: 1rem;
+  border-radius: 12px;
+  font-size: 16px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: 'Rubik', 'Assistant', sans-serif;
 }
 
 .load-more-btn:hover {
-  background: #e9ecef;
-  border-color: #adb5bd;
-  color: #495057;
+  background: #FCDAC7; /* Peach */
+  border-color: #F58A75; /* Coral */
+  color: #713062; /* Plum */
 }
 
 /* Responsive design */
