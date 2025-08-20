@@ -2,10 +2,6 @@
 
 ## Base URL
 - Development: `http://localhost:5000/api`
-- Production: `https://your-domain.com/api`
-
-## Authentication
-Currently no authentication required (will be added in future phases)
 
 ---
 
