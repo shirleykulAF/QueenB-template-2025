@@ -20,22 +20,23 @@ router.get('/mentee/:userId', async (req, res) => {
 });
 
 // save notes
-router.post('/mentee/:userId/:notes', async (req, res) => {
+router.post('/mentee/:userId/notes', async (req, res) => {
     try {
-        const { userId, notes } = req.params;
+        const { userId } = req.params;
+        const { notes } = req.body;
 
         const user = await User.findById(userId);
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
 
-        user.mentorshipNotes.push(notes);
+        user.mentorshipNotes = notes;
         await user.save();
 
         res.json({ message: 'Notes saved successfully', notes: user.mentorshipNotes });
-        } catch (error) {
-            res.status(500).json({ message: 'Server Error: ' + error.message });
-        }
-    });
+    } catch (error) {
+        res.status(500).json({ message: 'Server Error: ' + error.message });
+    }
+});
 
 module.exports = router;

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import useMyMentor from '../../hooks/useMyMentor';
 import MentorHeader from '../../components/Mentor/MentorHeader/MentorHeader';
 import MentorInfo from '../../components/Mentor/MentorInfo/MentorInfo';
-import MentorContact from '../../components/Mentor/MentorContact/MentorContact';
+import MentorContactIcons from '../../components/Mentor/MentorContactIcons/MentorContactIcons';
 import './MyMentor.css';
 
 const MyMentor = ({ user }) => {
@@ -12,6 +12,7 @@ const MyMentor = ({ user }) => {
   const [currentNotes, setCurrentNotes] = useState('');
   const [isSaving, setIsSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState('');
+  const [activeTab, setActiveTab] = useState('questions');
 
   useEffect(() => {
     if (notes) {
@@ -38,54 +39,119 @@ const MyMentor = ({ user }) => {
     }
   };
 
-  if (loading) return <div className="my-mentor-container"><p>Loading mentor information...</p></div>;
-  if (error) return <div className="my-mentor-container"><p>Error: {error}</p></div>;
+  if (loading) return (
+    <div className="my-mentor-container">
+      <div className="loading-indicator">
+        <div className="loading-spinner"></div>
+        <p>Loading mentor information...</p>
+      </div>
+    </div>
+  );
+  
+  if (error) return (
+    <div className="my-mentor-container">
+      <div className="error-message">
+        <p>Error: {error}</p>
+        <button onClick={() => window.location.reload()} className="retry-button">
+          Retry
+        </button>
+      </div>
+    </div>
+  );
 
   return (
     <div className="my-mentor-container">
       <div className="my-mentor-header">
         <h1>My Mentor</h1>
         <p className="my-mentor-subtitle">
-          View your mentor's information and manage your notes
+          Connect with your mentor and manage your notes
         </p>
       </div>
 
-      {!mentor ? (
-        <div className="no-mentor-message">
-          <p>You don't have an assigned mentor yet.</p>
-          <p>Once you've been matched with a mentor, their information will appear here.</p>
+      <div className="my-mentor-content">
+        {/* Left column - Mentor information */}
+        <div className="my-mentor-column my-mentor-column--left">
+          {!mentor ? (
+            <div className="no-mentor-card">
+              <div className="no-mentor-icon">👩‍💼</div>
+              <h2>No Mentor Assigned</h2>
+              <p>You don't have a mentor assigned yet.</p>
+              <p>Once you've been matched, your mentor's information will appear here.</p>
+            </div>
+          ) : (
+            <div className="mentor-profile-card">
+              <h2 className="card-title">Mentor Profile</h2>
+              <MentorHeader mentor={mentor} />
+              <MentorInfo mentor={mentor} />
+              <div className="mentor-contact-section">
+                <MentorContactIcons mentor={mentor} />
+              </div>
+            </div>
+          )}
         </div>
-      ) : (
-        <div className="my-mentor-card">
-          <MentorHeader mentor={mentor} />
-          <MentorInfo mentor={mentor} />
-          <MentorContact mentor={mentor} />
-        </div>
-      )}
-      
-      <div className="my-mentor-notes-section">
-        <h2>My Mentorship Notes</h2>
-        <p className="notes-description">
-          Use this space to jot down questions, insights, or topics to discuss with your mentor.
-        </p>
-        
-        <textarea
-          className="mentorship-notes-textarea"
-          value={currentNotes}
-          onChange={(e) => setCurrentNotes(e.target.value)}
-          placeholder="Write your mentorship notes here..."
-          aria-label="Mentorship notes"
-        />
-        
-        <div className="notes-controls">
-          {saveMessage && <span className="save-message">{saveMessage}</span>}
-          <button 
-            onClick={handleSaveNotes}
-            className="save-notes-btn"
-            disabled={isSaving}
-          >
-            {isSaving ? 'Saving...' : 'Save Notes'}
-          </button>
+
+        {/* Right column - Notes */}
+        <div className="my-mentor-column my-mentor-column--right">
+          <div className="notes-card">
+            <h2 className="card-title">Mentorship Notes</h2>
+            <div className="notes-tabs">
+              <button 
+                className={`notes-tab ${activeTab === 'questions' ? 'active' : ''}`}
+                onClick={() => setActiveTab('questions')}
+              >
+                Questions
+              </button>
+              <button 
+                className={`notes-tab ${activeTab === 'insights' ? 'active' : ''}`}
+                onClick={() => setActiveTab('insights')}
+              >
+                Insights
+              </button>
+              <button 
+                className={`notes-tab ${activeTab === 'goals' ? 'active' : ''}`}
+                onClick={() => setActiveTab('goals')}
+              >
+                Goals
+              </button>
+            </div>
+            
+            <div className="tab-content">
+              {activeTab === 'questions' && (
+                <p className="tab-description">
+                  Write down questions you want to ask during your next meeting.
+                </p>
+              )}
+              {activeTab === 'insights' && (
+                <p className="tab-description">
+                  Record key insights and advice from your mentorship sessions.
+                </p>
+              )}
+              {activeTab === 'goals' && (
+                <p className="tab-description">
+                  Document your goals and track your progress with your mentor.
+                </p>
+              )}
+              
+              <textarea
+                className="mentorship-notes-textarea"
+                value={currentNotes}
+                onChange={(e) => setCurrentNotes(e.target.value)}
+                placeholder={`Write your ${activeTab} here...`}
+                aria-label={`Mentorship ${activeTab}`}
+              />
+              
+              <div className="notes-controls">
+                {saveMessage && <span className="save-message">{saveMessage}</span>}
+                <button 
+                  onClick={handleSaveNotes}
+                  className="save-notes-btn"
+                  disabled={isSaving}
+                >
+                  {isSaving ? 'Saving...' : 'Save Notes'}
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

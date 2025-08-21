@@ -34,7 +34,7 @@ const useMyMentor = (userId) => {
     if (!userId) return;
     
     try {
-      await axios.post(`${baseURL}/api/myMentor/mentee/${userId}/${encodeURIComponent(newNotes)}`);
+      await axios.post(`${baseURL}/api/myMentor/mentee/${userId}/notes`, { notes: newNotes });
       setNotes(newNotes);
       return true;
     } catch (err) {

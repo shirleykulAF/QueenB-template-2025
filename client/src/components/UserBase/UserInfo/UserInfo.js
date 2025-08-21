@@ -29,27 +29,6 @@ const UserInfo = ({ user = {}, userType = 'mentee' }) => {
                         <span className="user-info__value">—</span>
                     )}
                 </div>
-
-                {phone && (
-                    <div className="user-info__item">
-                        <strong>Phone:</strong> 
-                        <span className="user-info__value">{phone}</span>
-                    </div>
-                )}
-
-                {linkedin && (
-                    <div className="user-info__item">
-                        <strong>LinkedIn:</strong> 
-                        <a 
-                            href={linkedin} 
-                            target="_blank" 
-                            rel="noreferrer"
-                            className="user-info__link"
-                        >
-                            View Profile
-                        </a>
-                    </div>
-                )}
             </div>
         );
     };
@@ -71,16 +50,6 @@ const UserInfo = ({ user = {}, userType = 'mentee' }) => {
                     <span className="user-info__value">
                         {fullName || 'Not provided'}
                     </span>
-                </div>
-
-                <div className="user-info__item">
-                    <strong>Email:</strong> 
-                    <a 
-                        href={`mailto:${user.email}`} 
-                        className="user-info__link"
-                    >
-                        {user.email}
-                    </a>
                 </div>
 
                 {(user.imageUrl || user.image) && (
