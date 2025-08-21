@@ -52,7 +52,20 @@ const userSchema = new mongoose.Schema({
     myMentor: {
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'User'},
-    mentorshipNotes: {type: String}
+    mentorshipNotes: {
+        questions: {
+            type: String,
+            default: ''
+        },
+        insights: {
+            type: String,
+            default: ''
+        },
+        goals: {
+            type: String,
+            default: ''
+        }
+    }
 }, { timestamps: true });
 
 userSchema.pre('save', async function(next) {

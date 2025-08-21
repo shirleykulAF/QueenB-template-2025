@@ -21,6 +21,10 @@ const NavBar = ({ user, onLogout }) => {
     navigate('/mentees-index');
   }
 
+  const handleMyMentor = () => {
+    navigate('/my-mentor');
+  }
+
   const handleTips = () => {
     navigate('/tips');
   }
@@ -28,7 +32,15 @@ const NavBar = ({ user, onLogout }) => {
   return (
     <AppBar position="static">
       <Toolbar>
-        <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
+        <Box 
+          sx={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            flexGrow: 1,
+            cursor: 'pointer' 
+          }}
+          onClick={handleHome}
+        >
           {/* Custom Logo */}
           <img
             src="../logo.png"
@@ -42,7 +54,11 @@ const NavBar = ({ user, onLogout }) => {
             sx={{ 
               color: '#1E3328', // Dark Forest
               fontWeight: 600,
-              fontSize: '20px'
+              fontSize: '20px',
+              '&:hover': {
+                color: '#713062', // Plum color on hover
+              },
+              transition: 'color 0.3s'
             }}
           >
             HerCodeMatch
@@ -84,34 +100,52 @@ const NavBar = ({ user, onLogout }) => {
           >
             Home
           </Button>
-          <Button 
-            onClick={handleTips}
-            sx={{
-              backgroundColor: '#f0ccbcd2',   
-              color: '#1E3328',
-              borderRadius: 2,
-              px: 2,
-              py: 1,
-              '&:hover': {
-                backgroundColor: '#f0ccbc',   
-                color: '#1E3328',
-              },
-            }}
-          >
-            Tips
-          </Button>
-          { user?.userType === 'mentor' &&  (
+          { user?.userType === 'mentee' &&  (
             <Button 
-              onClick={handleMenteeIndex}
+              onClick={handleMyMentor}
               sx={{ 
-                backgroundColor: location.pathname === '/mentee-index' ? '#713062' : 'transparent',
-                color: location.pathname === '/mentee-index' ? '#FFFFFF' : '#1E3328',
+                backgroundColor: location.pathname === '/my-mentor' ? '#713062' : 'transparent',
+                color: location.pathname === '/my-mentor' ? '#FFFFFF' : '#1E3328',
                 borderRadius: 2,
               px: 2,
               py: 1,
               '&:hover': {
-                backgroundColor: location.pathname === '/mentee-index' ? '#1E3328' : 'rgba(30, 51, 40, 0.1)', // Changed from Coral to Dark Forest
-                color: location.pathname === '/mentee-index' ? '#FFFFFF' : '#1E3328', // Changed from Coral to Dark Forest
+                backgroundColor: location.pathname === '/my-mentor' ? '#1E3328' : 'rgba(30, 51, 40, 0.1)', // Changed from Coral to Dark Forest
+                color: location.pathname === '/my-mentor' ? '#FFFFFF' : '#1E3328', // Changed from Coral to Dark Forest
+              }
+            }}
+            >  
+              My Mentor
+            </Button>
+          )}
+          <Button 
+              onClick={handleTips}
+              sx={{ 
+                backgroundColor: location.pathname === '/tips' ? '#713062' : 'transparent',
+                color: location.pathname === '/tips' ? '#FFFFFF' : '#1E3328',
+                borderRadius: 2,
+              px: 2,
+              py: 1,
+              '&:hover': {
+                backgroundColor: location.pathname === '/tips' ? '#1E3328' : 'rgba(30, 51, 40, 0.1)', // Fixed path
+                color: location.pathname === '/tips' ? '#FFFFFF' : '#1E3328', // Fixed path
+              }
+            }}
+            >  
+              Tips
+            </Button>
+          { user?.userType === 'mentor' &&  (
+            <Button 
+              onClick={handleMenteeIndex}
+              sx={{ 
+                backgroundColor: location.pathname === '/mentees-index' ? '#713062' : 'transparent',
+                color: location.pathname === '/mentees-index' ? '#FFFFFF' : '#1E3328',
+                borderRadius: 2,
+              px: 2,
+              py: 1,
+              '&:hover': {
+                backgroundColor: location.pathname === '/mentees-index' ? '#1E3328' : 'rgba(30, 51, 40, 0.1)', // Fixed path
+                color: location.pathname === '/mentees-index' ? '#FFFFFF' : '#1E3328', // Fixed path
               }
             }}
             >  

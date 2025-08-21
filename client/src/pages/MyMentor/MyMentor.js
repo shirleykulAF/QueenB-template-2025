@@ -9,10 +9,14 @@ import './MyMentor.css';
 const MyMentor = ({ user }) => {
   const navigate = useNavigate();
   const { mentor, notes, loading, error, saveNotes } = useMyMentor(user?._id);
-  const [currentNotes, setCurrentNotes] = useState('');
+  const [activeTab, setActiveTab] = useState('questions');
+  const [currentNotes, setCurrentNotes] = useState({
+    questions: '',
+    insights: '',
+    goals: ''
+  });
   const [isSaving, setIsSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState('');
-  const [activeTab, setActiveTab] = useState('questions');
 
   useEffect(() => {
     if (notes) {
@@ -25,7 +29,7 @@ const MyMentor = ({ user }) => {
     setSaveMessage('');
     
     try {
-      const success = await saveNotes(currentNotes);
+      const success = await saveNotes(activeTab, currentNotes[activeTab]);
       if (success) {
         setSaveMessage('Notes saved successfully!');
         setTimeout(() => setSaveMessage(''), 3000);
@@ -37,6 +41,13 @@ const MyMentor = ({ user }) => {
     } finally {
       setIsSaving(false);
     }
+  };
+
+  const handleNoteChange = (e) => {
+    setCurrentNotes(prev => ({
+      ...prev,
+      [activeTab]: e.target.value
+    }));
   };
 
   if (loading) return (
@@ -134,8 +145,8 @@ const MyMentor = ({ user }) => {
               
               <textarea
                 className="mentorship-notes-textarea"
-                value={currentNotes}
-                onChange={(e) => setCurrentNotes(e.target.value)}
+                value={currentNotes[activeTab] || ''}
+                onChange={handleNoteChange}
                 placeholder={`Write your ${activeTab} here...`}
                 aria-label={`Mentorship ${activeTab}`}
               />

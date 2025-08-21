@@ -10,9 +10,16 @@ router.get('/mentee/:userId', async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: 'user not found' });
         }
+        
+        const notesResponse = user.mentorshipNotes || {
+            questions: "",
+            insights: "",
+            goals: ""
+        };
+        
         res.json({ 
             mentor: user.myMentor || null,
-            notes: user.mentorshipNotes || ""
+            notes: notesResponse
         });
     } catch (error) {
         res.status(500).json({ message: 'Server Error: ' + error.message });
@@ -23,17 +30,33 @@ router.get('/mentee/:userId', async (req, res) => {
 router.post('/mentee/:userId/notes', async (req, res) => {
     try {
         const { userId } = req.params;
-        const { notes } = req.body;
+        const { category, content } = req.body;
 
         const user = await User.findById(userId);
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
 
-        user.mentorshipNotes = notes;
+        if (!user.mentorshipNotes) {
+            user.mentorshipNotes = {
+                questions: "",
+                insights: "",
+                goals: ""
+            };
+        }
+
+        if (['questions', 'insights', 'goals'].includes(category)) {
+            user.mentorshipNotes[category] = content;
+        } else {
+            return res.status(400).json({ message: 'Invalid note category' });
+        }
+
         await user.save();
 
-        res.json({ message: 'Notes saved successfully', notes: user.mentorshipNotes });
+        res.json({ 
+            message: 'Notes saved successfully',
+            notes: user.mentorshipNotes
+        });
     } catch (error) {
         res.status(500).json({ message: 'Server Error: ' + error.message });
     }
