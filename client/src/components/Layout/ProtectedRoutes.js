@@ -7,6 +7,7 @@ import MentorEdit from '../../pages/MentorEdit/MentorEdit';
 import MenteeIndex from "../../pages/MenteeIndex/MenteesIndex";
 import TipsPage from "../../pages/TipsPage/TipsPage";
 import MyMentees from "../../pages/MyMentees/MyMentees";
+import MyMentor from "../../pages/MyMentor/MyMentor";
 
 const ProtectedRoutes = ({ user }) => {
   return (
@@ -30,6 +31,12 @@ const ProtectedRoutes = ({ user }) => {
         user.userType === 'mentor' 
           ? <MyMentees user={user} />
           : <Navigate  to='/' replace/>
+      } />
+
+      <Route path="/my-mentor" element={
+        user.userType === 'mentee' 
+          ? <MyMentor user={user} />
+          : <Navigate to='/' replace />
       } />
     </Routes> 
   );

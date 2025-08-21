@@ -1,0 +1,118 @@
+.my-mentor-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.my-mentor-header {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.my-mentor-header h1 {
+  font-size: 2.2rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.my-mentor-subtitle {
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.my-mentor-content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.my-mentor-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.my-mentor-notes-section {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.my-mentor-notes-section h2 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.notes-description {
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.mentorship-notes-textarea {
+  width: 100%;
+  height: 200px;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 1rem;
+  resize: vertical;
+  margin-bottom: 15px;
+}
+
+.notes-controls {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 15px;
+}
+
+.save-notes-btn {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.save-notes-btn:hover {
+  background-color: #357abd;
+}
+
+.save-notes-btn:disabled {
+  background-color: #a0c3e8;
+  cursor: not-allowed;
+}
+
+.save-message {
+  color: #4a90e2;
+  font-size: 0.9rem;
+}
+
+.no-mentor-message {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  text-align: center;
+  color: #666;
+}
+
+/* Responsive design for smaller screens */
+@media (min-width: 768px) {
+  .my-mentor-content {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .my-mentor-card,
+  .my-mentor-notes-section {
+    flex: 1;
+  }
+}

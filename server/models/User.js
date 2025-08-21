@@ -51,7 +51,8 @@ const userSchema = new mongoose.Schema({
     }],
     myMentor: {
         type: mongoose.Schema.Types.ObjectId, 
-        ref: 'User'}
+        ref: 'User'},
+    mentorshipNotes: {type: String}
 }, { timestamps: true });
 
 userSchema.pre('save', async function(next) {
